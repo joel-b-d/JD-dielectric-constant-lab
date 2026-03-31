@@ -932,41 +932,41 @@ function buildSheetHTML() {
   rows.forEach(function(r,i){
     tbodyHTML +=
       '<tr>'+
-      '<td style="border:1px solid #9e8e70;height:36px;text-align:center;font-family:monospace;font-size:11px;color:#8a7860">'+(i+1)+'</td>'+
-      '<td style="border:1px solid #9e8e70;height:36px;text-align:center;font-family:monospace;font-size:12px;font-weight:700;color:#1a3a8a">'+(r.v!=null?r.v.toFixed(2):'—')+'</td>'+
-      '<td style="border:1px solid #9e8e70;height:36px;text-align:center;font-family:monospace;font-size:12px;font-weight:600;color:#0d42a8">'+(r.qa!=null?(r.qa*1e12).toFixed(2):'—')+'</td>'+
-      '<td style="border:1px solid #9e8e70;height:36px;text-align:center;font-family:monospace;font-size:12px;font-weight:600;color:#4a1488">'+(r.qd!=null?(r.qd*1e12).toFixed(2):'—')+'</td>'+
-      '<td style="border:1px solid #9e8e70;height:36px;text-align:center;font-family:monospace;font-size:13px;font-weight:700;color:#aaa">—</td>'+
+      '<td style="border:1px solid #9e8e70;height:24px;text-align:center;font-family:monospace;font-size:10px;color:#8a7860">'+(i+1)+'</td>'+
+      '<td style="border:1px solid #9e8e70;height:24px;text-align:center;font-family:monospace;font-size:11px;font-weight:700;color:#1a3a8a">'+(r.v!=null?r.v.toFixed(2):'—')+'</td>'+
+      '<td style="border:1px solid #9e8e70;height:24px;text-align:center;font-family:monospace;font-size:11px;font-weight:600;color:#0d42a8">'+(r.qa!=null?(r.qa*1e12).toFixed(2):'—')+'</td>'+
+      '<td style="border:1px solid #9e8e70;height:24px;text-align:center;font-family:monospace;font-size:11px;font-weight:600;color:#4a1488">'+(r.qd!=null?(r.qd*1e12).toFixed(2):'—')+'</td>'+
+      '<td style="border:1px solid #9e8e70;height:24px;text-align:center;font-family:monospace;font-size:12px;font-weight:700;color:#aaa">—</td>'+
       '</tr>';
   });
 
   return '<!DOCTYPE html>\n<html><head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width,initial-scale=1">\n<title>Dielectric Constant Lab — Saintgits</title>\n'+
     '<style>\n'+
-    '@page { size:A4 portrait; margin:10mm 8mm; }\n'+
-    '@media print { html { font-size: 9pt; } .sheet { padding: 14px 12px 18px 36px; } table { font-size: 8pt; } th, td { padding: 5px 4px; } .qsec { padding: 8px 10px; margin-bottom: 10px; } .sparams { font-size: 9pt; } }\n'+
+    '@page { size:A4 portrait; margin:5mm 6mm; }\n'+
+    '@media print { html { font-size: 7.5pt; } .sheet { padding: 6px 10px 8px 10px; } table { font-size: 7pt; } th, td { padding: 3px 3px; } .qsec { padding: 5px 8px 5px; margin-bottom: 6px; } .sparams { font-size: 7.5pt; } }\n'+
     '* { box-sizing:border-box; margin:0; padding:0; -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }\n'+
     'html,body { background:#ffffff !important; color:#1a1610 !important; font-family:\'Nunito\',Arial,sans-serif; }\n'+
     'body { max-width:800px; margin:0 auto; padding:0; }\n'+
-    '.sheet { position:relative; background:#ffffff; padding:22px 18px 28px 22px; }\n'+
-    '.hdr { padding-bottom:10px; margin-bottom:12px; border-bottom:2.5px solid #1a1610; }\n'+
-    '.hdr-top { display:flex; align-items:flex-start; gap:10px; margin-bottom:10px; }\n'+
-    '.logo { flex-shrink:0; text-align:center; min-width:60px; }\n'+
-    '.logo .nm { font-size:13px; font-weight:900; letter-spacing:1px; color:#1a1610; }\n'+
-    '.logo .tg { font-size:6px; color:#5a4f3f; letter-spacing:2px; text-transform:uppercase; }\n'+
+    '.sheet { position:relative; background:#ffffff; padding:10px 14px 12px 14px; }\n'+
+    '.hdr { padding-bottom:6px; margin-bottom:8px; border-bottom:2px solid #1a1610; }\n'+
+    '.hdr-top { display:flex; align-items:flex-start; gap:8px; margin-bottom:6px; }\n'+
+    '.logo { flex-shrink:0; text-align:center; min-width:50px; }\n'+
+    '.logo .nm { font-size:11px; font-weight:900; letter-spacing:1px; color:#1a1610; }\n'+
+    '.logo .tg { font-size:5.5px; color:#5a4f3f; letter-spacing:2px; text-transform:uppercase; }\n'+
     '.mid { flex:1; text-align:center; }\n'+
-    '.mid .co { font-size:12px; font-weight:900; color:#1a1610; }\n'+
-    '.mid .dep { font-size:9px; color:#5a4f3f; margin-top:2px; }\n'+
-    '.mid .et { font-size:11px; font-weight:900; color:#1a4faa; text-decoration:underline; margin-top:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }\n'+
-    '.info-grid { display:grid; grid-template-columns:1fr 1fr; gap:4px 24px; margin-top:8px; font-size:10px; color:#1a1610; }\n'+
-    '.info-row { display:flex; align-items:baseline; gap:6px; }\n'+
-    '.info-lbl { font-weight:900; white-space:nowrap; color:#3a3020; min-width:72px; }\n'+
-    '.info-val { flex:1; border-bottom:1px solid #8a7a60; min-width:80px; text-align:left; padding:0 4px 1px; }\n'+
-    '.qsec { margin-bottom:18px; padding:13px 14px 11px; background:#f4efe2; border:1.5px solid #c2b9a2; border-radius:5px; }\n'+
-    '.qtext { font-size:13px; font-weight:800; margin-bottom:12px; line-height:1.75; }\n'+
-    '.qblank { border-bottom:2px solid #1a1610; min-width:130px; display:inline-block; text-align:center; font-weight:900; color:#1a4faa; padding:0 6px; vertical-align:bottom; }\n'+
-    'ul.bl { list-style:none; columns:2; gap:16px; margin:0; padding:0; }\n'+
-    'table { width:100%; border-collapse:collapse; margin-bottom:22px; }\n'+
-    'th { background:#ece6d6; font-size:10px; font-weight:900; padding:9px 7px; border:1px solid #8a7860; text-align:center; line-height:1.4; }\n'+
+    '.mid .co { font-size:10.5px; font-weight:900; color:#1a1610; }\n'+
+    '.mid .dep { font-size:8px; color:#5a4f3f; margin-top:1px; }\n'+
+    '.mid .et { font-size:10px; font-weight:900; color:#1a4faa; text-decoration:underline; margin-top:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }\n'+
+    '.info-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px 16px; margin-top:5px; font-size:9px; color:#1a1610; }\n'+
+    '.info-row { display:flex; align-items:baseline; gap:4px; }\n'+
+    '.info-lbl { font-weight:900; white-space:nowrap; color:#3a3020; min-width:62px; }\n'+
+    '.info-val { flex:1; border-bottom:1px solid #8a7a60; min-width:70px; text-align:left; padding:0 3px 1px; }\n'+
+    '.qsec { margin-bottom:8px; padding:7px 10px 7px; background:#f4efe2; border:1.5px solid #c2b9a2; border-radius:4px; }\n'+
+    '.qtext { font-size:11px; font-weight:800; margin-bottom:6px; line-height:1.5; }\n'+
+    '.qblank { border-bottom:2px solid #1a1610; min-width:110px; display:inline-block; text-align:center; font-weight:900; color:#1a4faa; padding:0 4px; vertical-align:bottom; }\n'+
+    'ul.bl { list-style:none; columns:2; gap:10px; margin:0; padding:0; }\n'+
+    'table { width:100%; border-collapse:collapse; margin-bottom:8px; }\n'+
+    'th { background:#ece6d6; font-size:8.5px; font-weight:900; padding:5px 4px; border:1px solid #8a7860; text-align:center; line-height:1.3; }\n'+
     'th.ch { background:#e1daca; }\n'+
     '.no-print { display:none; }\n'+
     '</style>\n'+
@@ -977,7 +977,7 @@ function buildSheetHTML() {
 '<div class="sheet"><div class="inner">\n'+
 '<div class="hdr">\n'+
 '<div class="hdr-top">\n'+
-'<div class="logo"><div style="font-size:20px">⚙️</div><div class="nm">SAINTGITS</div><div class="tg">Learn · Grow · Excel</div></div>\n'+
+'<div class="logo"><div style="font-size:16px">⚙️</div><div class="nm">SAINTGITS</div><div class="tg">Learn · Grow · Excel</div></div>\n'+
 '<div class="mid"><div class="co">Saintgits College of Engineering (Autonomous)</div><div class="dep">Department of Physics — Modern Physics for Engineering</div><div class="et">Dielectric Constant of a Material (Virtual Lab)</div></div>\n'+
 '</div>\n'+
 '<div class="info-grid">\n'+
@@ -990,10 +990,10 @@ function buildSheetHTML() {
 '<div class="qtext"><strong>Qn.</strong>&nbsp; Explore the applications of dielectric materials in <span class="qblank">'+qblank+'</span> engineering.</div>\n'+
 '<ul class="bl">'+branchListHTML+'</ul>\n'+
 '</div>\n'+
-'<div style="font-size:12px;font-weight:900;text-decoration:underline;margin-bottom:10px">Data Collections:</div>\n'+
-'<div style="font-size:12px;font-weight:800;margin-bottom:10px">Measurement of dielectric constant for <span style="color:#1a4faa;text-decoration:underline">'+MAT_NAME[mat]+'</span></div>\n'+
-'<div style="font-family:monospace;font-size:11px;color:#5a4f3f;margin-bottom:16px;display:flex;gap:24px;flex-wrap:wrap"><span>A = '+aVal+' mm\u00b2</span><span>d = '+dVal+' mm</span></div>\n'+
-'<div style="border:2px solid #1a1610;border-radius:3px;overflow:hidden;margin-bottom:22px">\n'+
+'<div style="font-size:11px;font-weight:900;text-decoration:underline;margin-bottom:5px">Data Collections:</div>\n'+
+'<div style="font-size:11px;font-weight:800;margin-bottom:5px">Measurement of dielectric constant for <span style="color:#1a4faa;text-decoration:underline">'+MAT_NAME[mat]+'</span></div>\n'+
+'<div style="font-family:monospace;font-size:10px;color:#5a4f3f;margin-bottom:6px;display:flex;gap:18px;flex-wrap:wrap"><span>A = '+aVal+' mm\u00b2</span><span>d = '+dVal+' mm</span></div>\n'+
+'<div style="border:2px solid #1a1610;border-radius:3px;overflow:hidden;margin-bottom:8px">\n'+
 '<table><thead><tr>\n'+
 '<th rowspan="2" style="width:40px">Sl.<br>No</th>\n'+
 '<th rowspan="2" style="width:90px">Applied<br>Voltage (V)</th>\n'+
@@ -1003,13 +1003,13 @@ function buildSheetHTML() {
 '<th style="width:115px">Air (Q<sub>air</sub>)</th>\n'+
 '<th style="width:115px">'+MAT_NAME[mat]+' (Q<sub>'+mat+'</sub>)</th>\n'+
 '</tr></thead><tbody>'+tbodyHTML+'</tbody></table></div>\n'+
-'<div style="display:block;padding:14px 0 10px;border-top:1.5px solid #c8bfa8;">\n'+
-'<div style="display:flex;align-items:flex-end;gap:10px;margin-bottom:12px;"><span style="font-size:14px;font-weight:900;font-family:Georgia,serif;font-style:italic;white-space:nowrap;padding-bottom:4px;">Mean &nbsp;\u03ba &nbsp;=</span><div style="flex:1;border-bottom:2px solid #1a1610;height:26px;min-width:160px;"></div></div>\n'+
-'<div style="display:flex;align-items:flex-end;gap:8px;margin-left:4px;"><span style="font-size:17px;font-weight:900;font-family:Georgia,serif;padding-bottom:4px;">=</span><div style="border-bottom:2px solid #1a1610;height:26px;width:110px;flex-shrink:0;"></div></div>\n'+
+'<div style="display:block;padding:7px 0 6px;border-top:1.5px solid #c8bfa8;">\n'+
+'<div style="display:flex;align-items:flex-end;gap:10px;margin-bottom:6px;"><span style="font-size:12px;font-weight:900;font-family:Georgia,serif;font-style:italic;white-space:nowrap;padding-bottom:2px;">Mean &nbsp;\u03ba &nbsp;=</span><div style="flex:1;border-bottom:2px solid #1a1610;height:20px;min-width:140px;"></div></div>\n'+
+'<div style="display:flex;align-items:flex-end;gap:8px;margin-left:4px;"><span style="font-size:14px;font-weight:900;font-family:Georgia,serif;padding-bottom:2px;">=</span><div style="border-bottom:2px solid #1a1610;height:20px;width:90px;flex-shrink:0;"></div></div>\n'+
 '</div>\n'+
-'<div style="padding-top:16px;border-top:1.5px solid #c8bfa8;">\n'+
-'<div style="font-size:13px;font-weight:900;text-decoration:underline;margin-bottom:10px;">Result :</div>\n'+
-'<div style="display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap;font-size:12px;font-weight:700;">Dielectric constant of given material &nbsp;=<div style="border-bottom:2px solid #1a1610;height:26px;width:130px;display:inline-block;flex-shrink:0;"></div></div>\n'+
+'<div style="padding-top:8px;border-top:1.5px solid #c8bfa8;">\n'+
+'<div style="font-size:11px;font-weight:900;text-decoration:underline;margin-bottom:6px;">Result :</div>\n'+
+'<div style="display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap;font-size:11px;font-weight:700;">Dielectric constant of given material &nbsp;=<div style="border-bottom:2px solid #1a1610;height:20px;width:120px;display:inline-block;flex-shrink:0;"></div></div>\n'+
 '</div>\n'+
 '</div></div>\n'+
 '</body></html>';
