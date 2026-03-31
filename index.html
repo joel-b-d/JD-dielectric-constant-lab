@@ -202,10 +202,13 @@ body.ios .srow input[type=range]::-webkit-slider-thumb  { width: 24px; height: 2
 body.android .srow input[type=range]::-webkit-slider-thumb { width: 22px; height: 22px; }
 body.win .srow input[type=range]::-webkit-slider-thumb  { width: 16px; height: 16px; border-radius: 2px; }
 
-.slim { display: grid; grid-template-columns: 1fr 1fr 1fr; font-size: 8px; color: #2a4a62; font-family: 'Source Code Pro', monospace; margin-top: 2px; }
+.slim { display: flex; justify-content: space-between; font-size: 8px; color: #2a4a62; font-family: 'Source Code Pro', monospace; margin-top: 2px; position: relative; }
+.slim span { flex: 0 0 auto; }
+/* First and last labels align to track edges */
 .slim span:first-child { text-align: left; }
-.slim span:nth-child(2) { text-align: center; }
-.slim span:last-child { text-align: right; }
+.slim span:last-child  { text-align: right; }
+/* Centre label positioned at exact 50% of the div */
+.slim span:nth-child(2) { position: absolute; left: 50%; transform: translateX(-50%); }
 .sval {
   font-family: 'Source Code Pro', monospace; font-size: 11px; font-weight: 600;
   color: var(--acc); background: rgba(41,182,246,.1); border: 1px solid rgba(41,182,246,.2);
@@ -294,7 +297,6 @@ body.win .srow input[type=range]::-webkit-slider-thumb  { width: 16px; height: 1
   box-shadow: 0 4px 0 rgba(0,0,0,.25), 0 12px 36px rgba(0,0,0,.35);
   position: relative; overflow: hidden;
 }
-/* No ruled lines, no red margin — clean white */
 .labsheet::after { display: none; }
 .labsheet::before { display: none; }
 .sheet { position: relative; z-index: 2; padding: 22px 18px 28px 22px; }
@@ -380,7 +382,6 @@ input[type="date"].sfield { min-width: 112px; font-size: 9px; cursor: pointer; }
   background: #fff;
   position: relative;
 }
-/* Filled dot when selected */
 .bchk::after {
   content: '';
   width: 9px; height: 9px;
@@ -388,12 +389,8 @@ input[type="date"].sfield { min-width: 112px; font-size: 9px; cursor: pointer; }
   background: transparent;
   transition: background .15s;
 }
-.blist li.sel .bchk {
-  border-color: var(--blue);
-}
-.blist li.sel .bchk::after {
-  background: var(--blue);
-}
+.blist li.sel .bchk { border-color: var(--blue); }
+.blist li.sel .bchk::after { background: var(--blue); }
 
 /* Answer box */
 .ansbox {
@@ -443,15 +440,12 @@ tr.act:hover td { background: rgba(41,182,246,.09); }
 
 /* Mean / Result */
 .mrow { display:block; padding:14px 0 10px; border-top:1.5px solid var(--rule); }
-/* Line 1: Mean κ = ______long line______ */
 .mline1 { display:flex; align-items:flex-end; gap:10px; margin-bottom:12px; }
 .mline1-lbl { font-size:14px; font-weight:900; color:var(--ink); font-family:Georgia,serif; font-style:italic; white-space:nowrap; padding-bottom:4px; }
 .mline1-bar { flex:1; border-bottom:2px solid var(--ink); height:26px; min-width:160px; }
-/* Line 2:     = ___short___ */
 .mline2 { display:flex; align-items:flex-end; gap:8px; margin-left:4px; }
 .mline2-eq { font-size:17px; font-weight:900; color:var(--ink); font-family:Georgia,serif; padding-bottom:4px; }
 .mline2-bar { border-bottom:2px solid var(--ink); height:26px; width:110px; flex-shrink:0; }
-/* Result */
 .rsec { padding-top:16px; border-top:1.5px solid var(--rule); }
 .rlbl { font-size:13px; font-weight:900; color:var(--ink); text-decoration:underline; text-underline-offset:4px; margin-bottom:10px; }
 .rrow { display:flex; align-items:flex-end; gap:8px; flex-wrap:wrap; font-size:12px; font-weight:700; color:var(--ink); }
@@ -475,7 +469,7 @@ tr.act:hover td { background: rgba(41,182,246,.09); }
 .sact.prt:hover { background: #2a6a30; color: #fff; }
 
 /* ══════════════════════════════════════════
-   PRINT MEDIA — full A4 sheet output
+   PRINT MEDIA
 ══════════════════════════════════════════ */
 @media print {
   @page { margin: 14mm 12mm; size: A4 portrait; }
@@ -486,49 +480,26 @@ tr.act:hover td { background: rgba(41,182,246,.09); }
   }
   html { font-size: 10pt; }
   body { background: #fff !important; }
-
-  /* Hide everything except the sheet */
-  .nav,
-  .dcard,
-  .sacts   { display: none !important; }
-
-  .main {
-    padding: 0 !important;
-    max-width: 100% !important;
-    gap: 0 !important;
-  }
-  .labsheet {
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    border: none !important;
-    background: #fff !important;
-  }
+  .nav, .dcard, .sacts { display: none !important; }
+  .main { padding: 0 !important; max-width: 100% !important; gap: 0 !important; }
+  .labsheet { border-radius: 0 !important; box-shadow: none !important; border: none !important; background: #fff !important; }
   .labsheet::before { display: block !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .labsheet::after  { display: block !important; }
   .sheet { padding: 10px 14px 18px 42px !important; }
-
-  /* Qn section */
   .qsec { background: #f8f4ea !important; border: 1px solid #c2b9a2 !important; break-inside: avoid; }
-  /* On print: show only selected branch; if none selected show all */
   .blist li { display: none !important; }
   .blist li.sel { display: flex !important; }
   .blist.showall li { display: flex !important; }
   .ansbox.show { display: block !important; border: 1px solid #cec6b0 !important; }
-
-  /* Table */
   th { background: #ece6d6 !important; }
   th.ch { background: #e1daca !important; }
   tr.act td { background: rgba(41,182,246,.06) !important; }
   .twrap { border: 2px solid #1a1610 !important; }
   table { page-break-inside: avoid; }
-
-  /* Values */
   .mval:not(.mt) { color: #2a6a30 !important; }
   .mval.mt { color: transparent !important; }
   .rval:not(.mt) { color: #2a6a30 !important; }
   .rval.mt { color: transparent !important; }
-
-  /* Inputs show their values */
   .sfield { border-bottom: 1px solid #888 !important; }
 }
 </style>
@@ -571,7 +542,7 @@ tr.act:hover td { background: rgba(41,182,246,.09); }
         <div class="clabel">⚡ Battery Voltage</div>
         <div class="srow">
           <input type="range" id="slV" min="-50" max="50" value="10" step="1" oninput="onSim()">
-          <div class="sval" id="dispV">+1.0 V</div>
+          <div class="sval" id="dispV">+1.00 V</div>
         </div>
         <div class="slim"><span>−5.0 V</span><span>0</span><span>+5.0 V</span></div>
       </div>
@@ -611,6 +582,7 @@ tr.act:hover td { background: rgba(41,182,246,.09); }
       <div class="meters">
         <div class="meter vlt">
           <div class="ml">Voltage |V|</div>
+          <!-- FIX 1: meter readout also uses 2 decimal places -->
           <div class="mv" id="mV">—</div>
           <div class="mu">Volts (V)</div>
         </div>
@@ -746,23 +718,27 @@ tr.act:hover td { background: rgba(41,182,246,.09); }
 </div>
 
 <!-- ══ CLEAR CONFIRM MODAL ══ -->
-<div id="clearModal" style="display:none;position:fixed;inset:0;z-index:9000;
-  background:rgba(0,0,0,.6);align-items:center;justify-content:center;padding:20px">
-  <div style="background:#1e2f42;border:1px solid #2a4a62;border-radius:14px;
-    padding:24px 22px;max-width:320px;width:100%;box-shadow:0 8px 32px rgba(0,0,0,.5)">
-    <div style="font-size:15px;font-weight:800;color:#cfe8f8;margin-bottom:8px">Clear All Data?</div>
-    <div style="font-size:12px;color:#6a9ab8;margin-bottom:22px;line-height:1.5">
+<div id="clearModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;
+  z-index:9000;background:rgba(0,0,0,.65);">
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    background:#1e2f42;border:1px solid #2a4a62;border-radius:14px;
+    padding:24px 22px;max-width:320px;width:calc(100% - 40px);
+    box-shadow:0 8px 32px rgba(0,0,0,.6);">
+    <div style="font-size:15px;font-weight:800;color:#cfe8f8;margin-bottom:8px;">Clear All Data?</div>
+    <div style="font-size:12px;color:#6a9ab8;margin-bottom:22px;line-height:1.5;">
       All recorded measurements will be deleted. This cannot be undone.</div>
-    <div style="display:flex;gap:10px">
-      <button id="clearCancel" style="flex:1;padding:12px;border:1.5px solid #3a5a7a;
-        border-radius:8px;background:transparent;color:#a0c0d8;font-size:13px;font-weight:800;
-        cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation">
-        Cancel</button>
-      <button id="clearConfirm" style="flex:1;padding:12px;border:none;
-        border-radius:8px;background:linear-gradient(135deg,#c62828,#8b0000);
-        color:#fff;font-size:13px;font-weight:800;cursor:pointer;
-        -webkit-tap-highlight-color:transparent;touch-action:manipulation">
-        ✕ Clear All</button>
+    <div style="display:flex;gap:10px;">
+      <button id="clearCancel" onclick="hideClearConfirm()"
+        style="flex:1;padding:12px;border:1.5px solid #3a5a7a;border-radius:8px;
+        background:transparent;color:#a0c0d8;font-family:inherit;font-size:13px;
+        font-weight:800;cursor:pointer;-webkit-tap-highlight-color:transparent;
+        touch-action:manipulation;-webkit-appearance:none;">Cancel</button>
+      <button id="clearConfirm" onclick="doActualClear()"
+        style="flex:1;padding:12px;border:none;border-radius:8px;
+        background:linear-gradient(135deg,#c62828,#8b0000);color:#fff;
+        font-family:inherit;font-size:13px;font-weight:800;cursor:pointer;
+        -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+        -webkit-appearance:none;">✕ Clear All</button>
     </div>
   </div>
 </div>
@@ -770,7 +746,7 @@ tr.act:hover td { background: rgba(41,182,246,.09); }
 
 <script>
 /* ══════════════════════════════════════
-   OS DETECTION  — runs immediately
+   OS DETECTION
 ══════════════════════════════════════ */
 (function(){
   const ua = navigator.userAgent, p = navigator.platform || '';
@@ -848,7 +824,6 @@ let selBranch = null;
 function pickBranch(i) {
   const items = document.querySelectorAll('#blist li');
   if (selBranch === i) {
-    // deselect
     selBranch = null;
     items.forEach(el => el.classList.remove('sel'));
     for (let j=0;j<10;j++) { const c=document.getElementById('bck'+j); if(c) c.textContent=''; }
@@ -864,7 +839,6 @@ function pickBranch(i) {
     if (c) c.textContent = on ? '✓' : '';
   });
   const b = BRANCHES[i];
-  // shorten name for blank
   let short = b.name
     .replace(' and Technology','')
     .replace(' Engineering','')
@@ -882,7 +856,6 @@ function pickBranch(i) {
    TABLE
 ══════════════════════════════════════ */
 function syncParams() {
-  // Keep paramD/paramA in sync with sliders (before row1 locks them)
   const sp = document.getElementById('sparams');
   if (sp && !sp.classList.contains('locked')) {
     const pD = document.getElementById('paramD');
@@ -943,7 +916,7 @@ function setCell(id, val, cls) {
 ══════════════════════════════════════ */
 function getSimState() {
   const vRaw = +document.getElementById('slV').value;
-  const v    = vRaw / 10;                          // −5.0 … +5.0 V
+  const v    = vRaw / 10;
   const dInp = document.getElementById('paramD');
   const aInp = document.getElementById('paramA');
   const d    = dInp ? (+dInp.value / 1000) : (+document.getElementById('slD').value / 1000);
@@ -958,10 +931,14 @@ function getSimState() {
 function onSim() {
   const s = getSimState();
   const sign = s.v >= 0 ? '+' : '';
-  document.getElementById('dispV').textContent = sign + s.v.toFixed(1) + ' V';
+
+  /* FIX 1: badge uses 2 decimal places */
+  document.getElementById('dispV').textContent = sign + s.v.toFixed(2) + ' V';
   document.getElementById('dispD').textContent = (s.d*1000).toFixed(1) + ' mm';
   document.getElementById('dispA').textContent = (s.A*1e6).toFixed(0) + ' mm²';
-  document.getElementById('mV').textContent    = Math.abs(s.v).toFixed(3);
+
+  /* FIX 1: meter readout also uses 2 decimal places (was .toFixed(3)) */
+  document.getElementById('mV').textContent    = Math.abs(s.v).toFixed(2);
   document.getElementById('mC').textContent    = (s.C*1e12).toFixed(4);
   document.getElementById('mQ').textContent    = (s.Q*1e12).toFixed(4);
 
@@ -972,6 +949,7 @@ function onSim() {
   document.getElementById('matName').textContent = MAT_NAME[s.mat];
   document.getElementById('colDH').innerHTML     = COL_HDR[s.mat];
 
+  /* FIX 1: status bar also uses 2 decimal places */
   updateStatus(s);
   drawCanvas(s);
 }
@@ -993,6 +971,7 @@ function updateStatus(s) {
   const r  = rows[selRow];
   if (mode === 'air') {
     el.className = 'sbar';
+    /* FIX 1: status bar uses 2 decimal places */
     el.textContent = `Row ${selRow+1}: V = ${Math.abs(s.v).toFixed(2)} V → click "Record Air Charge"`;
   } else if (!r.qa) {
     el.className = 'sbar warn';
@@ -1018,13 +997,11 @@ function doRecord() {
     setCell('ca'+selRow, (s.Q*1e12).toFixed(2),     'qa');
     setCell('cd'+selRow, '—',                        'qd');
     setCell('ck'+selRow, '—',                        'kk');
-    // Lock A/d inputs AND slD/slA sliders after first row recorded
     if (selRow === 0) {
       const sp   = document.getElementById('sparams');
       const note = document.getElementById('paramNote');
       if (sp)   sp.classList.add('locked');
       if (note) note.textContent = 'Locked — clear data to edit';
-      // Also visually disable/fade the slD and slA sliders
       const slD = document.getElementById('slD');
       const slA = document.getElementById('slA');
       if (slD) { slD.disabled = true; slD.style.opacity = '0.4'; }
@@ -1051,11 +1028,13 @@ function updateMean() { /* blank — student fills manually after printing */ }
 
 function showClearConfirm() {
   var m = document.getElementById('clearModal');
-  if (m) { m.style.display = 'flex'; }
+  if (!m) return;
+  m.style.display = 'block';
 }
 function hideClearConfirm() {
   var m = document.getElementById('clearModal');
-  if (m) { m.style.display = 'none'; }
+  if (!m) return;
+  m.style.display = 'none';
 }
 function doActualClear() {
   hideClearConfirm();
@@ -1071,16 +1050,10 @@ function doActualClear() {
   if (slA) { slA.disabled = false; slA.style.opacity = ''; }
   buildTable(); setMode('air'); updateMean();
 }
-function doClear() { showClearConfirm(); } /* legacy alias */
+function doClear() { showClearConfirm(); }
 
 /* ══════════════════════════════════════
-   PRINT  — opens system print dialog
-   Works when file is opened in browser.
-══════════════════════════════════════ */
-/* ══════════════════════════════════════
    SHARED: build printable sheet HTML
-   Returns a full standalone HTML string
-   with current table data baked in.
 ══════════════════════════════════════ */
 function buildSheetHTML() {
   const mat      = document.getElementById('slMat').value;
@@ -1095,7 +1068,6 @@ function buildSheetHTML() {
   const ks     = rows.filter(r => r.k != null);
   const meanK  = ks.length ? (ks.reduce((a,b)=>a+b.k,0)/ks.length).toFixed(4) : null;
 
-  // Branch list HTML for print
   let branchListHTML = '';
   if (branch) {
     branchListHTML = `<li style="font-size:12px;font-weight:800;color:#1a4faa;padding:4px 0;display:flex;align-items:center;gap:8px">
@@ -1111,7 +1083,6 @@ function buildSheetHTML() {
       <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:8px">${b.chips.map(c=>`<span style="background:#e2eeff;border:1px solid #b4cef0;color:#1a4faa;font-size:9px;font-weight:700;padding:3px 9px;border-radius:11px">${c}</span>`).join('')}</div>
     </div>`;
   } else {
-    // No branch selected — show all 10
     branchListHTML = BRANCHES.map((b,i)=>
       `<li style="font-size:11.5px;color:#5a4f3f;padding:4px 0;display:flex;align-items:center;gap:8px">
         <span style="font-family:monospace;font-size:10px;color:#8a7860;min-width:22px">${i+1}.</span>
@@ -1121,7 +1092,6 @@ function buildSheetHTML() {
     ).join('');
   }
 
-  // Table rows
   let tbodyHTML = '';
   rows.forEach((r,i) => {
     const bg = i===selRow ? 'background:rgba(41,182,246,.06)' : '';
@@ -1140,7 +1110,6 @@ function buildSheetHTML() {
 <title>Dielectric Constant Lab — Saintgits</title>
 <style>
   @page { size:A4 portrait; margin:10mm 8mm; }
-  /* Auto-scale everything to fit one A4 page */
   @media print {
     html { font-size: 9pt; }
     body { transform-origin: top left; }
@@ -1155,12 +1124,8 @@ function buildSheetHTML() {
   body { max-width:800px; margin:0 auto; padding:0; }
   @media print { @page { size:A4 portrait; margin:14mm 12mm; } }
   .sheet { position:relative; background:#ffffff; padding:22px 18px 28px 22px; }
-  .sheet::after  { display:none; }
-  .sheet::before { display:none; }
   .inner { position:relative; z-index:2; }
-  /* ── Formal academic header ── */
   .hdr { padding-bottom:10px; margin-bottom:12px; border-bottom:2.5px solid #1a1610; }
-  /* Top row: logo + college name */
   .hdr-top { display:flex; align-items:flex-start; gap:10px; margin-bottom:10px; }
   .logo { flex-shrink:0; text-align:center; min-width:60px; }
   .logo .nm { font-size:13px; font-weight:900; letter-spacing:1px; color:#1a1610; }
@@ -1169,17 +1134,12 @@ function buildSheetHTML() {
   .mid .co { font-size:12px; font-weight:900; color:#1a1610; }
   .mid .dep { font-size:9px; color:#5a4f3f; margin-top:2px; }
   .mid .et { font-size:11px; font-weight:900; color:#1a4faa; text-decoration:underline; margin-top:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  /* Bottom row: 4 info fields in 2x2 grid — always fits inside page width */
   .info-grid { display:grid; grid-template-columns:1fr 1fr; gap:4px 24px; margin-top:8px; font-size:10px; color:#1a1610; }
   .info-row { display:flex; align-items:baseline; gap:6px; }
   .info-lbl { font-weight:900; white-space:nowrap; color:#3a3020; min-width:72px; }
   .info-val { flex:1; border-bottom:1px solid #8a7a60; min-width:80px; text-align:left; padding:0 4px 1px; }
-  /* Remove rgt — no longer needed */
   .rgt { display:none; }
   .qsec { margin-bottom:18px; padding:13px 14px 11px; background:#f4efe2; border:1.5px solid #c2b9a2; border-radius:5px; }
-.qsec .bchk { border-color: #9a8a70; background: #fff; }
-.qsec .blist li.sel .bchk { border-color: var(--blue); }
-.qsec .blist li.sel .bchk::after { background: var(--blue); }
   .qtext { font-size:13px; font-weight:800; margin-bottom:12px; line-height:1.75; }
   .qblank { border-bottom:2px solid #1a1610; min-width:130px; display:inline-block; text-align:center; font-weight:900; color:#1a4faa; padding:0 6px; vertical-align:bottom; }
   ul.bl { list-style:none; columns:2; gap:16px; margin:0; padding:0; }
@@ -1192,7 +1152,6 @@ function buildSheetHTML() {
 </head><body>
 <div class="sheet"><div class="inner">
 
-  <!-- Header -->
   <div class="hdr">
     <div class="hdr-top">
       <div class="logo">
@@ -1206,7 +1165,6 @@ function buildSheetHTML() {
         <div class="et">Dielectric Constant of a Material (Virtual Lab)</div>
       </div>
     </div>
-    <!-- Info fields below — always inside page width on all devices -->
     <div class="info-grid">
       <div class="info-row"><span class="info-lbl">Exercise No:</span><span class="info-val">${exNo}</span></div>
       <div class="info-row"><span class="info-lbl">Roll No:</span><span class="info-val">${rollNo}</span></div>
@@ -1215,7 +1173,6 @@ function buildSheetHTML() {
     </div>
   </div>
 
-  <!-- Question -->
   <div class="qsec">
     <div class="qtext">
       <strong>Qn.</strong>&nbsp; Explore the applications of dielectric materials in
@@ -1224,7 +1181,6 @@ function buildSheetHTML() {
     <ul class="bl">${branchListHTML}</ul>
   </div>
 
-  <!-- Data section -->
   <div style="font-size:12px;font-weight:900;text-decoration:underline;margin-bottom:10px">Data Collections:</div>
   <div style="font-size:12px;font-weight:800;margin-bottom:10px">
     Measurement of dielectric constant for
@@ -1254,12 +1210,10 @@ function buildSheetHTML() {
   </div>
 
   <div style="display:block;padding:14px 0 10px;border-top:1.5px solid #c8bfa8;">
-    <!-- Line 1: long blank line for writing all kappa values -->
     <div style="display:flex;align-items:flex-end;gap:10px;margin-bottom:12px;">
       <span style="font-size:14px;font-weight:900;font-family:Georgia,serif;font-style:italic;white-space:nowrap;padding-bottom:4px;">Mean &nbsp;κ &nbsp;=</span>
       <div style="flex:1;border-bottom:2px solid #1a1610;height:26px;min-width:160px;"></div>
     </div>
-    <!-- Line 2: short blank line for final answer -->
     <div style="display:flex;align-items:flex-end;gap:8px;margin-left:4px;">
       <span style="font-size:17px;font-weight:900;font-family:Georgia,serif;padding-bottom:4px;">=</span>
       <div style="border-bottom:2px solid #1a1610;height:26px;width:110px;flex-shrink:0;"></div>
@@ -1279,31 +1233,35 @@ function buildSheetHTML() {
 }
 
 /* ══════════════════════════════════════
-   PRINT — opens sheet in new tab then
-   auto-triggers print dialog there.
-   Works from any context (iframe/sandbox).
+   PRINT
 ══════════════════════════════════════ */
 function doPrint() {
-  /* ── Save all state to sessionStorage before opening print view ── */
-  /* so Back button can restore data without reload wiping anything   */
+  /* Save full page HTML to sessionStorage in chunks */
   try {
-    sessionStorage.setItem('_lab_rows',    JSON.stringify(rows));
-    sessionStorage.setItem('_lab_selRow',  String(selRow));
-    sessionStorage.setItem('_lab_mode',    mode);
-    sessionStorage.setItem('_lab_selBranch', String(selBranch));
-    var inp = ['exNo','exDate','rollNo','studName','paramA','paramD','slV','slD','slA','slMat'];
-    var vals = {};
-    inp.forEach(function(id){
-      var el = document.getElementById(id);
-      if (el) vals[id] = el.value;
-    });
-    sessionStorage.setItem('_lab_inputs', JSON.stringify(vals));
-  } catch(e) {}
+    var fullPage = '<!DOCTYPE html>' + document.documentElement.outerHTML;
+    var CHUNK = 200000;
+    var chunks = Math.ceil(fullPage.length / CHUNK);
+    sessionStorage.setItem('_pg_chunks', String(chunks));
+    for (var ci = 0; ci < chunks; ci++) {
+      sessionStorage.setItem('_pg_' + ci, fullPage.slice(ci * CHUNK, (ci + 1) * CHUNK));
+    }
+  } catch(e) {
+    /* sessionStorage full — fallback: store JSON state only */
+    try {
+      sessionStorage.setItem('_lab_rows',      JSON.stringify(rows));
+      sessionStorage.setItem('_lab_selRow',    String(selRow));
+      sessionStorage.setItem('_lab_mode',      mode);
+      sessionStorage.setItem('_lab_selBranch', String(selBranch));
+      var inp = ['exNo','exDate','rollNo','studName','paramA','paramD','slV','slD','slA','slMat'];
+      var vals = {};
+      inp.forEach(function(id){ var el=document.getElementById(id); if(el) vals[id]=el.value; });
+      sessionStorage.setItem('_lab_inputs', JSON.stringify(vals));
+      sessionStorage.setItem('_lab_restore', '1');
+    } catch(e2) {}
+  }
 
-  /* ── Build the standalone sheet HTML ── */
   var sheet = buildSheetHTML();
 
-  /* ── Toolbar CSS (injected before </head>) ── */
   var tcss =
     '<style>' +
     '*{box-sizing:border-box}' +
@@ -1331,7 +1289,6 @@ function doPrint() {
     '@page{size:A4 portrait;margin:10mm 8mm}}' +
     '</style>';
 
-  /* ── Toolbar HTML (injected after <body>) ── */
   var tbar =
     '<div class="ptb">' +
     '<button class="pb pback" id="pbBack">&#8592; Back</button>' +
@@ -1340,18 +1297,15 @@ function doPrint() {
     '<button class="pb pprint" id="pbPrint">&#128424; Print</button>' +
     '</div><div class="psp"></div><div class="psw">';
 
-  /* ── Assemble page ── */
   var page = sheet
     .replace('</head>', tcss + '</head>')
     .replace(/(<body[^>]*>)/i, '$1' + tbar);
   page = page.replace('</body>', '</div></body>');
 
-  /* ── Write to current tab (no popup, works everywhere) ── */
   document.open();
   document.write(page);
   document.close();
 
-  /* ── Wire buttons via polling (avoids race conditions on iOS) ── */
   var tries = 0;
   var wire = setInterval(function() {
     var bk  = document.getElementById('pbBack');
@@ -1359,23 +1313,43 @@ function doPrint() {
     var pr  = document.getElementById('pbPrint');
     if (bk && pdf && pr) {
       clearInterval(wire);
-      /* Back — restore state from sessionStorage (no data loss) */
+
+      /* ══════════════════════════════════════
+         FIX 3: Back button uses document.write
+         to restore the original page directly —
+         no reload(), no page wipe race condition.
+      ══════════════════════════════════════ */
       bk.onclick = function() {
         try {
-          var savedRows   = JSON.parse(sessionStorage.getItem('_lab_rows') || 'null');
-          var savedSelRow = sessionStorage.getItem('_lab_selRow');
-          var savedMode   = sessionStorage.getItem('_lab_mode');
-          var savedBranch = sessionStorage.getItem('_lab_selBranch');
-          var savedInputs = JSON.parse(sessionStorage.getItem('_lab_inputs') || '{}');
-          /* Navigate back by reloading — then apply saved state once page loads */
-          /* We pass a flag via sessionStorage so the page knows to restore */
+          var n = parseInt(sessionStorage.getItem('_pg_chunks') || '0');
+          if (n > 0) {
+            var parts = [];
+            var ok = true;
+            for (var i = 0; i < n; i++) {
+              var chunk = sessionStorage.getItem('_pg_' + i);
+              if (!chunk) { ok = false; break; }
+              parts.push(chunk);
+            }
+            if (ok) {
+              var restored = parts.join('');
+              /* Write the original page HTML back directly — no reload */
+              document.open();
+              document.write(restored);
+              document.close();
+              return;
+            }
+          }
+          /* Fallback if chunks missing: restore via JSON state + reload */
           sessionStorage.setItem('_lab_restore', '1');
           window.location.reload();
-        } catch(e) { window.history.go(-1); }
+        } catch(e) {
+          /* Last resort */
+          window.history.go(-1);
+        }
       };
-      /* Print */
+
       pr.onclick = function() { window.print(); };
-      /* Save as PDF */
+
       pdf.onclick = function() {
         pdf.textContent = 'Opening...';
         setTimeout(function() {
@@ -1389,9 +1363,7 @@ function doPrint() {
 }
 
 /* ══════════════════════════════════════
-   CSV EXPORT — builds CSV string then
-   opens a new tab with a download page.
-   Works from any context (iframe/sandbox).
+   CSV EXPORT
 ══════════════════════════════════════ */
 function doCSV() {
   const mat      = document.getElementById('slMat').value;
@@ -1404,7 +1376,6 @@ function doCSV() {
   const meanK  = ks.length ? (ks.reduce((a,b)=>a+b.k,0)/ks.length).toFixed(4) : '';
   const fname  = 'dielectric_' + mat + (exDate?'_'+exDate:'') + '.csv';
 
-  // Build CSV rows
   const R = [];
   R.push(['Saintgits College of Engineering (Autonomous)']);
   R.push(['Dielectric Constant Virtual Lab']);
@@ -1433,7 +1404,6 @@ function doCSV() {
     row.map(c => { const s=String(c??''); return (s.includes(',')||s.includes('"')) ? '"'+s.replace(/"/g,'""')+'"' : s; }).join(',')
   ).join('\r\n');
 
-  // Try new tab; if blocked, render download page in current tab
   let win = null;
   try { win = window.open('', '_blank'); } catch(e) {}
   const useCurrentTab = !win || win.closed;
@@ -1465,8 +1435,6 @@ function doCSV() {
   if (win) {
     win.document.write(csvPageHTML); win.document.close();
   } else {
-    // Render in current tab — back button reloads original
-    const origHTML = document.body.innerHTML;
     const bodyMatch = csvPageHTML.match(/<body[^>]*>([\s\S]*)<\/body>/i);
     const bodyContent = bodyMatch ? bodyMatch[1] : csvPageHTML;
     document.body.innerHTML = '<button onclick="location.reload()" style="position:fixed;top:12px;left:12px;padding:10px 20px;background:#555;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:800;cursor:pointer;z-index:9999">← Back</button>' + bodyContent;
@@ -1490,17 +1458,15 @@ function rgba(hex, a) {
 function drawCanvas(s) {
   ctx.clearRect(0,0,CW,CH);
 
-  // Background
   const bg = ctx.createLinearGradient(0,0,0,CH);
   bg.addColorStop(0,'#0f1923'); bg.addColorStop(1,'#090f18');
   ctx.fillStyle=bg; ctx.fillRect(0,0,CW,CH);
 
   const cx=CW/2, cy=CH/2+8, pw=124, ph=10;
-  const gap = (s.d/0.01)*50;        // pixel gap between plates
-  const ty  = cy - gap/2 - ph;      // top-plate top edge
-  const by  = cy + gap/2;           // bottom-plate top edge
+  const gap = (s.d/0.01)*50;
+  const ty  = cy - gap/2 - ph;
+  const by  = cy + gap/2;
 
-  // ── Dielectric slab ──
   if (mode==='diel' && s.mat!=='air') {
     const palettes = { teflon:'#ce93d8', glass:'#80cbc4', paper:'#ffcc80' };
     const col = palettes[s.mat] || '#90caf9';
@@ -1513,7 +1479,6 @@ function drawCanvas(s) {
     ctx.strokeStyle=rgba(col,.45); ctx.lineWidth=1;
     ctx.strokeRect(cx-pw/2+1, ty+ph, pw-2, gap);
 
-    // Dipole molecules
     const nrows=2, ncols=3;
     for (let r=0;r<nrows;r++) for (let c=0;c<ncols;c++) {
       const mx=cx-36+c*36, my=ty+ph+10+r*Math.max(6,(gap-20)/Math.max(1,nrows-1));
@@ -1524,13 +1489,11 @@ function drawCanvas(s) {
       ctx.beginPath(); ctx.arc(mx+4*dir,my,3.5,0,Math.PI*2);
       ctx.fillStyle='rgba(200,40,40,.88)'; ctx.fill();
     }
-    // Label
     ctx.fillStyle=rgba(col,.9);
     ctx.font='bold 8.5px sans-serif'; ctx.textAlign='left';
     ctx.fillText(MAT_NAME[s.mat].toUpperCase(), cx-pw/2+5, by-4);
   }
 
-  // ── Electric field lines ──
   if (Math.abs(s.v) > 0.05) {
     const alpha = 0.3 + 0.5 * Math.min(1, Math.abs(s.v)/5.0);
     ctx.save();
@@ -1550,14 +1513,11 @@ function drawCanvas(s) {
     ctx.setLineDash([]); ctx.restore();
   }
 
-  // ── Plates ──
   function plate(y) {
-    // top bevel
     ctx.beginPath();
     ctx.moveTo(cx-pw/2,y); ctx.lineTo(cx+pw/2,y);
     ctx.lineTo(cx+pw/2+10,y-7); ctx.lineTo(cx-pw/2+10,y-7);
     ctx.closePath(); ctx.fillStyle='#3a6898'; ctx.fill();
-    // front face
     ctx.beginPath();
     ctx.moveTo(cx-pw/2,y); ctx.lineTo(cx+pw/2,y);
     ctx.lineTo(cx+pw/2,y+ph); ctx.lineTo(cx-pw/2,y+ph);
@@ -1566,13 +1526,11 @@ function drawCanvas(s) {
     g.addColorStop(0,'#5888c8'); g.addColorStop(1,'#3668a8');
     ctx.fillStyle=g; ctx.fill();
     ctx.strokeStyle='#1e4a80'; ctx.lineWidth=.7; ctx.stroke();
-    // shine
     ctx.beginPath(); ctx.moveTo(cx-pw/2+2,y+2); ctx.lineTo(cx+pw/2-2,y+2);
     ctx.strokeStyle='rgba(255,255,255,.12)'; ctx.lineWidth=1; ctx.stroke();
   }
   plate(ty); plate(by);
 
-  // ── Charge symbols ──
   if (Math.abs(s.v) > 0.05) {
     const ts=s.v>0?'+':'−', bs=s.v>0?'−':'+';
     ctx.font='bold 11px sans-serif'; ctx.textAlign='center';
@@ -1582,7 +1540,6 @@ function drawCanvas(s) {
     for(let i=0;i<4;i++) ctx.fillText(bs, cx-40+i*27, by+ph+12);
   }
 
-  // ── HUD readout ──
   ctx.fillStyle='rgba(130,170,200,.7)';
   ctx.font='8.5px monospace'; ctx.textAlign='left';
   ctx.fillText('Q = '+(s.Q*1e12).toFixed(3)+' pC', 5, CH-18);
@@ -1601,7 +1558,6 @@ function drawCanvas(s) {
 ══════════════════════════════════════ */
 buildTable();
 onSim();
-// Wire clear modal buttons
 (function(){
   var cc = document.getElementById('clearCancel');
   var cf = document.getElementById('clearConfirm');
@@ -1609,7 +1565,7 @@ onSim();
   if (cf) cf.addEventListener('click', doActualClear);
 })();
 
-// Restore state if returning from print view
+/* Restore state if returning from print view via JSON fallback */
 (function(){
   try {
     if (sessionStorage.getItem('_lab_restore') !== '1') return;
@@ -1628,7 +1584,6 @@ onSim();
       if (el) el.value = si[id];
     });
     buildTable(); setMode(mode || 'air');
-    /* Restore branch selection visually */
     if (selBranch !== null) {
       var items = document.querySelectorAll('#blist li');
       items.forEach(function(el, j){
