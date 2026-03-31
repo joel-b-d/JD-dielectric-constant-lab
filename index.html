@@ -6,9 +6,7 @@
 <title>Dielectric Constant Lab — Saintgits</title>
 <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-/* ══════════════════════════════════════════
-   RESET & OS-ADAPTIVE CSS VARIABLES
-══════════════════════════════════════════ */
+/* ══ RESET & VARIABLES ══ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
@@ -32,23 +30,6 @@
   --r2: 12px;
   --r3: 16px;
   --t: 0.16s ease;
-}
-
-body.ios, body.macos {
-  --r1: 10px; --r2: 14px; --r3: 20px;
-  font-family: -apple-system, "SF Pro Display", "Nunito", sans-serif;
-}
-body.win {
-  --r1: 4px; --r2: 5px; --r3: 6px;
-  font-family: "Segoe UI Variable", "Segoe UI", "Nunito", sans-serif;
-}
-body.android {
-  --r1: 6px; --r2: 10px; --r3: 16px;
-  font-family: "Google Sans", Roboto, "Nunito", sans-serif;
-}
-body.linux, body.other {
-  --r1: 6px; --r2: 10px; --r3: 12px;
-  font-family: "Noto Sans", Ubuntu, "Nunito", sans-serif;
 }
 
 body {
@@ -100,7 +81,6 @@ body {
 .nbtn-print { background: linear-gradient(135deg,#1760c8,#0d3ea0); color: #fff; box-shadow: 0 2px 10px rgba(23,96,200,.4); }
 .nbtn-print:hover { filter: brightness(1.12); transform: translateY(-1px); }
 .nbtn:active { transform: scale(.97); }
-body.ios .nbtn, body.macos .nbtn { border-radius: 18px; }
 
 /* ══ LAYOUT ══ */
 .main { width: 100%; max-width: 740px; padding: 16px; display: flex; flex-direction: column; gap: 16px; }
@@ -124,46 +104,97 @@ body.ios .nbtn, body.macos .nbtn { border-radius: 18px; }
 .cblock { display: flex; flex-direction: column; gap: 5px; }
 .clabel { font-size: 9px; font-weight: 800; color: #3d6888; text-transform: uppercase; letter-spacing: 1.5px; }
 
-/* Slider */
+/* ── Slider row ── */
 .srow { display: flex; align-items: center; gap: 8px; }
-.srow input[type=range] { -webkit-appearance: none; flex: 1; height: 5px; background: var(--bdr); border-radius: 3px; outline: none; cursor: pointer; }
-.srow input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; background: radial-gradient(circle at 38% 36%, #7fd7ff, #0280d0); border: 2px solid var(--card); border-radius: 50%; box-shadow: 0 2px 6px rgba(0,0,0,.5); cursor: pointer; }
-.srow input[type=range]::-moz-range-thumb { width: 18px; height: 18px; background: radial-gradient(circle at 38% 36%, #7fd7ff, #0280d0); border: 2px solid var(--card); border-radius: 50%; cursor: pointer; }
-body.ios .srow input[type=range]::-webkit-slider-thumb  { width: 24px; height: 24px; }
-body.android .srow input[type=range]::-webkit-slider-thumb { width: 22px; height: 22px; }
-body.win .srow input[type=range]::-webkit-slider-thumb  { width: 16px; height: 16px; border-radius: 2px; }
 
-/* ── FIX 3: slim label container — 3 spans properly positioned ── */
+/* Range col: wraps input + slim labels so slim width === input width */
+.range-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.srow input[type=range] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 5px;
+  background: var(--bdr);
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+}
+.srow input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px; height: 20px;
+  background: radial-gradient(circle at 38% 36%, #7fd7ff, #0280d0);
+  border: 2px solid var(--card);
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0,0,0,.5);
+  cursor: pointer;
+}
+.srow input[type=range]::-moz-range-thumb {
+  width: 18px; height: 18px;
+  background: radial-gradient(circle at 38% 36%, #7fd7ff, #0280d0);
+  border: 2px solid var(--card);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* ── Slim tick labels ── */
+/* They live inside .range-col so width == input width exactly.
+   Thumb half-width ≈ 10px, so we pad inward to align left/right ticks
+   with the thumb-centre at min/max, and the centre tick falls at 50%. */
 .slim {
   display: flex;
   justify-content: space-between;
   font-size: 8px;
   color: #2a4a62;
   font-family: 'Source Code Pro', monospace;
-  margin-top: 2px;
+  margin-top: 3px;
   position: relative;
+  padding: 0 10px;   /* ← offsets for thumb half-width */
 }
 .slim span { flex: 0 0 auto; }
 .slim span:first-child { text-align: left; }
 .slim span:last-child  { text-align: right; }
-/* Centre label pinned at exact 50% of track */
+/* Centre label pinned at 50% of the track (zero for −5…+5 range) */
 .slim span:nth-child(2) {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
 }
 
-.sval { font-family: 'Source Code Pro', monospace; font-size: 11px; font-weight: 600; color: var(--acc); background: rgba(41,182,246,.1); border: 1px solid rgba(41,182,246,.2); padding: 3px 7px; border-radius: var(--r1); min-width: 60px; text-align: center; white-space: nowrap; }
+.sval {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 11px; font-weight: 600;
+  color: var(--acc);
+  background: rgba(41,182,246,.1);
+  border: 1px solid rgba(41,182,246,.2);
+  padding: 3px 7px;
+  border-radius: var(--r1);
+  min-width: 62px;
+  text-align: center;
+  white-space: nowrap;
+}
 
 @media (max-width: 600px) {
   .cblock { gap: 3px; }
   .srow { flex-wrap: wrap; }
   .sval { order: -1; min-width: unset; width: auto; font-size: 12px; padding: 4px 10px; }
-  .srow input[type=range] { width: 100%; min-width: 0; }
   .cgrid { grid-template-columns: 1fr; gap: 8px; }
 }
 
-.msel { width: 100%; background: var(--bg); color: #c8ddf0; border: 1px solid var(--bdr); border-radius: var(--r1); padding: 8px 10px; font-family: inherit; font-size: 12px; font-weight: 700; cursor: pointer; outline: none; -webkit-appearance: none; appearance: none; }
+.msel {
+  width: 100%;
+  background: var(--bg); color: #c8ddf0;
+  border: 1px solid var(--bdr);
+  border-radius: var(--r1);
+  padding: 8px 10px;
+  font-family: inherit; font-size: 12px; font-weight: 700;
+  cursor: pointer; outline: none;
+  -webkit-appearance: none; appearance: none;
+}
 .msel:focus { border-color: var(--acc); }
 
 /* ── Canvas + meters ── */
@@ -179,29 +210,55 @@ body.win .srow input[type=range]::-webkit-slider-thumb  { width: 16px; height: 1
 
 /* ── Row selector ── */
 .rowsel { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
-.rbtn { padding: 8px 16px; min-height: 40px; background: var(--bg); border: 1.5px solid var(--bdr); color: #3d6888; border-radius: var(--r1); font-family: inherit; font-size: 12px; font-weight: 800; cursor: pointer; transition: all var(--t); display: flex; align-items: center; justify-content: center; -webkit-tap-highlight-color: transparent; touch-action: manipulation; user-select: none; -webkit-user-select: none; }
+.rbtn {
+  padding: 8px 16px; min-height: 40px;
+  background: var(--bg); border: 1.5px solid var(--bdr);
+  color: #3d6888; border-radius: var(--r1);
+  font-family: inherit; font-size: 12px; font-weight: 800;
+  cursor: pointer; transition: all var(--t);
+  display: flex; align-items: center; justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation; user-select: none; -webkit-user-select: none;
+}
 .rbtn:hover { border-color: var(--bdr2); color: #88b8d8; }
 .rbtn.sel  { background: rgba(23,96,200,.28); color: #fff; border-color: var(--acc); }
 .rbtn.done { border-color: rgba(86,192,90,.5); color: var(--grn); }
 .rbtn.done.sel { background: rgba(42,106,48,.28); border-color: var(--grn); }
 
 /* ── Status bar ── */
-.sbar { font-size: 10px; font-weight: 700; color: #3d6888; margin-bottom: 12px; padding: 7px 12px; text-align: center; background: var(--bg); border: 1px solid var(--bdr); border-radius: var(--r1); line-height: 1.4; min-height: 34px; display: flex; align-items: center; justify-content: center; }
+.sbar {
+  font-size: 10px; font-weight: 700; color: #3d6888;
+  margin-bottom: 12px; padding: 7px 12px;
+  text-align: center; background: var(--bg);
+  border: 1px solid var(--bdr); border-radius: var(--r1);
+  line-height: 1.4; min-height: 34px;
+  display: flex; align-items: center; justify-content: center;
+}
 .sbar.ok   { color: var(--grn); border-color: rgba(86,192,90,.35);  background: rgba(42,106,48,.1); }
 .sbar.warn { color: var(--ylw); border-color: rgba(255,179,71,.35); background: rgba(180,100,0,.1); }
 .sbar.err  { color: var(--red); border-color: rgba(239,83,80,.35);  background: rgba(180,0,0,.1); }
 
 /* ── Record button ── */
-.recbtn { width: 100%; padding: 13px; min-height: 46px; border: none; border-radius: var(--r2); font-family: inherit; font-size: 14px; font-weight: 900; cursor: pointer; transition: all .2s; letter-spacing: .2px; display: flex; align-items: center; justify-content: center; gap: 8px; -webkit-tap-highlight-color: transparent; }
+.recbtn {
+  width: 100%; padding: 13px; min-height: 46px;
+  border: none; border-radius: var(--r2);
+  font-family: inherit; font-size: 14px; font-weight: 900;
+  cursor: pointer; transition: all .2s; letter-spacing: .2px;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  -webkit-tap-highlight-color: transparent;
+}
 .recbtn.air  { background: linear-gradient(135deg,#1976d2,#1250a8); color: #fff; box-shadow: 0 4px 16px rgba(23,120,210,.42); }
 .recbtn.diel { background: linear-gradient(135deg,#7b1fa2,#520a82); color: #fff; box-shadow: 0 4px 16px rgba(123,31,162,.42); }
 .recbtn:hover { filter: brightness(1.1); transform: translateY(-1px); }
 .recbtn:active { transform: scale(.98); filter: brightness(.96); }
 
 /* ══ LAB SHEET ══ */
-.labsheet { width: 100%; background: #ffffff; border-radius: var(--r2); box-shadow: 0 4px 0 rgba(0,0,0,.25), 0 12px 36px rgba(0,0,0,.35); position: relative; overflow: hidden; }
-.labsheet::after  { display: none; }
-.labsheet::before { display: none; }
+.labsheet {
+  width: 100%; background: #ffffff;
+  border-radius: var(--r2);
+  box-shadow: 0 4px 0 rgba(0,0,0,.25), 0 12px 36px rgba(0,0,0,.35);
+  overflow: hidden;
+}
 .sheet { position: relative; z-index: 2; padding: 22px 18px 28px 22px; }
 
 /* ── Sheet header ── */
@@ -237,7 +294,6 @@ input[type="date"].sfield { min-width: 112px; font-size: 9px; cursor: pointer; }
 .bchk::after { content: ''; width: 9px; height: 9px; border-radius: 50%; background: transparent; transition: background .15s; }
 .blist li.sel .bchk { border-color: var(--blue); }
 .blist li.sel .bchk::after { background: var(--blue); }
-
 .ansbox { display: none; margin-top: 12px; padding: 10px 12px; background: #fff; border: 1px solid #cec6b0; border-radius: 4px; }
 .ansbox.show { display: block; }
 .anstitle { font-size: 10px; font-weight: 800; color: var(--blue); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
@@ -255,12 +311,12 @@ input[type="date"].sfield { min-width: 112px; font-size: 9px; cursor: pointer; }
 .sparams.locked { opacity: 0.5; pointer-events: none; }
 .param-lock-note { font-size: 9px; color: #8a7a60; font-style: italic; }
 
-/* Table */
+/* ── Table (live) ── */
 .twrap { overflow-x: auto; border: 2px solid var(--ink); border-radius: 3px; margin-bottom: 22px; -webkit-overflow-scrolling: touch; }
 table { width: 100%; border-collapse: collapse; min-width: 420px; }
-th { background: #ece6d6; color: var(--ink); font-family: "Nunito", sans-serif; font-size: 10px; font-weight: 900; padding: 9px 7px; border: 1px solid #8a7860; text-align: center; line-height: 1.4; }
+th { background: #ece6d6; color: var(--ink); font-family: "Nunito", sans-serif; font-size: 10px; font-weight: 900; padding: 7px 6px; border: 1px solid #8a7860; text-align: center; line-height: 1.3; }
 th.ch { background: #e1daca; }
-td { border: 1px solid #9e8e70; height: 38px; text-align: center; padding: 0; }
+td { border: 1px solid #9e8e70; height: 30px; text-align: center; padding: 0; }
 .cell { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-family: 'Source Code Pro', monospace; font-size: 12px; font-weight: 600; color: var(--ink); transition: background .4s; }
 .cell.mt { color: #b8a888; font-style: italic; font-size: 11px; }
 .cell.vc { color: #1a3a8a; font-weight: 700; }
@@ -299,27 +355,48 @@ tr.act:hover td { background: rgba(41,182,246,.09); }
 
 /* ══ PRINT ══ */
 @media print {
-  @page { margin: 14mm 12mm; size: A4 portrait; }
-  *, *::before, *::after { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
-  html { font-size: 10pt; }
+  @page { margin: 7mm 6mm; size: A4 portrait; }
+  *, *::before, *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
   body { background: #fff !important; }
   .nav, .dcard, .sacts { display: none !important; }
   .main { padding: 0 !important; max-width: 100% !important; gap: 0 !important; }
   .labsheet { border-radius: 0 !important; box-shadow: none !important; border: none !important; background: #fff !important; }
-  .labsheet::before { display: block !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  .labsheet::after  { display: block !important; }
-  .sheet { padding: 10px 14px 18px 42px !important; }
-  .qsec { background: #f8f4ea !important; border: 1px solid #c2b9a2 !important; break-inside: avoid; }
+  .sheet { padding: 8px 12px 14px 36px !important; }
+  .shdr { padding-bottom: 8px !important; margin-bottom: 10px !important; }
+  .slogo .ln { font-size: 12px !important; }
+  .smid .cn  { font-size: 10px !important; }
+  .smid .dep { font-size: 8px !important; }
+  .smid .et  { font-size: 10px !important; }
+  .sright    { font-size: 9px !important; }
+  .qsec { padding: 8px 10px 7px !important; margin-bottom: 10px !important; break-inside: avoid; }
+  .qtext { font-size: 11px !important; margin-bottom: 8px !important; }
   .blist li { display: none !important; }
-  .blist li.sel { display: flex !important; }
-  .blist.showall li { display: flex !important; }
-  .ansbox.show { display: block !important; border: 1px solid #cec6b0 !important; }
-  th { background: #ece6d6 !important; }
+  .blist li.sel { display: flex !important; font-size: 10px !important; }
+  .ansbox.show { display: block !important; padding: 7px 10px !important; }
+  .ansbody { font-size: 9.5px !important; line-height: 1.55 !important; }
+  .anschips { margin-top: 5px !important; }
+  .chip { font-size: 8px !important; padding: 2px 6px !important; }
+  .stitle { font-size: 10px !important; margin-bottom: 6px !important; }
+  .sparams { font-size: 9px !important; margin-bottom: 8px !important; }
+  th { padding: 5px 4px !important; font-size: 8.5px !important; background: #ece6d6 !important; }
   th.ch { background: #e1daca !important; }
-  tr.act td { background: rgba(41,182,246,.06) !important; }
-  .twrap { border: 2px solid #1a1610 !important; }
+  td { height: 24px !important; }
+  .cell { font-size: 10px !important; }
+  .twrap { border: 2px solid #1a1610 !important; margin-bottom: 12px !important; }
   table { page-break-inside: avoid; }
+  .mrow { padding: 8px 0 6px !important; }
+  .mline1 { margin-bottom: 7px !important; }
+  .mline1-lbl { font-size: 12px !important; }
+  .mline2-eq  { font-size: 14px !important; }
+  .rsec { padding-top: 10px !important; }
+  .rlbl { font-size: 11px !important; margin-bottom: 7px !important; }
+  .rrow { font-size: 10px !important; }
   .sfield { border-bottom: 1px solid #888 !important; }
+  .sparams.locked { opacity: 0.6 !important; }
 }
 </style>
 </head>
@@ -356,34 +433,46 @@ tr.act:hover td { background: rgba(41,182,246,.09); }
     </div>
 
     <div class="cgrid">
-      <!-- Voltage: -5.0 V to +5.0 V, step 0.1 -->
+      <!-- Voltage: −5.0 V to +5.0 V -->
       <div class="cblock">
         <div class="clabel">⚡ Battery Voltage</div>
         <div class="srow">
-          <input type="range" id="slV" min="-50" max="50" value="10" step="1" oninput="onSim()">
+          <div class="range-col">
+            <input type="range" id="slV" min="-50" max="50" value="10" step="1" oninput="onSim()">
+            <div class="slim">
+              <span>−5.0 V</span>
+              <span>0</span>
+              <span>+5.0 V</span>
+            </div>
+          </div>
           <div class="sval" id="dispV">+1.00 V</div>
         </div>
-        <!-- FIX 3: All 3 spans present so zero is centred under the mid-point of the track -->
-        <div class="slim"><span>−5.0 V</span><span>0</span><span>+5.0 V</span></div>
       </div>
+
       <!-- Separation -->
       <div class="cblock">
         <div class="clabel">📐 Plate Separation</div>
         <div class="srow">
-          <input type="range" id="slD" min="5" max="10" value="10" step="0.5" oninput="syncParams();onSim()">
+          <div class="range-col">
+            <input type="range" id="slD" min="5" max="10" value="10" step="0.5" oninput="syncParams();onSim()">
+            <div class="slim"><span>5 mm</span><span></span><span>10 mm</span></div>
+          </div>
           <div class="sval" id="dispD">10.0 mm</div>
         </div>
-        <div class="slim"><span>5 mm</span><span>10 mm</span></div>
       </div>
+
       <!-- Area -->
       <div class="cblock">
         <div class="clabel">⬜ Plate Area</div>
         <div class="srow">
-          <input type="range" id="slA" min="100" max="400" value="100" step="50" oninput="syncParams();onSim()">
+          <div class="range-col">
+            <input type="range" id="slA" min="100" max="400" value="100" step="50" oninput="syncParams();onSim()">
+            <div class="slim"><span>100 mm²</span><span></span><span>400 mm²</span></div>
+          </div>
           <div class="sval" id="dispA">100 mm²</div>
         </div>
-        <div class="slim"><span>100 mm²</span><span>400 mm²</span></div>
       </div>
+
       <!-- Material -->
       <div class="cblock">
         <div class="clabel">🧊 Dielectric Material</div>
@@ -564,27 +653,6 @@ tr.act:hover td { background: rgba(41,182,246,.09); }
 </div><!-- /main -->
 
 <script>
-/* ══════════════════════════════════════════════════════════════
-   FIX 1 — ALL TOP-LEVEL DECLARATIONS USE var (NOT const/let)
-   so that document.write() re-running this script in the same
-   Window does NOT throw "Identifier already declared" errors.
-   var is hoisted and silently re-assigned on re-declaration.
-══════════════════════════════════════════════════════════════ */
-
-/* ── OS detection ── */
-(function(){
-  var ua = navigator.userAgent, p = navigator.platform || '';
-  var c;
-  if (/iPad|iPhone|iPod/.test(ua) || (navigator.maxTouchPoints > 1 && /Mac/.test(ua))) c='ios';
-  else if (/Macintosh|Mac OS X/.test(ua)) c='macos';
-  else if (/Android/.test(ua)) c='android';
-  else if (/Win/.test(p)||/Windows/.test(ua)) c='win';
-  else if (/Linux/.test(p)) c='linux';
-  else c='other';
-  document.body.classList.add(c);
-})();
-
-/* ── Constants ── */
 var E0      = 8.854e-12;
 var KAPPA   = { air:1.00, teflon:2.10, glass:4.70, paper:3.50 };
 var MAT_NAME= { air:'Air', teflon:'Teflon', glass:'Glass', paper:'Paper' };
@@ -596,7 +664,6 @@ var COL_HDR = {
 };
 var NROWS = 6;
 
-/* ── Branch data ── */
 var BRANCHES = [
   { name:'Chemical Engineering',
     ans:'Dielectric materials serve as <strong>chemical sensors</strong> for gas detection, <strong>electrostatic precipitators</strong> for industrial particulate removal, and <strong>Teflon (PTFE) linings</strong> in corrosion-resistant vessels and pipelines.',
@@ -630,17 +697,11 @@ var BRANCHES = [
     chips:['HfO₂ Gate Dielectric','Low-k IMD (SiCOH)','HKMG Technology','STI Isolation'] }
 ];
 
-/* ── State ── */
 var rows      = Array.from({length:NROWS}, function(){ return {v:null,qa:null,qd:null,k:null}; });
 var mode      = 'air';
 var selRow    = 0;
 var selBranch = null;
 
-/* ══════════════════════════════════════
-   FIX 2 — STUDENT FIELD PERSISTENCE
-   Save on every keystroke; restore on
-   every page init (no flag dependency).
-══════════════════════════════════════ */
 var FIELD_IDS = ['exNo','exDate','rollNo','studName'];
 
 function saveFields() {
@@ -666,9 +727,6 @@ function restoreFields() {
   } catch(e) {}
 }
 
-/* ══════════════════════════════════════
-   BRANCH SELECTION
-══════════════════════════════════════ */
 function pickBranch(i) {
   var items = document.querySelectorAll('#blist li');
   if (selBranch === i) {
@@ -700,9 +758,6 @@ function pickBranch(i) {
   document.getElementById('ansC').innerHTML   = b.chips.map(function(c){ return '<span class="chip">'+c+'</span>'; }).join('');
 }
 
-/* ══════════════════════════════════════
-   TABLE
-══════════════════════════════════════ */
 function syncParams() {
   var sp = document.getElementById('sparams');
   if (sp && !sp.classList.contains('locked')) {
@@ -758,12 +813,9 @@ function setCell(id, val, cls) {
   td.classList.add('fl');
 }
 
-/* ══════════════════════════════════════
-   SIMULATION STATE
-══════════════════════════════════════ */
 function getSimState() {
   var vRaw = +document.getElementById('slV').value;
-  var v    = vRaw / 10;                                    /* ÷10 → range −5.0 to +5.0 */
+  var v    = vRaw / 10;
   var dInp = document.getElementById('paramD');
   var aInp = document.getElementById('paramA');
   var d    = dInp ? (+dInp.value / 1000) : (+document.getElementById('slD').value / 1000);
@@ -779,7 +831,6 @@ function onSim() {
   var s    = getSimState();
   var sign = s.v >= 0 ? '+' : '';
 
-  /* FIX 3 — 2 decimal places everywhere for voltage */
   document.getElementById('dispV').textContent = sign + s.v.toFixed(2) + ' V';
   document.getElementById('dispD').textContent = (s.d*1000).toFixed(1) + ' mm';
   document.getElementById('dispA').textContent = (s.A*1e6).toFixed(0)  + ' mm²';
@@ -868,7 +919,7 @@ function doRecord() {
   buildRowBtns(); hilite(); updateMean(); onSim();
 }
 
-function updateMean() { /* blank — student fills manually */ }
+function updateMean() { /* student fills manually */ }
 
 function showClearConfirm() {
   var m = document.getElementById('clearModal');
@@ -892,10 +943,10 @@ function doActualClear() {
   if (slA) { slA.disabled = false; slA.style.opacity = ''; }
   buildTable(); setMode('air'); updateMean();
 }
-function doClear() { showClearConfirm(); }
 
 /* ══════════════════════════════════════
    BUILD PRINTABLE SHEET HTML
+   — single-page A4 optimised —
 ══════════════════════════════════════ */
 function buildSheetHTML() {
   var mat      = document.getElementById('slMat').value;
@@ -912,22 +963,22 @@ function buildSheetHTML() {
   if (branch) {
     var b = BRANCHES[selBranch];
     branchListHTML =
-      '<li style="font-size:12px;font-weight:800;color:#1a4faa;padding:4px 0;display:flex;align-items:center;gap:8px">'+
-      '<span style="font-family:monospace;font-size:10px;color:#8a7860;min-width:22px">'+(selBranch+1)+'.</span>'+
+      '<li style="font-size:11px;font-weight:800;color:#1a4faa;padding:3px 0;display:flex;align-items:center;gap:8px">'+
+      '<span style="font-family:monospace;font-size:9px;color:#8a7860;min-width:22px">'+(selBranch+1)+'.</span>'+
       branch+
-      '<span style="margin-left:auto;width:16px;height:16px;border-radius:50%;border:2px solid #1a4faa;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0"><span style="width:8px;height:8px;border-radius:50%;background:#1a4faa;display:block"></span></span>'+
+      '<span style="margin-left:auto;width:14px;height:14px;border-radius:50%;border:2px solid #1a4faa;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0"><span style="width:7px;height:7px;border-radius:50%;background:#1a4faa;display:block"></span></span>'+
       '</li>'+
-      '<div style="margin-top:10px;padding:10px 12px;background:#fff;border:1px solid #cec6b0;border-radius:4px">'+
-      '<div style="font-size:10px;font-weight:800;color:#1a4faa;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Applications in '+b.name+'</div>'+
-      '<div style="font-size:11px;color:#3a3020;line-height:1.75">'+b.ans+'</div>'+
-      '<div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:8px">'+b.chips.map(function(c){ return '<span style="background:#e2eeff;border:1px solid #b4cef0;color:#1a4faa;font-size:9px;font-weight:700;padding:3px 9px;border-radius:11px">'+c+'</span>'; }).join('')+'</div>'+
+      '<div style="margin-top:7px;padding:8px 10px;background:#fff;border:1px solid #cec6b0;border-radius:4px">'+
+      '<div style="font-size:8.5px;font-weight:800;color:#1a4faa;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Applications in '+b.name+'</div>'+
+      '<div style="font-size:9.5px;color:#3a3020;line-height:1.55">'+b.ans+'</div>'+
+      '<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px">'+b.chips.map(function(c){ return '<span style="background:#e2eeff;border:1px solid #b4cef0;color:#1a4faa;font-size:8px;font-weight:700;padding:2px 7px;border-radius:10px">'+c+'</span>'; }).join('')+'</div>'+
       '</div>';
   } else {
     branchListHTML = BRANCHES.map(function(b,i){
-      return '<li style="font-size:11.5px;color:#5a4f3f;padding:4px 0;display:flex;align-items:center;gap:8px">'+
-        '<span style="font-family:monospace;font-size:10px;color:#8a7860;min-width:22px">'+(i+1)+'.</span>'+
+      return '<li style="font-size:10.5px;color:#5a4f3f;padding:3px 0;display:flex;align-items:center;gap:8px">'+
+        '<span style="font-family:monospace;font-size:9px;color:#8a7860;min-width:22px">'+(i+1)+'.</span>'+
         b.name+
-        '<span style="margin-left:auto;width:16px;height:16px;border-radius:50%;border:2px solid #9a8a70;display:inline-block;flex-shrink:0"></span>'+
+        '<span style="margin-left:auto;width:14px;height:14px;border-radius:50%;border:2px solid #9a8a70;display:inline-block;flex-shrink:0"></span>'+
         '</li>';
     }).join('');
   }
@@ -936,114 +987,93 @@ function buildSheetHTML() {
   rows.forEach(function(r,i){
     tbodyHTML +=
       '<tr>'+
-      '<td style="border:1px solid #9e8e70;height:36px;text-align:center;font-family:monospace;font-size:11px;color:#8a7860">'+(i+1)+'</td>'+
-      '<td style="border:1px solid #9e8e70;height:36px;text-align:center;font-family:monospace;font-size:12px;font-weight:700;color:#1a3a8a">'+(r.v!=null?r.v.toFixed(2):'—')+'</td>'+
-      '<td style="border:1px solid #9e8e70;height:36px;text-align:center;font-family:monospace;font-size:12px;font-weight:600;color:#0d42a8">'+(r.qa!=null?(r.qa*1e12).toFixed(2):'—')+'</td>'+
-      '<td style="border:1px solid #9e8e70;height:36px;text-align:center;font-family:monospace;font-size:12px;font-weight:600;color:#4a1488">'+(r.qd!=null?(r.qd*1e12).toFixed(2):'—')+'</td>'+
-      '<td style="border:1px solid #9e8e70;height:36px;text-align:center;font-family:monospace;font-size:13px;font-weight:700;color:#aaa">—</td>'+
+      '<td style="border:1px solid #9e8e70;height:26px;text-align:center;font-family:monospace;font-size:10px;color:#8a7860">'+(i+1)+'</td>'+
+      '<td style="border:1px solid #9e8e70;height:26px;text-align:center;font-family:monospace;font-size:11px;font-weight:700;color:#1a3a8a">'+(r.v!=null?r.v.toFixed(2):'—')+'</td>'+
+      '<td style="border:1px solid #9e8e70;height:26px;text-align:center;font-family:monospace;font-size:11px;font-weight:600;color:#0d42a8">'+(r.qa!=null?(r.qa*1e12).toFixed(2):'—')+'</td>'+
+      '<td style="border:1px solid #9e8e70;height:26px;text-align:center;font-family:monospace;font-size:11px;font-weight:600;color:#4a1488">'+(r.qd!=null?(r.qd*1e12).toFixed(2):'—')+'</td>'+
+      '<td style="border:1px solid #9e8e70;height:26px;text-align:center;font-family:monospace;font-size:11px;font-weight:700;color:#aaa">—</td>'+
       '</tr>';
   });
 
   return '<!DOCTYPE html>\n<html><head>\n<meta charset="UTF-8">\n<title>Dielectric Constant Lab — Saintgits</title>\n'+
     '<style>\n'+
-    '@page { size:A4 portrait; margin:10mm 8mm; }\n'+
-    '@media print { html { font-size: 9pt; } .sheet { padding: 14px 12px 18px 36px; } table { font-size: 8pt; } th, td { padding: 5px 4px; } .qsec { padding: 8px 10px; margin-bottom: 10px; } .sparams { font-size: 9pt; } }\n'+
+    '@page { size:A4 portrait; margin:7mm 6mm; }\n'+
     '* { box-sizing:border-box; margin:0; padding:0; -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }\n'+
-    'html,body { background:#ffffff !important; color:#1a1610 !important; font-family:\'Nunito\',Arial,sans-serif; }\n'+
+    'html,body { background:#ffffff !important; color:#1a1610 !important; font-family:\'Nunito\',Arial,sans-serif; font-size:9pt; }\n'+
     'body { max-width:800px; margin:0 auto; padding:0; }\n'+
-    '.sheet { position:relative; background:#ffffff; padding:22px 18px 28px 22px; }\n'+
-    '.hdr { padding-bottom:10px; margin-bottom:12px; border-bottom:2.5px solid #1a1610; }\n'+
-    '.hdr-top { display:flex; align-items:flex-start; gap:10px; margin-bottom:10px; }\n'+
-    '.logo { flex-shrink:0; text-align:center; min-width:60px; }\n'+
-    '.logo .nm { font-size:13px; font-weight:900; letter-spacing:1px; color:#1a1610; }\n'+
+    '.sheet { position:relative; background:#ffffff; padding:14px 14px 18px 20px; }\n'+
+    '.hdr { padding-bottom:8px; margin-bottom:10px; border-bottom:2.5px solid #1a1610; }\n'+
+    '.hdr-top { display:flex; align-items:flex-start; gap:10px; margin-bottom:8px; }\n'+
+    '.logo { flex-shrink:0; text-align:center; min-width:55px; }\n'+
+    '.logo .nm { font-size:12px; font-weight:900; letter-spacing:1px; color:#1a1610; }\n'+
     '.logo .tg { font-size:6px; color:#5a4f3f; letter-spacing:2px; text-transform:uppercase; }\n'+
     '.mid { flex:1; text-align:center; }\n'+
-    '.mid .co { font-size:12px; font-weight:900; color:#1a1610; }\n'+
-    '.mid .dep { font-size:9px; color:#5a4f3f; margin-top:2px; }\n'+
-    '.mid .et { font-size:11px; font-weight:900; color:#1a4faa; text-decoration:underline; margin-top:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }\n'+
-    '.info-grid { display:grid; grid-template-columns:1fr 1fr; gap:4px 24px; margin-top:8px; font-size:10px; color:#1a1610; }\n'+
-    '.info-row { display:flex; align-items:baseline; gap:6px; }\n'+
-    '.info-lbl { font-weight:900; white-space:nowrap; color:#3a3020; min-width:72px; }\n'+
-    '.info-val { flex:1; border-bottom:1px solid #8a7a60; min-width:80px; text-align:left; padding:0 4px 1px; }\n'+
-    '.qsec { margin-bottom:18px; padding:13px 14px 11px; background:#f4efe2; border:1.5px solid #c2b9a2; border-radius:5px; }\n'+
-    '.qtext { font-size:13px; font-weight:800; margin-bottom:12px; line-height:1.75; }\n'+
-    '.qblank { border-bottom:2px solid #1a1610; min-width:130px; display:inline-block; text-align:center; font-weight:900; color:#1a4faa; padding:0 6px; vertical-align:bottom; }\n'+
-    'ul.bl { list-style:none; columns:2; gap:16px; margin:0; padding:0; }\n'+
-    'table { width:100%; border-collapse:collapse; margin-bottom:22px; }\n'+
-    'th { background:#ece6d6; font-size:10px; font-weight:900; padding:9px 7px; border:1px solid #8a7860; text-align:center; line-height:1.4; }\n'+
+    '.mid .co { font-size:11px; font-weight:900; color:#1a1610; }\n'+
+    '.mid .dep { font-size:8px; color:#5a4f3f; margin-top:2px; }\n'+
+    '.mid .et { font-size:10px; font-weight:900; color:#1a4faa; text-decoration:underline; margin-top:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }\n'+
+    '.info-grid { display:grid; grid-template-columns:1fr 1fr; gap:3px 20px; margin-top:6px; font-size:9px; color:#1a1610; }\n'+
+    '.info-row { display:flex; align-items:baseline; gap:5px; }\n'+
+    '.info-lbl { font-weight:900; white-space:nowrap; color:#3a3020; min-width:65px; }\n'+
+    '.info-val { flex:1; border-bottom:1px solid #8a7a60; min-width:70px; text-align:left; padding:0 4px 1px; }\n'+
+    '.qsec { margin-bottom:10px; padding:8px 10px 7px; background:#f4efe2; border:1.5px solid #c2b9a2; border-radius:5px; }\n'+
+    '.qtext { font-size:11px; font-weight:800; margin-bottom:8px; line-height:1.65; }\n'+
+    '.qblank { border-bottom:2px solid #1a1610; min-width:110px; display:inline-block; text-align:center; font-weight:900; color:#1a4faa; padding:0 5px; vertical-align:bottom; }\n'+
+    'ul.bl { list-style:none; columns:2; gap:14px; margin:0; padding:0; }\n'+
+    'table { width:100%; border-collapse:collapse; margin-bottom:14px; }\n'+
+    'th { background:#ece6d6; font-size:8.5px; font-weight:900; padding:6px 5px; border:1px solid #8a7860; text-align:center; line-height:1.3; }\n'+
     'th.ch { background:#e1daca; }\n'+
+    'td { height:26px; }\n'+
     '.no-print { display:none; }\n'+
+    '@media print{html{font-size:8.5pt;} .sheet{padding:10px 12px 14px 18px;}}\n'+
     '</style>\n'+
     '<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">\n'+
     '</head><body>\n'+
     '<div class="sheet"><div class="inner">\n'+
     '<div class="hdr">\n'+
     '<div class="hdr-top">\n'+
-    '<div class="logo"><div style="font-size:20px">⚙️</div><div class="nm">SAINTGITS</div><div class="tg">Learn · Grow · Excel</div></div>\n'+
+    '<div class="logo"><div style="font-size:18px">⚙️</div><div class="nm">SAINTGITS</div><div class="tg">Learn · Grow · Excel</div></div>\n'+
     '<div class="mid"><div class="co">Saintgits College of Engineering (Autonomous)</div><div class="dep">Department of Physics — Modern Physics for Engineering</div><div class="et">Dielectric Constant of a Material (Virtual Lab)</div></div>\n'+
     '</div>\n'+
     '<div class="info-grid">\n'+
     '<div class="info-row"><span class="info-lbl">Exercise No:</span><span class="info-val">'+exNo+'</span></div>\n'+
     '<div class="info-row"><span class="info-lbl">Roll No:</span><span class="info-val">'+rollNo+'</span></div>\n'+
     '<div class="info-row"><span class="info-lbl">Date:</span><span class="info-val">'+exDate+'</span></div>\n'+
-    '<div class="info-row"><span class="info-lbl">Name:</span><span class="info-val" style="min-width:120px">'+studName+'</span></div>\n'+
+    '<div class="info-row"><span class="info-lbl">Name:</span><span class="info-val" style="min-width:110px">'+studName+'</span></div>\n'+
     '</div></div>\n'+
     '<div class="qsec">\n'+
     '<div class="qtext"><strong>Qn.</strong>&nbsp; Explore the applications of dielectric materials in <span class="qblank">'+qblank+'</span> engineering.</div>\n'+
     '<ul class="bl">'+branchListHTML+'</ul>\n'+
     '</div>\n'+
-    '<div style="font-size:12px;font-weight:900;text-decoration:underline;margin-bottom:10px">Data Collections:</div>\n'+
-    '<div style="font-size:12px;font-weight:800;margin-bottom:10px">Measurement of dielectric constant for <span style="color:#1a4faa;text-decoration:underline">'+MAT_NAME[mat]+'</span></div>\n'+
-    '<div style="font-family:monospace;font-size:11px;color:#5a4f3f;margin-bottom:16px;display:flex;gap:24px;flex-wrap:wrap"><span>A = '+aVal+' mm²</span><span>d = '+dVal+' mm</span></div>\n'+
-    '<div style="border:2px solid #1a1610;border-radius:3px;overflow:hidden;margin-bottom:22px">\n'+
+    '<div style="font-size:11px;font-weight:900;text-decoration:underline;margin-bottom:7px">Data Collections:</div>\n'+
+    '<div style="font-size:11px;font-weight:800;margin-bottom:7px">Measurement of dielectric constant for <span style="color:#1a4faa;text-decoration:underline">'+MAT_NAME[mat]+'</span></div>\n'+
+    '<div style="font-family:monospace;font-size:9px;color:#5a4f3f;margin-bottom:10px;display:flex;gap:20px;flex-wrap:wrap"><span>A = '+aVal+' mm²</span><span>d = '+dVal+' mm</span></div>\n'+
+    '<div style="border:2px solid #1a1610;border-radius:3px;overflow:hidden;margin-bottom:14px">\n'+
     '<table><thead><tr>\n'+
-    '<th rowspan="2" style="width:40px">Sl.<br>No</th>\n'+
-    '<th rowspan="2" style="width:90px">Applied<br>Voltage (V)</th>\n'+
+    '<th rowspan="2" style="width:36px">Sl.<br>No</th>\n'+
+    '<th rowspan="2" style="width:82px">Applied<br>Voltage (V)</th>\n'+
     '<th colspan="2" class="ch">Plate Charge, Q (×10⁻¹²) Coulomb</th>\n'+
-    '<th rowspan="2" style="width:110px">Dielectric Constant<br>κ = Q<sub>diel</sub> / Q<sub>air</sub></th>\n'+
+    '<th rowspan="2" style="width:105px">Dielectric Constant<br>κ = Q<sub>diel</sub> / Q<sub>air</sub></th>\n'+
     '</tr><tr>\n'+
-    '<th style="width:115px">Air (Q<sub>air</sub>)</th>\n'+
-    '<th style="width:115px">'+MAT_NAME[mat]+' (Q<sub>'+mat+'</sub>)</th>\n'+
+    '<th style="width:108px">Air (Q<sub>air</sub>)</th>\n'+
+    '<th style="width:108px">'+MAT_NAME[mat]+' (Q<sub>'+mat+'</sub>)</th>\n'+
     '</tr></thead><tbody>'+tbodyHTML+'</tbody></table></div>\n'+
-    '<div style="display:block;padding:14px 0 10px;border-top:1.5px solid #c8bfa8;">\n'+
-    '<div style="display:flex;align-items:flex-end;gap:10px;margin-bottom:12px;"><span style="font-size:14px;font-weight:900;font-family:Georgia,serif;font-style:italic;white-space:nowrap;padding-bottom:4px;">Mean &nbsp;κ &nbsp;=</span><div style="flex:1;border-bottom:2px solid #1a1610;height:26px;min-width:160px;"></div></div>\n'+
-    '<div style="display:flex;align-items:flex-end;gap:8px;margin-left:4px;"><span style="font-size:17px;font-weight:900;font-family:Georgia,serif;padding-bottom:4px;">=</span><div style="border-bottom:2px solid #1a1610;height:26px;width:110px;flex-shrink:0;"></div></div>\n'+
+    '<div style="display:block;padding:10px 0 8px;border-top:1.5px solid #c8bfa8;">\n'+
+    '<div style="display:flex;align-items:flex-end;gap:10px;margin-bottom:10px;"><span style="font-size:13px;font-weight:900;font-family:Georgia,serif;font-style:italic;white-space:nowrap;padding-bottom:3px;">Mean &nbsp;κ &nbsp;=</span><div style="flex:1;border-bottom:2px solid #1a1610;height:24px;min-width:140px;"></div></div>\n'+
+    '<div style="display:flex;align-items:flex-end;gap:8px;margin-left:4px;"><span style="font-size:15px;font-weight:900;font-family:Georgia,serif;padding-bottom:3px;">=</span><div style="border-bottom:2px solid #1a1610;height:24px;width:100px;flex-shrink:0;"></div></div>\n'+
     '</div>\n'+
-    '<div style="padding-top:16px;border-top:1.5px solid #c8bfa8;">\n'+
-    '<div style="font-size:13px;font-weight:900;text-decoration:underline;margin-bottom:10px;">Result :</div>\n'+
-    '<div style="display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap;font-size:12px;font-weight:700;">Dielectric constant of given material &nbsp;=<div style="border-bottom:2px solid #1a1610;height:26px;width:130px;display:inline-block;flex-shrink:0;"></div></div>\n'+
+    '<div style="padding-top:12px;border-top:1.5px solid #c8bfa8;">\n'+
+    '<div style="font-size:12px;font-weight:900;text-decoration:underline;margin-bottom:8px;">Result :</div>\n'+
+    '<div style="display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap;font-size:11px;font-weight:700;">Dielectric constant of given material &nbsp;=<div style="border-bottom:2px solid #1a1610;height:24px;width:120px;display:inline-block;flex-shrink:0;"></div></div>\n'+
     '</div>\n'+
     '</div></div>\n'+
     '</body></html>';
 }
 
-/* ══════════════════════════════════════════════════════════════════
-   PRINT — iOS / Android / Desktop safe
-
-   WHY THE OLD APPROACH BROKE ON iOS:
-   • iOS Safari requires window.print() to be called SYNCHRONOUSLY
-     inside a direct user-gesture (tap) handler.  The old code wired
-     buttons via setInterval after document.write() — that async chain
-     silently suppresses print on iOS.
-   • window.open() is blocked on iOS if called after ANY other JS runs.
-
-   NEW APPROACH:
-   1. window.open('','_blank') is the ABSOLUTE FIRST LINE — called
-      synchronously in the tap handler before anything else.
-   2. Print/PDF buttons use inline onclick="window.print()" so they
-      are guaranteed synchronous user-gesture handlers on every platform.
-   3. If popup is blocked (iOS default setting), we fall back to a
-      Blob URL navigated in the current tab.  history.back() returns
-      the user here; sessionStorage restores all state.
-   4. No setTimeout/setInterval anywhere near window.print().
-══════════════════════════════════════════════════════════════════ */
+/* ══ PRINT ══ */
 function doPrint() {
-
-  /* ── STEP 1: Open new tab FIRST (synchronous — iOS requirement) ── */
   var printWin = null;
   try { printWin = window.open('', '_blank'); } catch(e) {}
 
-  /* ── STEP 2: Save all state ── */
   saveFields();
   try {
     sessionStorage.setItem('_lab_rows',      JSON.stringify(rows));
@@ -1057,10 +1087,8 @@ function doPrint() {
     sessionStorage.setItem('_lab_sliders', JSON.stringify(sv));
   } catch(e) {}
 
-  /* ── STEP 3: Build print HTML ── */
   var html = _buildPrintPage(buildSheetHTML());
 
-  /* ── STEP 4: Write to new tab OR Blob-URL fallback ── */
   if (printWin && !printWin.closed) {
     try {
       printWin.document.open('text/html', 'replace');
@@ -1068,40 +1096,27 @@ function doPrint() {
       printWin.document.close();
       printWin.focus();
     } catch(e) {
-      /* Unexpected write failure — close blank tab, use Blob */
       try { printWin.close(); } catch(ignored) {}
       _blobPrint(html);
     }
   } else {
-    /* Popup blocked (common on iOS Safari with default settings) */
     _blobPrint(html);
   }
 }
 
-/* Navigate current tab to a Blob URL containing the print page.
-   history.back() from that page returns here; init() restores state. */
 function _blobPrint(html) {
   sessionStorage.setItem('_lab_restore', '1');
   try {
     var blob = new Blob([html], { type: 'text/html;charset=utf-8' });
     window.location.href = URL.createObjectURL(blob);
   } catch(e) {
-    /* Blob not supported (very old browser) — document.write last resort */
     document.open(); document.write(html); document.close();
   }
 }
 
-/* Wrap the plain sheet HTML with the print toolbar.
-   CRITICAL: Print/PDF buttons use INLINE onclick="window.print()" so
-   the call is synchronous inside the tap event — the only way iOS Safari
-   honours window.print() without throwing a security exception. */
 function _buildPrintPage(sheet) {
-  /* Detect iOS at build time so we can inject the PDF hint */
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
               (navigator.maxTouchPoints > 1 && /Mac/.test(navigator.userAgent));
-
-  /* Back-button logic embedded as a tiny inline script string so it
-     works in both new-tab (window.opener set) and blob-URL (use history) */
   var backFn = "if(window.opener){window.close();}else{history.back();}";
 
   var iosBanner = isIOS
@@ -1117,7 +1132,6 @@ function _buildPrintPage(sheet) {
 
   var style =
     '<style>'+
-    /* Non-print UI */
     '@media not print{'+
     '._tb{position:fixed;top:0;left:0;right:0;z-index:9999;display:flex;align-items:center;gap:6px;padding:8px 12px;background:#1a2535;box-shadow:0 2px 10px rgba(0,0,0,.5);}'+
     '._tm{flex:1;font-size:11px;font-weight:700;color:#a0b8d0;text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}'+
@@ -1130,12 +1144,11 @@ function _buildPrintPage(sheet) {
     '._sw{max-width:860px;margin:0 auto;padding:16px 18px 40px;box-sizing:border-box;}'+
     '@media(max-width:600px){._tm{display:none;}._bt{padding:10px 11px;font-size:11px;}._sw{padding:8px 2px 24px;}}'+
     '}'+
-    /* Print reset */
     '@media print{'+
     '._tb,._sp{display:none!important;}'+
     '._sw{max-width:100%!important;padding:0!important;margin:0!important;}'+
     'html,body{background:#fff!important;}'+
-    '@page{size:A4 portrait;margin:10mm 8mm;}'+
+    '@page{size:A4 portrait;margin:7mm 6mm;}'+
     '}'+
     '</style>';
 
@@ -1143,7 +1156,6 @@ function _buildPrintPage(sheet) {
     '<div class="_tb">'+
     '<button class="_bt _bk" onclick="'+backFn+'">&#8592; Back</button>'+
     '<span class="_tm">Dielectric Constant Lab &mdash; Print Preview</span>'+
-    /* onclick="window.print()" is INLINE — synchronous user gesture on all platforms */
     '<button class="_bt _pd" onclick="window.print()">&#11015;&nbsp;'+(isIOS?'Print / PDF':'Save as PDF')+'</button>'+
     '<button class="_bt _pr" onclick="window.print()">&#128424;&nbsp;Print</button>'+
     '</div>'+
@@ -1157,9 +1169,7 @@ function _buildPrintPage(sheet) {
     .replace('</body>', '</div></body>');
 }
 
-/* ══════════════════════════════════════
-   CSV EXPORT
-══════════════════════════════════════ */
+/* ══ CSV EXPORT ══ */
 function doCSV() {
   var mat       = document.getElementById('slMat').value;
   var exNo_c    = document.getElementById('exNo').value.trim()     || '';
@@ -1232,9 +1242,7 @@ function doCSV() {
   }
 }
 
-/* ══════════════════════════════════════
-   CANVAS DRAWING
-══════════════════════════════════════ */
+/* ══ CANVAS DRAWING ══ */
 var canvas = document.getElementById('simCanvas');
 var ctx    = canvas.getContext('2d');
 var CW     = canvas.width;
@@ -1342,19 +1350,14 @@ function drawCanvas(s) {
   );
 }
 
-/* ══════════════════════════════════════
-   INIT
-══════════════════════════════════════ */
+/* ══ INIT ══ */
 (function init(){
-  /* ── FIX 2: Always restore student fields first ── */
   restoreFields();
 
-  /* ── Restore lab state after returning from print preview ── */
   try {
     var doRestore = sessionStorage.getItem('_lab_restore') === '1';
     if (doRestore) {
       sessionStorage.removeItem('_lab_restore');
-
       var savedRows = JSON.parse(sessionStorage.getItem('_lab_rows') || 'null');
       if (savedRows) rows = savedRows;
       var sr = sessionStorage.getItem('_lab_selRow');
@@ -1364,14 +1367,12 @@ function drawCanvas(s) {
       var sb = sessionStorage.getItem('_lab_selBranch');
       if (sb !== null) selBranch = (sb === 'null' ? null : parseInt(sb));
 
-      /* Restore slider values */
       var sliderVals = JSON.parse(sessionStorage.getItem('_lab_sliders') || '{}');
       ['slV','slD','slA','slMat','paramA','paramD'].forEach(function(id){
         var el = document.getElementById(id);
         if (el && sliderVals[id] !== undefined) el.value = sliderVals[id];
       });
 
-      /* Re-lock sliders if row 1 was recorded */
       if (rows[0] && rows[0].qa !== null) {
         var sp   = document.getElementById('sparams');
         var note = document.getElementById('paramNote');
@@ -1383,16 +1384,13 @@ function drawCanvas(s) {
         if (slA) { slA.disabled = true; slA.style.opacity = '0.4'; }
       }
 
-      /* Restore table data display */
       buildTable();
       rows.forEach(function(r,i){
         if (r.v  != null) setCell('cv'+i, r.v.toFixed(2),         'vc');
         if (r.qa != null) setCell('ca'+i, (r.qa*1e12).toFixed(2), 'qa');
         if (r.qd != null) setCell('cd'+i, (r.qd*1e12).toFixed(2), 'qd');
-        /* κ column intentionally blank — student fills manually */
       });
 
-      /* Restore branch selection */
       if (selBranch !== null) {
         var items = document.querySelectorAll('#blist li');
         var b = BRANCHES[selBranch];
@@ -1417,11 +1415,9 @@ function drawCanvas(s) {
     }
   } catch(e){}
 
-  /* ── Fresh start ── */
   buildTable();
   setMode('air');
 
-  /* ── Wire modal buttons ── */
   var cc = document.getElementById('clearCancel');
   var cf = document.getElementById('clearConfirm');
   if (cc) cc.addEventListener('click', hideClearConfirm);
