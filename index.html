@@ -13,6 +13,7 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
+/* Colour palette */
 –bg:    #111b28;
 –bg2:   #0a1220;
 –card:  #162030;
@@ -23,30 +24,37 @@
 –ylw:   #ffb347;
 –pur:   #bb6fdb;
 –red:   #ef5350;
+/* Paper colours */
 –paper: #fdfaf4;
 –ink:   #1a1610;
 –inkl:  #5a4f3f;
 –rule:  #c8bfa8;
 –blue:  #1a4faa;
 –dgrn:  #2a6a30;
-–r1: 8px;
-–r2: 12px;
-–r3: 16px;
+/* Shape */
+–r1: 8px;  /* small */
+–r2: 12px; /* medium */
+–r3: 16px; /* large */
+/* Timing */
 –t: 0.16s ease;
 }
 
+/* ── iOS / macOS ── */
 body.ios, body.macos {
 –r1: 10px; –r2: 14px; –r3: 20px;
 font-family: -apple-system, “SF Pro Display”, “Nunito”, sans-serif;
 }
+/* ── Windows ── */
 body.win {
 –r1: 4px; –r2: 5px; –r3: 6px;
 font-family: “Segoe UI Variable”, “Segoe UI”, “Nunito”, sans-serif;
 }
+/* ── Android ── */
 body.android {
 –r1: 6px; –r2: 10px; –r3: 16px;
 font-family: “Google Sans”, Roboto, “Nunito”, sans-serif;
 }
+/* ── Linux / other ── */
 body.linux, body.other {
 –r1: 6px; –r2: 10px; –r3: 12px;
 font-family: “Noto Sans”, Ubuntu, “Nunito”, sans-serif;
@@ -61,7 +69,9 @@ display: flex; flex-direction: column; align-items: center;
 -webkit-font-smoothing: antialiased;
 }
 
-/* ══ NAV ══ */
+/* ══════════════════════════════════════════
+TOP NAV
+══════════════════════════════════════════ */
 .nav {
 width: 100%;
 background: rgba(8,16,28,.92);
@@ -87,6 +97,7 @@ flex-shrink: 0;
 .nav-text .t2 { font-size: 13px; color: #fff; font-weight: 900; line-height: 1.1; }
 .nav-btns { display: flex; gap: 8px; align-items: center; }
 
+/* Generic nav button */
 .nbtn {
 display: flex; align-items: center; gap: 5px;
 padding: 0 13px; height: 33px;
@@ -96,28 +107,72 @@ cursor: pointer; transition: all var(–t);
 white-space: nowrap; letter-spacing: .2px;
 -webkit-tap-highlight-color: transparent;
 }
-.nbtn-csv { background: var(–bdr2); color: var(–acc); border: 1px solid var(–bdr); }
+.nbtn-csv {
+background: var(–bdr2); color: var(–acc);
+border: 1px solid var(–bdr);
+}
 .nbtn-csv:hover { background: var(–bdr); color: #fff; }
-.nbtn-print { background: linear-gradient(135deg,#1760c8,#0d3ea0); color: #fff; box-shadow: 0 2px 10px rgba(23,96,200,.4); }
+.nbtn-print {
+background: linear-gradient(135deg,#1760c8,#0d3ea0);
+color: #fff;
+box-shadow: 0 2px 10px rgba(23,96,200,.4);
+}
 .nbtn-print:hover { filter: brightness(1.12); transform: translateY(-1px); }
 .nbtn:active { transform: scale(.97); }
+
+/* iOS pill style */
 body.ios .nbtn, body.macos .nbtn { border-radius: 18px; }
 
-/* ══ LAYOUT ══ */
+/* ══════════════════════════════════════════
+MAIN LAYOUT
+══════════════════════════════════════════ */
 .main { width: 100%; max-width: 740px; padding: 16px; display: flex; flex-direction: column; gap: 16px; }
 
-/* ══ DARK CARD ══ */
-.dcard { background: var(–card); border: 1px solid var(–bdr); border-radius: var(–r3); overflow: hidden; box-shadow: 0 6px 28px rgba(0,0,0,.38); }
-.dcard-head { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-bottom: 1px solid var(–bdr); background: rgba(255,255,255,.02); }
-.dcard-icon { width: 30px; height: 30px; border-radius: var(–r1); background: rgba(23,96,200,.22); border: 1px solid rgba(41,182,246,.25); display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+/* ══════════════════════════════════════════
+DARK CARD (simulator)
+══════════════════════════════════════════ */
+.dcard {
+background: var(–card);
+border: 1px solid var(–bdr);
+border-radius: var(–r3);
+overflow: hidden;
+box-shadow: 0 6px 28px rgba(0,0,0,.38);
+}
+.dcard-head {
+display: flex; align-items: center; gap: 10px;
+padding: 12px 16px;
+border-bottom: 1px solid var(–bdr);
+background: rgba(255,255,255,.02);
+}
+.dcard-icon {
+width: 30px; height: 30px;
+border-radius: var(–r1);
+background: rgba(23,96,200,.22);
+border: 1px solid rgba(41,182,246,.25);
+display: flex; align-items: center; justify-content: center;
+font-size: 15px; flex-shrink: 0;
+}
 .dcard-ht { font-size: 12px; font-weight: 800; color: #cee8f8; letter-spacing: .4px; }
 .dcard-hs { font-size: 9px; color: #3d6888; font-weight: 600; margin-top: 1px; }
 .dcard-body { padding: 14px 16px; }
 
 /* ── Mode toggle ── */
-.mtoggle { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; padding: 3px; background: var(–bg); border: 1px solid var(–bdr); border-radius: var(–r2); margin-bottom: 14px; }
-.mbtn { padding: 9px; border: none; border-radius: calc(var(–r2) - 3px); font-family: inherit; font-size: 12px; font-weight: 800; color: #3d6888; background: transparent; cursor: pointer; transition: all .2s; -webkit-tap-highlight-color: transparent; }
-.mbtn.air  { background: linear-gradient(135deg,#1565c0,#0c3ea0); color: #fff; box-shadow: 0 2px 8px rgba(21,101,192,.42); }
+.mtoggle {
+display: grid; grid-template-columns: 1fr 1fr;
+gap: 3px; padding: 3px;
+background: var(–bg); border: 1px solid var(–bdr);
+border-radius: var(–r2);
+margin-bottom: 14px;
+}
+.mbtn {
+padding: 9px; border: none;
+border-radius: calc(var(–r2) - 3px);
+font-family: inherit; font-size: 12px; font-weight: 800;
+color: #3d6888; background: transparent;
+cursor: pointer; transition: all .2s;
+-webkit-tap-highlight-color: transparent;
+}
+.mbtn.air { background: linear-gradient(135deg,#1565c0,#0c3ea0); color: #fff; box-shadow: 0 2px 8px rgba(21,101,192,.42); }
 .mbtn.diel { background: linear-gradient(135deg,#6a1b9a,#420d7a); color: #fff; box-shadow: 0 2px 8px rgba(106,27,154,.42); }
 
 /* ── Controls grid ── */
@@ -127,33 +182,40 @@ body.ios .nbtn, body.macos .nbtn { border-radius: 18px; }
 
 /* Slider */
 .srow { display: flex; align-items: center; gap: 8px; }
-.srow input[type=range] { -webkit-appearance: none; flex: 1; height: 5px; background: var(–bdr); border-radius: 3px; outline: none; cursor: pointer; }
-.srow input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; background: radial-gradient(circle at 38% 36%, #7fd7ff, #0280d0); border: 2px solid var(–card); border-radius: 50%; box-shadow: 0 2px 6px rgba(0,0,0,.5); cursor: pointer; }
-.srow input[type=range]::-moz-range-thumb { width: 18px; height: 18px; background: radial-gradient(circle at 38% 36%, #7fd7ff, #0280d0); border: 2px solid var(–card); border-radius: 50%; cursor: pointer; }
+.srow input[type=range] {
+-webkit-appearance: none; flex: 1;
+height: 5px; background: var(–bdr); border-radius: 3px; outline: none; cursor: pointer;
+}
+.srow input[type=range]::-webkit-slider-thumb {
+-webkit-appearance: none;
+width: 20px; height: 20px;
+background: radial-gradient(circle at 38% 36%, #7fd7ff, #0280d0);
+border: 2px solid var(–card); border-radius: 50%;
+box-shadow: 0 2px 6px rgba(0,0,0,.5); cursor: pointer;
+}
+.srow input[type=range]::-moz-range-thumb {
+width: 18px; height: 18px;
+background: radial-gradient(circle at 38% 36%, #7fd7ff, #0280d0);
+border: 2px solid var(–card); border-radius: 50%; cursor: pointer;
+}
+/* OS thumb sizes */
 body.ios .srow input[type=range]::-webkit-slider-thumb  { width: 24px; height: 24px; }
 body.android .srow input[type=range]::-webkit-slider-thumb { width: 22px; height: 22px; }
 body.win .srow input[type=range]::-webkit-slider-thumb  { width: 16px; height: 16px; border-radius: 2px; }
 
-.slim {
-display: flex;
-justify-content: space-between;
-font-size: 8px;
-color: #2a4a62;
-font-family: ‘Source Code Pro’, monospace;
-margin-top: 2px;
-position: relative;
-}
+.slim { display: flex; justify-content: space-between; font-size: 8px; color: #2a4a62; font-family: ‘Source Code Pro’, monospace; margin-top: 2px; position: relative; }
 .slim span { flex: 0 0 auto; }
+/* First and last labels align to track edges */
 .slim span:first-child { text-align: left; }
 .slim span:last-child  { text-align: right; }
-.slim span:nth-child(2) {
-position: absolute;
-left: 50%;
-transform: translateX(-50%);
+/* Centre label (0) positioned absolutely at exact 50% of track */
+.slim span:nth-child(2) { position: absolute; left: 50%; transform: translateX(-50%); }
+.sval {
+font-family: ‘Source Code Pro’, monospace; font-size: 11px; font-weight: 600;
+color: var(–acc); background: rgba(41,182,246,.1); border: 1px solid rgba(41,182,246,.2);
+padding: 3px 7px; border-radius: var(–r1); min-width: 60px; text-align: center; white-space: nowrap;
 }
-
-.sval { font-family: ‘Source Code Pro’, monospace; font-size: 11px; font-weight: 600; color: var(–acc); background: rgba(41,182,246,.1); border: 1px solid rgba(41,182,246,.2); padding: 3px 7px; border-radius: var(–r1); min-width: 60px; text-align: center; white-space: nowrap; }
-
+/* Stack value ABOVE slider on mobile so nothing is clipped */
 @media (max-width: 600px) {
 .cblock { gap: 3px; }
 .srow { flex-wrap: wrap; }
@@ -161,15 +223,22 @@ transform: translateX(-50%);
 .srow input[type=range] { width: 100%; min-width: 0; }
 .cgrid { grid-template-columns: 1fr; gap: 8px; }
 }
-
-.msel { width: 100%; background: var(–bg); color: #c8ddf0; border: 1px solid var(–bdr); border-radius: var(–r1); padding: 8px 10px; font-family: inherit; font-size: 12px; font-weight: 700; cursor: pointer; outline: none; -webkit-appearance: none; appearance: none; }
+.msel {
+width: 100%; background: var(–bg); color: #c8ddf0;
+border: 1px solid var(–bdr); border-radius: var(–r1);
+padding: 8px 10px; font-family: inherit; font-size: 12px; font-weight: 700;
+cursor: pointer; outline: none; -webkit-appearance: none; appearance: none;
+}
 .msel:focus { border-color: var(–acc); }
 
 /* ── Canvas + meters ── */
 .crow { display: flex; gap: 12px; margin-bottom: 14px; }
 #simCanvas { border-radius: var(–r2); border: 1px solid var(–bdr); flex-shrink: 0; display: block; }
 .meters { flex: 1; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
-.meter { background: var(–bg); border: 1px solid var(–bdr); border-radius: var(–r1); padding: 6px 10px; flex: 1; }
+.meter {
+background: var(–bg); border: 1px solid var(–bdr);
+border-radius: var(–r1); padding: 6px 10px; flex: 1;
+}
 .ml { font-size: 8px; font-weight: 800; color: #3d6888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1px; }
 .mv { font-family: ‘Source Code Pro’, monospace; font-size: 15px; font-weight: 600; color: var(–grn); line-height: 1.2; }
 .mu { font-size: 8px; color: #1e3a50; margin-top: 1px; }
@@ -178,69 +247,166 @@ transform: translateX(-50%);
 
 /* ── Row selector ── */
 .rowsel { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
-.rbtn { padding: 8px 16px; min-height: 40px; background: var(–bg); border: 1.5px solid var(–bdr); color: #3d6888; border-radius: var(–r1); font-family: inherit; font-size: 12px; font-weight: 800; cursor: pointer; transition: all var(–t); display: flex; align-items: center; justify-content: center; -webkit-tap-highlight-color: transparent; touch-action: manipulation; user-select: none; -webkit-user-select: none; }
+.rbtn {
+padding: 8px 16px; min-height: 40px;
+background: var(–bg); border: 1.5px solid var(–bdr);
+color: #3d6888; border-radius: var(–r1);
+font-family: inherit; font-size: 12px; font-weight: 800;
+cursor: pointer; transition: all var(–t);
+display: flex; align-items: center; justify-content: center;
+-webkit-tap-highlight-color: transparent;
+touch-action: manipulation;
+user-select: none; -webkit-user-select: none;
+}
 .rbtn:hover { border-color: var(–bdr2); color: #88b8d8; }
-.rbtn.sel  { background: rgba(23,96,200,.28); color: #fff; border-color: var(–acc); }
+.rbtn.sel { background: rgba(23,96,200,.28); color: #fff; border-color: var(–acc); }
 .rbtn.done { border-color: rgba(86,192,90,.5); color: var(–grn); }
 .rbtn.done.sel { background: rgba(42,106,48,.28); border-color: var(–grn); }
 
 /* ── Status bar ── */
-.sbar { font-size: 10px; font-weight: 700; color: #3d6888; margin-bottom: 12px; padding: 7px 12px; text-align: center; background: var(–bg); border: 1px solid var(–bdr); border-radius: var(–r1); line-height: 1.4; min-height: 34px; display: flex; align-items: center; justify-content: center; }
-.sbar.ok   { color: var(–grn); border-color: rgba(86,192,90,.35);  background: rgba(42,106,48,.1); }
-.sbar.warn { color: var(–ylw); border-color: rgba(255,179,71,.35); background: rgba(180,100,0,.1); }
-.sbar.err  { color: var(–red); border-color: rgba(239,83,80,.35);  background: rgba(180,0,0,.1); }
+.sbar {
+font-size: 10px; font-weight: 700; color: #3d6888;
+margin-bottom: 12px; padding: 7px 12px; text-align: center;
+background: var(–bg); border: 1px solid var(–bdr);
+border-radius: var(–r1); line-height: 1.4; min-height: 34px;
+display: flex; align-items: center; justify-content: center;
+}
+.sbar.ok   { color: var(–grn);  border-color: rgba(86,192,90,.35);  background: rgba(42,106,48,.1); }
+.sbar.warn { color: var(–ylw);  border-color: rgba(255,179,71,.35); background: rgba(180,100,0,.1); }
+.sbar.err  { color: var(–red);  border-color: rgba(239,83,80,.35);  background: rgba(180,0,0,.1); }
 
 /* ── Record button ── */
-.recbtn { width: 100%; padding: 13px; min-height: 46px; border: none; border-radius: var(–r2); font-family: inherit; font-size: 14px; font-weight: 900; cursor: pointer; transition: all .2s; letter-spacing: .2px; display: flex; align-items: center; justify-content: center; gap: 8px; -webkit-tap-highlight-color: transparent; }
-.recbtn.air  { background: linear-gradient(135deg,#1976d2,#1250a8); color: #fff; box-shadow: 0 4px 16px rgba(23,120,210,.42); }
+.recbtn {
+width: 100%; padding: 13px; min-height: 46px;
+border: none; border-radius: var(–r2);
+font-family: inherit; font-size: 14px; font-weight: 900;
+cursor: pointer; transition: all .2s; letter-spacing: .2px;
+display: flex; align-items: center; justify-content: center; gap: 8px;
+-webkit-tap-highlight-color: transparent;
+}
+.recbtn.air { background: linear-gradient(135deg,#1976d2,#1250a8); color: #fff; box-shadow: 0 4px 16px rgba(23,120,210,.42); }
 .recbtn.diel { background: linear-gradient(135deg,#7b1fa2,#520a82); color: #fff; box-shadow: 0 4px 16px rgba(123,31,162,.42); }
 .recbtn:hover { filter: brightness(1.1); transform: translateY(-1px); }
 .recbtn:active { transform: scale(.98); filter: brightness(.96); }
 
-/* ══ LAB SHEET ══ */
-.labsheet { width: 100%; background: #ffffff; border-radius: var(–r2); box-shadow: 0 4px 0 rgba(0,0,0,.25), 0 12px 36px rgba(0,0,0,.35); position: relative; overflow: hidden; }
-.labsheet::after  { display: none; }
+/* ══════════════════════════════════════════
+LAB SHEET (paper)
+══════════════════════════════════════════ */
+.labsheet {
+width: 100%; background: #ffffff;
+border-radius: var(–r2);
+box-shadow: 0 4px 0 rgba(0,0,0,.25), 0 12px 36px rgba(0,0,0,.35);
+position: relative; overflow: hidden;
+}
+/* No ruled lines, no red margin — clean white */
+.labsheet::after { display: none; }
 .labsheet::before { display: none; }
 .sheet { position: relative; z-index: 2; padding: 22px 18px 28px 22px; }
 
 /* ── Sheet header ── */
-.shdr { display: flex; align-items: flex-start; gap: 12px; flex-wrap: wrap; padding-bottom: 14px; margin-bottom: 16px; border-bottom: 2.5px solid var(–ink); }
+.shdr {
+display: flex; align-items: flex-start; gap: 12px; flex-wrap: wrap;
+padding-bottom: 14px; margin-bottom: 16px;
+border-bottom: 2.5px solid var(–ink);
+}
 .slogo { flex-shrink: 0; }
 .slogo .ln { font-size: 14px; font-weight: 900; color: var(–ink); letter-spacing: 1px; }
 .slogo .lt { font-size: 7px; color: var(–inkl); letter-spacing: 2px; text-transform: uppercase; margin-top: 1px; }
 .smid { flex: 1; text-align: center; min-width: 150px; }
-.smid .cn  { font-size: 11px; font-weight: 800; color: var(–ink); }
+.smid .cn { font-size: 11px; font-weight: 800; color: var(–ink); }
 .smid .dep { font-size: 9px; color: var(–inkl); margin-top: 2px; font-weight: 600; }
-.smid .et  { font-size: 12px; font-weight: 900; color: var(–blue); text-decoration: underline; text-underline-offset: 3px; margin-top: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+.smid .et {
+font-size: 12px; font-weight: 900; color: var(–blue);
+text-decoration: underline; text-underline-offset: 3px; margin-top: 4px;
+white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+max-width: 100%;
+}
 @media (max-width: 600px) { .smid .et { font-size: 9px; } }
 @media (max-width: 420px) { .smid .et { font-size: 7.5px; letter-spacing: -0.2px; } }
 .sright { font-size: 10px; color: var(–inkl); text-align: right; }
 .sright > div { display: flex; align-items: center; justify-content: flex-end; gap: 4px; margin-bottom: 3px; }
 .sright > div::before { content: attr(data-lbl); font-weight: 800; color: var(–inkl); }
-.sfield { display: inline-block; border: none; border-bottom: 1.5px solid var(–inkl); background: transparent; font-family: inherit; font-size: 10px; color: var(–ink); padding: 0 4px; outline: none; text-align: center; -webkit-appearance: none; }
+.sfield {
+display: inline-block;
+border: none; border-bottom: 1.5px solid var(–inkl);
+background: transparent; font-family: inherit; font-size: 10px;
+color: var(–ink); padding: 0 4px; outline: none; text-align: center;
+-webkit-appearance: none;
+}
 .sfield:focus { border-bottom-color: var(–blue); color: var(–blue); }
 input[type=“date”].sfield { min-width: 112px; font-size: 9px; cursor: pointer; }
 
 /* ── Question section ── */
-.qsec { margin-bottom: 18px; padding: 13px 14px 11px; background: #f4efe2; border: 1.5px solid #c2b9a2; border-radius: 5px; }
-.qtext { font-size: 13px; font-weight: 800; color: var(–ink); margin-bottom: 12px; line-height: 1.75; }
-.qblank { display: inline-block; border-bottom: 2px solid var(–ink); min-width: 130px; padding: 0 6px; text-align: center; font-weight: 900; color: var(–blue); vertical-align: bottom; transition: color .2s; }
-.blist { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 3px 16px; }
+.qsec {
+margin-bottom: 18px;
+padding: 13px 14px 11px;
+background: #f4efe2;
+border: 1.5px solid #c2b9a2;
+border-radius: 5px;
+}
+.qtext {
+font-size: 13px; font-weight: 800; color: var(–ink);
+margin-bottom: 12px; line-height: 1.75;
+}
+.qblank {
+display: inline-block;
+border-bottom: 2px solid var(–ink);
+min-width: 130px; padding: 0 6px;
+text-align: center; font-weight: 900;
+color: var(–blue); vertical-align: bottom;
+transition: color .2s;
+}
+.blist {
+list-style: none;
+display: grid; grid-template-columns: 1fr 1fr;
+gap: 3px 16px;
+}
 @media (max-width: 460px) { .blist { grid-template-columns: 1fr; } }
-.blist li { display: flex; align-items: center; gap: 7px; padding: 5px 6px; font-size: 11.5px; color: var(–inkl); border-radius: 4px; cursor: pointer; user-select: none; border: 1px solid transparent; transition: background .14s, color .14s; -webkit-tap-highlight-color: transparent; }
+.blist li {
+display: flex; align-items: center; gap: 7px;
+padding: 5px 6px; font-size: 11.5px; color: var(–inkl);
+border-radius: 4px; cursor: pointer; user-select: none;
+border: 1px solid transparent;
+transition: background .14s, color .14s;
+-webkit-tap-highlight-color: transparent;
+}
 .blist li:hover { background: rgba(26,79,170,.07); color: var(–ink); }
-.blist li.sel  { color: var(–blue); font-weight: 800; background: rgba(26,79,170,.08); border-color: rgba(26,79,170,.18); }
+.blist li.sel { color: var(–blue); font-weight: 800; background: rgba(26,79,170,.08); border-color: rgba(26,79,170,.18); }
 .bnum { font-family: ‘Source Code Pro’, monospace; font-size: 10px; color: #8a7a60; min-width: 22px; flex-shrink: 0; }
 .blist li.sel .bnum { color: var(–blue); }
-.bchk { margin-left: auto; width: 17px; height: 17px; border-radius: 50%; border: 2px solid #b8aa92; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all .18s; background: #fff; position: relative; }
-.bchk::after { content: ‘’; width: 9px; height: 9px; border-radius: 50%; background: transparent; transition: background .15s; }
-.blist li.sel .bchk { border-color: var(–blue); }
-.blist li.sel .bchk::after { background: var(–blue); }
+.bchk {
+margin-left: auto;
+width: 17px; height: 17px;
+border-radius: 50%;
+border: 2px solid #b8aa92;
+display: flex; align-items: center; justify-content: center;
+flex-shrink: 0; transition: all .18s;
+background: #fff;
+position: relative;
+}
+/* Filled dot when selected */
+.bchk::after {
+content: ‘’;
+width: 9px; height: 9px;
+border-radius: 50%;
+background: transparent;
+transition: background .15s;
+}
+.blist li.sel .bchk {
+border-color: var(–blue);
+}
+.blist li.sel .bchk::after {
+background: var(–blue);
+}
 
-.ansbox { display: none; margin-top: 12px; padding: 10px 12px; background: #fff; border: 1px solid #cec6b0; border-radius: 4px; }
+/* Answer box */
+.ansbox {
+display: none; margin-top: 12px; padding: 10px 12px;
+background: #fff; border: 1px solid #cec6b0; border-radius: 4px;
+}
 .ansbox.show { display: block; }
 .anstitle { font-size: 10px; font-weight: 800; color: var(–blue); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
-.ansbody  { font-size: 11px; color: #3a3020; line-height: 1.75; }
+.ansbody { font-size: 11px; color: #3a3020; line-height: 1.75; }
 .anschips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
 .chip { background: #e2eeff; border: 1px solid #b4cef0; color: #1a4faa; font-size: 9px; font-weight: 700; padding: 3px 9px; border-radius: 11px; }
 
@@ -248,7 +414,13 @@ input[type=“date”].sfield { min-width: 112px; font-size: 9px; cursor: pointe
 .stitle { font-size: 12px; font-weight: 900; color: var(–ink); margin-bottom: 10px; text-decoration: underline; text-underline-offset: 3px; }
 .sparams { font-family: ‘Source Code Pro’, monospace; font-size: 11px; color: var(–inkl); margin-bottom: 14px; display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
 .sparams label { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
-.sparams input[type=number] { font-family: ‘Source Code Pro’, monospace; font-size: 11px; font-weight: 700; color: var(–blue); background: rgba(26,79,170,.07); border: none; border-bottom: 1.5px solid var(–rule); width: 46px; text-align: center; outline: none; padding: 1px 2px; -moz-appearance: textfield; }
+.sparams input[type=number] {
+font-family: ‘Source Code Pro’, monospace; font-size: 11px; font-weight: 700;
+color: var(–blue); background: rgba(26,79,170,.07);
+border: none; border-bottom: 1.5px solid var(–rule);
+width: 46px; text-align: center; outline: none; padding: 1px 2px;
+-moz-appearance: textfield;
+}
 .sparams input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; }
 .sparams input[type=number]:focus { border-bottom-color: var(–blue); }
 .sparams.locked { opacity: 0.5; pointer-events: none; }
@@ -275,12 +447,15 @@ tr.act:hover td { background: rgba(41,182,246,.09); }
 
 /* Mean / Result */
 .mrow { display:block; padding:14px 0 10px; border-top:1.5px solid var(–rule); }
+/* Line 1: Mean κ = ******long line****** */
 .mline1 { display:flex; align-items:flex-end; gap:10px; margin-bottom:12px; }
 .mline1-lbl { font-size:14px; font-weight:900; color:var(–ink); font-family:Georgia,serif; font-style:italic; white-space:nowrap; padding-bottom:4px; }
 .mline1-bar { flex:1; border-bottom:2px solid var(–ink); height:26px; min-width:160px; }
+/* Line 2:     = ***short*** */
 .mline2 { display:flex; align-items:flex-end; gap:8px; margin-left:4px; }
 .mline2-eq { font-size:17px; font-weight:900; color:var(–ink); font-family:Georgia,serif; padding-bottom:4px; }
 .mline2-bar { border-bottom:2px solid var(–ink); height:26px; width:110px; flex-shrink:0; }
+/* Result */
 .rsec { padding-top:16px; border-top:1.5px solid var(–rule); }
 .rlbl { font-size:13px; font-weight:900; color:var(–ink); text-decoration:underline; text-underline-offset:4px; margin-bottom:10px; }
 .rrow { display:flex; align-items:flex-end; gap:8px; flex-wrap:wrap; font-size:12px; font-weight:700; color:var(–ink); }
@@ -288,7 +463,14 @@ tr.act:hover td { background: rgba(41,182,246,.09); }
 
 /* Sheet actions */
 .sacts { display: flex; gap: 8px; margin-top: 16px; padding-top: 14px; border-top: 1px dashed var(–rule); flex-wrap: wrap; }
-.sact { padding: 10px 18px; min-height: 42px; border-radius: var(–r1); font-family: inherit; font-size: 12px; font-weight: 800; cursor: pointer; border: 1.5px solid; background: transparent; transition: all .2s; -webkit-tap-highlight-color: transparent; touch-action: manipulation; user-select: none; -webkit-user-select: none; }
+.sact {
+padding: 10px 18px; min-height: 42px; border-radius: var(–r1); font-family: inherit;
+font-size: 12px; font-weight: 800; cursor: pointer;
+border: 1.5px solid; background: transparent; transition: all .2s;
+-webkit-tap-highlight-color: transparent;
+touch-action: manipulation;
+user-select: none; -webkit-user-select: none;
+}
 .sact.del { border-color: #b02020; color: #b02020; }
 .sact.del:hover { background: #b02020; color: #fff; }
 .sact.csv { border-color: var(–blue); color: var(–blue); }
@@ -296,28 +478,61 @@ tr.act:hover td { background: rgba(41,182,246,.09); }
 .sact.prt { border-color: #2a6a30; color: #2a6a30; }
 .sact.prt:hover { background: #2a6a30; color: #fff; }
 
-/* ══ PRINT ══ */
+/* ══════════════════════════════════════════
+PRINT MEDIA — full A4 sheet output
+══════════════════════════════════════════ */
 @media print {
 @page { margin: 14mm 12mm; size: A4 portrait; }
-*, *::before, *::after { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
+*, *::before, *::after {
+-webkit-print-color-adjust: exact !important;
+print-color-adjust: exact !important;
+color-adjust: exact !important;
+}
 html { font-size: 10pt; }
 body { background: #fff !important; }
-.nav, .dcard, .sacts { display: none !important; }
-.main { padding: 0 !important; max-width: 100% !important; gap: 0 !important; }
-.labsheet { border-radius: 0 !important; box-shadow: none !important; border: none !important; background: #fff !important; }
+
+/* Hide everything except the sheet */
+.nav,
+.dcard,
+.sacts   { display: none !important; }
+
+.main {
+padding: 0 !important;
+max-width: 100% !important;
+gap: 0 !important;
+}
+.labsheet {
+border-radius: 0 !important;
+box-shadow: none !important;
+border: none !important;
+background: #fff !important;
+}
 .labsheet::before { display: block !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 .labsheet::after  { display: block !important; }
 .sheet { padding: 10px 14px 18px 42px !important; }
+
+/* Qn section */
 .qsec { background: #f8f4ea !important; border: 1px solid #c2b9a2 !important; break-inside: avoid; }
+/* On print: show only selected branch; if none selected show all */
 .blist li { display: none !important; }
 .blist li.sel { display: flex !important; }
 .blist.showall li { display: flex !important; }
 .ansbox.show { display: block !important; border: 1px solid #cec6b0 !important; }
+
+/* Table */
 th { background: #ece6d6 !important; }
 th.ch { background: #e1daca !important; }
 tr.act td { background: rgba(41,182,246,.06) !important; }
 .twrap { border: 2px solid #1a1610 !important; }
 table { page-break-inside: avoid; }
+
+/* Values */
+.mval:not(.mt) { color: #2a6a30 !important; }
+.mval.mt { color: transparent !important; }
+.rval:not(.mt) { color: #2a6a30 !important; }
+.rval.mt { color: transparent !important; }
+
+/* Inputs show their values */
 .sfield { border-bottom: 1px solid #888 !important; }
 }
 </style>
@@ -359,12 +574,12 @@ table { page-break-inside: avoid; }
 </div>
 
 <div class="cgrid">
-  <!-- Voltage: -5.0 V to +5.0 V, step 0.1 -->
+  <!-- Voltage: -5.0 V to +5.0 V -->
   <div class="cblock">
     <div class="clabel">⚡ Battery Voltage</div>
     <div class="srow">
       <input type="range" id="slV" min="-50" max="50" value="10" step="1" oninput="onSim()">
-      <div class="sval" id="dispV">+1.00 V</div>
+      <div class="sval" id="dispV">+1.0 V</div>
     </div>
     <div class="slim"><span>−5.0 V</span><span>0</span><span>+5.0 V</span></div>
   </div>
@@ -453,10 +668,10 @@ table { page-break-inside: avoid; }
     <div class="et">Dielectric Constant of a Material (Virtual Lab)</div>
   </div>
   <div class="sright">
-    <div>Exercise No:&nbsp;<input class="sfield" id="exNo" type="text" placeholder="___" maxlength="10" style="min-width:52px" oninput="saveFields()"></div>
-    <div>Date:&nbsp;<input class="sfield" id="exDate" type="date" style="min-width:115px" onchange="saveFields()"></div>
-    <div>Roll No:&nbsp;<input class="sfield" id="rollNo" type="text" placeholder="___" maxlength="20" style="min-width:80px" oninput="saveFields()"></div>
-    <div>Name:&nbsp;<input class="sfield" id="studName" type="text" placeholder="___________" maxlength="50" style="min-width:120px" oninput="saveFields()"></div>
+    <div>Exercise No:&nbsp;<input class="sfield" id="exNo" type="text" placeholder="___" maxlength="10" style="min-width:52px"></div>
+    <div>Date:&nbsp;<input class="sfield" id="exDate" type="date" style="min-width:115px"></div>
+    <div>Roll No:&nbsp;<input class="sfield" id="rollNo" type="text" placeholder="___" maxlength="20" style="min-width:80px"></div>
+    <div>Name:&nbsp;<input class="sfield" id="studName" type="text" placeholder="___________" maxlength="50" style="min-width:120px"></div>
   </div>
 </div>
 
@@ -571,14 +786,12 @@ table { page-break-inside: avoid; }
 </div><!-- /main -->
 
 <script>
-/* ══════════════════════════════════════════════════════════════
-   ALL TOP-LEVEL DECLARATIONS USE var (NOT const/let)
-══════════════════════════════════════════════════════════════ */
-
-/* ── OS detection ── */
+/* ══════════════════════════════════════
+   OS DETECTION  — runs immediately
+══════════════════════════════════════ */
 (function(){
-  var ua = navigator.userAgent, p = navigator.platform || '';
-  var c;
+  const ua = navigator.userAgent, p = navigator.platform || '';
+  let c;
   if (/iPad|iPhone|iPod/.test(ua) || (navigator.maxTouchPoints > 1 && /Mac/.test(ua))) c='ios';
   else if (/Macintosh|Mac OS X/.test(ua)) c='macos';
   else if (/Android/.test(ua)) c='android';
@@ -588,20 +801,24 @@ table { page-break-inside: avoid; }
   document.body.classList.add(c);
 })();
 
-/* ── Constants ── */
-var E0      = 8.854e-12;
-var KAPPA   = { air:1.00, teflon:2.10, glass:4.70, paper:3.50 };
-var MAT_NAME= { air:'Air', teflon:'Teflon', glass:'Glass', paper:'Paper' };
-var COL_HDR = {
+/* ══════════════════════════════════════
+   CONSTANTS
+══════════════════════════════════════ */
+const E0 = 8.854e-12;
+const KAPPA = { air:1.00, teflon:2.10, glass:4.70, paper:3.50 };
+const MAT_NAME = { air:'Air', teflon:'Teflon', glass:'Glass', paper:'Paper' };
+const COL_HDR  = {
   air:    'Air (Q<sub>air</sub>)',
   teflon: 'Teflon (Q<sub>teflon</sub>)',
   glass:  'Glass (Q<sub>glass</sub>)',
   paper:  'Paper (Q<sub>paper</sub>)'
 };
-var NROWS = 6;
+const NROWS = 6;
 
-/* ── Branch data ── */
-var BRANCHES = [
+/* ══════════════════════════════════════
+   BRANCH DATA
+══════════════════════════════════════ */
+const BRANCHES = [
   { name:'Chemical Engineering',
     ans:'Dielectric materials serve as <strong>chemical sensors</strong> for gas detection, <strong>electrostatic precipitators</strong> for industrial particulate removal, and <strong>Teflon (PTFE) linings</strong> in corrosion-resistant vessels and pipelines.',
     chips:['Chemical Sensors','Electrostatic Filters','Teflon Vessel Liners','Capacitive Level Sensors'] },
@@ -634,127 +851,105 @@ var BRANCHES = [
     chips:['HfO₂ Gate Dielectric','Low-k IMD (SiCOH)','HKMG Technology','STI Isolation'] }
 ];
 
-/* ── State ── */
-var rows      = Array.from({length:NROWS}, function(){ return {v:null,qa:null,qd:null,k:null}; });
-var mode      = 'air';
-var selRow    = 0;
-var selBranch = null;
-
 /* ══════════════════════════════════════
-   STUDENT FIELD PERSISTENCE
+   STATE
 ══════════════════════════════════════ */
-var FIELD_IDS = ['exNo','exDate','rollNo','studName'];
-
-function saveFields() {
-  try {
-    var vals = {};
-    FIELD_IDS.forEach(function(id){
-      var el = document.getElementById(id);
-      if (el) vals[id] = el.value;
-    });
-    sessionStorage.setItem('_lab_fields', JSON.stringify(vals));
-  } catch(e) {}
-}
-
-function restoreFields() {
-  try {
-    var raw = sessionStorage.getItem('_lab_fields');
-    if (!raw) return;
-    var vals = JSON.parse(raw);
-    FIELD_IDS.forEach(function(id){
-      var el = document.getElementById(id);
-      if (el && vals[id] !== undefined) el.value = vals[id];
-    });
-  } catch(e) {}
-}
+let rows = Array.from({length:NROWS}, () => ({v:null,qa:null,qd:null,k:null}));
+let mode = 'air';
+let selRow = 0;
+let selBranch = null;
 
 /* ══════════════════════════════════════
    BRANCH SELECTION
 ══════════════════════════════════════ */
 function pickBranch(i) {
-  var items = document.querySelectorAll('#blist li');
+  const items = document.querySelectorAll('#blist li');
   if (selBranch === i) {
+    // deselect
     selBranch = null;
-    items.forEach(function(el){ el.classList.remove('sel'); });
-    for (var j=0;j<10;j++) { var c=document.getElementById('bck'+j); if(c) c.textContent=''; }
+    items.forEach(el => el.classList.remove('sel'));
+    for (let j=0;j<10;j++) { const c=document.getElementById('bck'+j); if(c) c.textContent=''; }
     document.getElementById('qblank').textContent = '____________';
     document.getElementById('ansBox').classList.remove('show');
     return;
   }
   selBranch = i;
-  items.forEach(function(el,j){
-    var on = j===i;
+  items.forEach((el,j) => {
+    const on = j===i;
     el.classList.toggle('sel', on);
-    var c = document.getElementById('bck'+j);
+    const c = document.getElementById('bck'+j);
     if (c) c.textContent = on ? '✓' : '';
   });
-  var b = BRANCHES[i];
-  var short = b.name
+  const b = BRANCHES[i];
+  // shorten name for blank
+  let short = b.name
     .replace(' and Technology','')
     .replace(' Engineering','')
     .replace(' and Computer','')
     .trim();
   document.getElementById('qblank').textContent = short;
-  var ab = document.getElementById('ansBox');
+  const ab = document.getElementById('ansBox');
   ab.classList.add('show');
   document.getElementById('ansT').textContent = 'Applications in ' + b.name;
-  document.getElementById('ansB').innerHTML   = b.ans;
-  document.getElementById('ansC').innerHTML   = b.chips.map(function(c){ return '<span class="chip">'+c+'</span>'; }).join('');
+  document.getElementById('ansB').innerHTML  = b.ans;
+  document.getElementById('ansC').innerHTML  = b.chips.map(c=>`<span class="chip">${c}</span>`).join('');
 }
 
 /* ══════════════════════════════════════
    TABLE
 ══════════════════════════════════════ */
 function syncParams() {
-  var sp = document.getElementById('sparams');
+  // Keep paramD/paramA in sync with sliders (before row1 locks them)
+  const sp = document.getElementById('sparams');
   if (sp && !sp.classList.contains('locked')) {
-    var pD = document.getElementById('paramD');
-    var pA = document.getElementById('paramA');
+    const pD = document.getElementById('paramD');
+    const pA = document.getElementById('paramA');
     if (pD) pD.value = document.getElementById('slD').value;
     if (pA) pA.value = document.getElementById('slA').value;
   }
 }
 
 function buildTable() {
-  var tb = document.getElementById('tbody');
+  const tb = document.getElementById('tbody');
   tb.innerHTML = '';
-  rows.forEach(function(_,i){
-    var tr = document.createElement('tr');
+  rows.forEach((_,i) => {
+    const tr = document.createElement('tr');
     tr.id = 'tr'+i;
-    tr.innerHTML =
-      '<td><div class="cell sl">'+(i+1)+'</div></td>'+
-      '<td id="cv'+i+'"><div class="cell vc mt">—</div></td>'+
-      '<td id="ca'+i+'"><div class="cell qa mt">—</div></td>'+
-      '<td id="cd'+i+'"><div class="cell qd mt">—</div></td>'+
-      '<td id="ck'+i+'"><div class="cell kk mt">—</div></td>';
+    tr.innerHTML = `
+      <td><div class="cell sl">${i+1}</div></td>
+      <td id="cv${i}"><div class="cell vc mt">—</div></td>
+      <td id="ca${i}"><div class="cell qa mt">—</div></td>
+      <td id="cd${i}"><div class="cell qd mt">—</div></td>
+      <td id="ck${i}"><div class="cell kk mt">—</div></td>
+    `;
     tb.appendChild(tr);
   });
   buildRowBtns(); hilite();
 }
 
 function buildRowBtns() {
-  var w = document.getElementById('rowSel');
+  const w = document.getElementById('rowSel');
   w.innerHTML = '';
-  rows.forEach(function(r,i){
-    var b = document.createElement('button');
-    b.className = 'rbtn'+(i===selRow?' sel':'')+(r.k!=null?' done':'');
+  rows.forEach((r,i) => {
+    const b = document.createElement('button');
+    b.className = 'rbtn' + (i===selRow?' sel':'') + (r.k!=null?' done':'');
     b.textContent = 'Row '+(i+1)+(r.k!=null?' ✓':'');
-    b.onclick = (function(idx){ return function(){ selRow=idx; hilite(); onSim(); }; })(i);
+    b.onclick = () => { selRow=i; hilite(); onSim(); };
     b.id = 'rb'+i;
     w.appendChild(b);
   });
 }
 
 function hilite() {
-  document.querySelectorAll('#tbody tr').forEach(function(t,i){ t.classList.toggle('act',i===selRow); });
-  document.querySelectorAll('.rbtn').forEach(function(b,i){ b.classList.toggle('sel',i===selRow); });
+  document.querySelectorAll('#tbody tr').forEach((t,i)=>t.classList.toggle('act',i===selRow));
+  document.querySelectorAll('.rbtn').forEach((b,i)=>b.classList.toggle('sel',i===selRow));
 }
 
 function setCell(id, val, cls) {
-  var td = document.getElementById(id); if(!td) return;
-  var d  = td.querySelector('.cell');
+  const td = document.getElementById(id); if(!td) return;
+  const d  = td.querySelector('.cell');
   d.textContent = val;
-  d.className   = 'cell '+cls+(val==='—'?' mt':'');
+  d.className   = 'cell ' + cls + (val==='—'?' mt':'');
   td.classList.remove('fl');
   void td.offsetWidth;
   td.classList.add('fl');
@@ -764,43 +959,46 @@ function setCell(id, val, cls) {
    SIMULATION STATE
 ══════════════════════════════════════ */
 function getSimState() {
-  var vRaw = +document.getElementById('slV').value;
-  var v    = vRaw / 10;
-  var dInp = document.getElementById('paramD');
-  var aInp = document.getElementById('paramA');
-  var d    = dInp ? (+dInp.value / 1000) : (+document.getElementById('slD').value / 1000);
-  var A    = aInp ? (+aInp.value * 1e-6) : (+document.getElementById('slA').value * 1e-6);
-  var mat  = document.getElementById('slMat').value;
-  var k    = (mode==='air') ? 1.0 : KAPPA[mat];
-  var C    = k * E0 * A / d;
-  var Q    = C * Math.abs(v);
-  return { v:v, d:d, A:A, mat:mat, k:k, C:C, Q:Q };
+  const vRaw = +document.getElementById('slV').value;
+  const v    = vRaw / 10;                          // −5.0 … +5.0 V
+  const dInp = document.getElementById('paramD');
+  const aInp = document.getElementById('paramA');
+  const d    = dInp ? (+dInp.value / 1000) : (+document.getElementById('slD').value / 1000);
+  const A    = aInp ? (+aInp.value * 1e-6) : (+document.getElementById('slA').value * 1e-6);
+  const mat  = document.getElementById('slMat').value;
+  const k    = (mode==='air') ? 1.0 : KAPPA[mat];
+  const C    = k * E0 * A / d;
+  const Q    = C * Math.abs(v);
+  return { v, d, A, mat, k, C, Q };
 }
 
 function onSim() {
-  var s    = getSimState();
-  var sign = s.v >= 0 ? '+' : '';
+  const s = getSimState();
+  const sign = s.v >= 0 ? '+' : '';
   document.getElementById('dispV').textContent = sign + s.v.toFixed(2) + ' V';
   document.getElementById('dispD').textContent = (s.d*1000).toFixed(1) + ' mm';
-  document.getElementById('dispA').textContent = (s.A*1e6).toFixed(0)  + ' mm²';
-  document.getElementById('mV').textContent = Math.abs(s.v).toFixed(2);
-  document.getElementById('mC').textContent = (s.C*1e12).toFixed(4);
-  document.getElementById('mQ').textContent = (s.Q*1e12).toFixed(4);
-  var r = rows[selRow];
+  document.getElementById('dispA').textContent = (s.A*1e6).toFixed(0) + ' mm²';
+  document.getElementById('mV').textContent    = Math.abs(s.v).toFixed(3);
+  document.getElementById('mC').textContent    = (s.C*1e12).toFixed(4);
+  document.getElementById('mQ').textContent    = (s.Q*1e12).toFixed(4);
+
+  const r = rows[selRow];
   document.getElementById('mK').textContent =
     (mode==='diel' && r.qa && s.Q > 0) ? (s.Q/r.qa).toFixed(2) : '—';
+
   document.getElementById('matName').textContent = MAT_NAME[s.mat];
   document.getElementById('colDH').innerHTML     = COL_HDR[s.mat];
+
   updateStatus(s);
   drawCanvas(s);
 }
 
 function setMode(m) {
   mode = m;
-  document.getElementById('btnAir').className  = 'mbtn'+(m==='air'?' air':'');
-  document.getElementById('btnDiel').className = 'mbtn'+(m==='diel'?' diel':'');
-  var b = document.getElementById('recBtn');
-  b.className = 'recbtn '+(m==='air'?'air':'diel');
+  document.getElementById('btnAir').className  = 'mbtn' + (m==='air'?' air':'');
+  document.getElementById('btnDiel').className = 'mbtn' + (m==='diel'?' diel':'');
+  const b = document.getElementById('recBtn');
+  b.className = 'recbtn ' + (m==='air'?'air':'diel');
   b.innerHTML = m==='air'
     ? '🌬️&nbsp; Record Air Charge'
     : '🧊&nbsp; Record Dielectric Charge';
@@ -808,42 +1006,44 @@ function setMode(m) {
 }
 
 function updateStatus(s) {
-  var el = document.getElementById('statBar');
-  var r  = rows[selRow];
+  const el = document.getElementById('statBar');
+  const r  = rows[selRow];
   if (mode === 'air') {
     el.className = 'sbar';
-    el.textContent = 'Row '+(selRow+1)+': V = '+Math.abs(s.v).toFixed(2)+' V → click "Record Air Charge"';
+    el.textContent = `Row ${selRow+1}: V = ${Math.abs(s.v).toFixed(2)} V → click "Record Air Charge"`;
   } else if (!r.qa) {
     el.className = 'sbar warn';
-    el.textContent = '⚠ Row '+(selRow+1)+': Please record Air charge first before switching to Dielectric!';
+    el.textContent = `⚠ Row ${selRow+1}: Please record Air charge first before switching to Dielectric!`;
   } else {
     el.className = 'sbar ok';
-    el.textContent = '✓ Row '+(selRow+1)+': Air done ('+(r.qa*1e12).toFixed(3)+' pC) → click "Record Dielectric Charge"';
+    el.textContent = `✓ Row ${selRow+1}: Air done (${(r.qa*1e12).toFixed(3)} pC) → click "Record Dielectric Charge"`;
   }
 }
 
 function doRecord() {
-  var s    = getSimState();
-  var absV = Math.abs(s.v);
+  const s    = getSimState();
+  const absV = Math.abs(s.v);
   if (absV < 0.05) {
     document.getElementById('statBar').className = 'sbar err';
     document.getElementById('statBar').textContent = '⚠ Set a non-zero voltage first! Move the slider away from 0.';
     return;
   }
-  var r = rows[selRow];
+  const r = rows[selRow];
   if (mode === 'air') {
     r.v=absV; r.qa=s.Q; r.qd=null; r.k=null;
-    setCell('cv'+selRow, absV.toFixed(2),       'vc');
-    setCell('ca'+selRow, (s.Q*1e12).toFixed(2), 'qa');
-    setCell('cd'+selRow, '—',                    'qd');
-    setCell('ck'+selRow, '—',                    'kk');
+    setCell('cv'+selRow, absV.toFixed(2),           'vc');
+    setCell('ca'+selRow, (s.Q*1e12).toFixed(2),     'qa');
+    setCell('cd'+selRow, '—',                        'qd');
+    setCell('ck'+selRow, '—',                        'kk');
+    // Lock A/d inputs AND slD/slA sliders after first row recorded
     if (selRow === 0) {
-      var sp   = document.getElementById('sparams');
-      var note = document.getElementById('paramNote');
+      const sp   = document.getElementById('sparams');
+      const note = document.getElementById('paramNote');
       if (sp)   sp.classList.add('locked');
       if (note) note.textContent = 'Locked — clear data to edit';
-      var slD = document.getElementById('slD');
-      var slA = document.getElementById('slA');
+      // Also visually disable/fade the slD and slA sliders
+      const slD = document.getElementById('slD');
+      const slA = document.getElementById('slA');
       if (slD) { slD.disabled = true; slD.style.opacity = '0.4'; }
       if (slA) { slA.disabled = true; slA.style.opacity = '0.4'; }
     }
@@ -851,7 +1051,7 @@ function doRecord() {
   } else {
     if (!r.qa) {
       document.getElementById('statBar').className = 'sbar err';
-      document.getElementById('statBar').textContent = '⚠ Record Air charge for Row '+(selRow+1)+' first!';
+      document.getElementById('statBar').textContent = `⚠ Record Air charge for Row ${selRow+1} first!`;
       return;
     }
     r.qd = s.Q;
@@ -864,339 +1064,491 @@ function doRecord() {
   buildRowBtns(); hilite(); updateMean(); onSim();
 }
 
-function updateMean() { /* blank — student fills manually */ }
+function updateMean() { /* blank — student fills manually after printing */ }
 
 function showClearConfirm() {
   var m = document.getElementById('clearModal');
-  if (m) m.style.display = 'block';
+  if (!m) return;
+  m.style.display = 'block'; /* block, not flex — inner div uses absolute positioning */
 }
 function hideClearConfirm() {
   var m = document.getElementById('clearModal');
-  if (m) m.style.display = 'none';
+  if (!m) return;
+  m.style.display = 'none';
 }
 function doActualClear() {
   hideClearConfirm();
-  rows   = Array.from({length:NROWS}, function(){ return {v:null,qa:null,qd:null,k:null}; });
+  rows = Array.from({length:NROWS}, ()=>({v:null,qa:null,qd:null,k:null}));
   selRow = 0;
-  var sp   = document.getElementById('sparams');
-  var note = document.getElementById('paramNote');
+  const sp   = document.getElementById('sparams');
+  const note = document.getElementById('paramNote');
   if (sp)   sp.classList.remove('locked');
   if (note) note.textContent = 'Edit before recording Row 1';
-  var slD = document.getElementById('slD');
-  var slA = document.getElementById('slA');
+  const slD = document.getElementById('slD');
+  const slA = document.getElementById('slA');
   if (slD) { slD.disabled = false; slD.style.opacity = ''; }
   if (slA) { slA.disabled = false; slA.style.opacity = ''; }
   buildTable(); setMode('air'); updateMean();
 }
-function doClear() { showClearConfirm(); }
+function doClear() { showClearConfirm(); } /* legacy alias */
 
 /* ══════════════════════════════════════
-   BUILD PRINTABLE SHEET HTML
+   PRINT  — opens system print dialog
+   Works when file is opened in browser.
+══════════════════════════════════════ */
+/* ══════════════════════════════════════
+   SHARED: build printable sheet HTML
+   Returns a full standalone HTML string
+   with current table data baked in.
 ══════════════════════════════════════ */
 function buildSheetHTML() {
-  var mat      = document.getElementById('slMat').value;
-  var exNo     = document.getElementById('exNo').value.trim()     || '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-  var exDate   = document.getElementById('exDate').value.trim()   || '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-  var rollNo   = document.getElementById('rollNo')   ? (document.getElementById('rollNo').value.trim()   || '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;') : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-  var studName = document.getElementById('studName') ? (document.getElementById('studName').value.trim() || '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;') : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-  var aVal     = document.getElementById('paramA') ? document.getElementById('paramA').value : '100';
-  var dVal     = document.getElementById('paramD') ? document.getElementById('paramD').value : '10';
-  var branch   = selBranch !== null ? BRANCHES[selBranch].name : null;
-  var qblank   = selBranch !== null ? document.getElementById('qblank').textContent : '____________';
+  const mat      = document.getElementById('slMat').value;
+  const exNo     = document.getElementById('exNo').value.trim()     || '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+  const exDate   = document.getElementById('exDate').value.trim()   || '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+  const rollNo   = document.getElementById('rollNo')   ? (document.getElementById('rollNo').value.trim()   || '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;') : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+  const studName = document.getElementById('studName') ? (document.getElementById('studName').value.trim() || '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;') : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+  const aVal     = document.getElementById('paramA')   ? document.getElementById('paramA').value   : '100';
+  const dVal     = document.getElementById('paramD')   ? document.getElementById('paramD').value   : '10';
+  const branch = selBranch !== null ? BRANCHES[selBranch].name : null;
+  const qblank = selBranch !== null ? document.getElementById('qblank').textContent : '____________';
+  const ks     = rows.filter(r => r.k != null);
+  const meanK  = ks.length ? (ks.reduce((a,b)=>a+b.k,0)/ks.length).toFixed(4) : null;
 
-  var branchListHTML = '';
+  // Branch list HTML for print
+  let branchListHTML = '';
   if (branch) {
-    var b = BRANCHES[selBranch];
-    branchListHTML =
-      '<li style="font-size:12px;font-weight:800;color:#1a4faa;padding:4px 0;display:flex;align-items:center;gap:8px">'+
-      '<span style="font-family:monospace;font-size:10px;color:#8a7860;min-width:22px">'+(selBranch+1)+'.</span>'+
-      branch+
-      '<span style="margin-left:auto;width:16px;height:16px;border-radius:50%;border:2px solid #1a4faa;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0"><span style="width:8px;height:8px;border-radius:50%;background:#1a4faa;display:block"></span></span>'+
-      '</li>'+
-      '<div style="margin-top:10px;padding:10px 12px;background:#fff;border:1px solid #cec6b0;border-radius:4px">'+
-      '<div style="font-size:10px;font-weight:800;color:#1a4faa;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Applications in '+b.name+'</div>'+
-      '<div style="font-size:11px;color:#3a3020;line-height:1.75">'+b.ans+'</div>'+
-      '<div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:8px">'+b.chips.map(function(c){ return '<span style="background:#e2eeff;border:1px solid #b4cef0;color:#1a4faa;font-size:9px;font-weight:700;padding:3px 9px;border-radius:11px">'+c+'</span>'; }).join('')+'</div>'+
-      '</div>';
+    branchListHTML = `<li style="font-size:12px;font-weight:800;color:#1a4faa;padding:4px 0;display:flex;align-items:center;gap:8px">
+      <span style="font-family:monospace;font-size:10px;color:#8a7860;min-width:22px">${selBranch+1}.</span>
+      ${branch}
+      <span style="margin-left:auto;width:16px;height:16px;border-radius:50%;border:2px solid #1a4faa;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0"><span style="width:8px;height:8px;border-radius:50%;background:#1a4faa;display:block"></span></span>
+    </li>`;
+    const b = BRANCHES[selBranch];
+    branchListHTML += `
+    <div style="margin-top:10px;padding:10px 12px;background:#fff;border:1px solid #cec6b0;border-radius:4px">
+      <div style="font-size:10px;font-weight:800;color:#1a4faa;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Applications in ${b.name}</div>
+      <div style="font-size:11px;color:#3a3020;line-height:1.75">${b.ans}</div>
+      <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:8px">${b.chips.map(c=>`<span style="background:#e2eeff;border:1px solid #b4cef0;color:#1a4faa;font-size:9px;font-weight:700;padding:3px 9px;border-radius:11px">${c}</span>`).join('')}</div>
+    </div>`;
   } else {
-    branchListHTML = BRANCHES.map(function(b,i){
-      return '<li style="font-size:11.5px;color:#5a4f3f;padding:4px 0;display:flex;align-items:center;gap:8px">'+
-        '<span style="font-family:monospace;font-size:10px;color:#8a7860;min-width:22px">'+(i+1)+'.</span>'+
-        b.name+
-        '<span style="margin-left:auto;width:16px;height:16px;border-radius:50%;border:2px solid #9a8a70;display:inline-block;flex-shrink:0"></span>'+
-        '</li>';
-    }).join('');
+    // No branch selected — show all 10
+    branchListHTML = BRANCHES.map((b,i)=>
+      `<li style="font-size:11.5px;color:#5a4f3f;padding:4px 0;display:flex;align-items:center;gap:8px">
+        <span style="font-family:monospace;font-size:10px;color:#8a7860;min-width:22px">${i+1}.</span>
+        ${b.name}
+        <span style="margin-left:auto;width:16px;height:16px;border-radius:50%;border:2px solid #9a8a70;display:inline-block;flex-shrink:0"></span>
+      </li>`
+    ).join('');
   }
 
-  var tbodyHTML = '';
-  rows.forEach(function(r,i){
-    tbodyHTML +=
-      '<tr>'+
-      '<td style="border:1px solid #9e8e70;height:24px;text-align:center;font-family:monospace;font-size:10px;color:#8a7860">'+(i+1)+'</td>'+
-      '<td style="border:1px solid #9e8e70;height:24px;text-align:center;font-family:monospace;font-size:11px;font-weight:700;color:#1a3a8a">'+(r.v!=null?r.v.toFixed(2):'—')+'</td>'+
-      '<td style="border:1px solid #9e8e70;height:24px;text-align:center;font-family:monospace;font-size:11px;font-weight:600;color:#0d42a8">'+(r.qa!=null?(r.qa*1e12).toFixed(2):'—')+'</td>'+
-      '<td style="border:1px solid #9e8e70;height:24px;text-align:center;font-family:monospace;font-size:11px;font-weight:600;color:#4a1488">'+(r.qd!=null?(r.qd*1e12).toFixed(2):'—')+'</td>'+
-      '<td style="border:1px solid #9e8e70;height:24px;text-align:center;font-family:monospace;font-size:12px;font-weight:700;color:#aaa">—</td>'+
-      '</tr>';
+  // Table rows
+  let tbodyHTML = '';
+  rows.forEach((r,i) => {
+    const bg = i===selRow ? 'background:rgba(41,182,246,.06)' : '';
+    tbodyHTML += `<tr style="${bg}">
+      <td style="border:1px solid #9e8e70;height:36px;text-align:center;font-family:monospace;font-size:11px;color:#8a7860">${i+1}</td>
+      <td style="border:1px solid #9e8e70;height:36px;text-align:center;font-family:monospace;font-size:12px;font-weight:700;color:#1a3a8a">${r.v!=null?r.v.toFixed(2):'—'}</td>
+      <td style="border:1px solid #9e8e70;height:36px;text-align:center;font-family:monospace;font-size:12px;font-weight:600;color:#0d42a8">${r.qa!=null?(r.qa*1e12).toFixed(2):'—'}</td>
+      <td style="border:1px solid #9e8e70;height:36px;text-align:center;font-family:monospace;font-size:12px;font-weight:600;color:#4a1488">${r.qd!=null?(r.qd*1e12).toFixed(2):'—'}</td>
+      <td style="border:1px solid #9e8e70;height:36px;text-align:center;font-family:monospace;font-size:13px;font-weight:700;color:#aaa">—</td>
+    </tr>`;
   });
 
-  return '<!DOCTYPE html>\n<html><head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width,initial-scale=1">\n<title>Dielectric Constant Lab — Saintgits</title>\n'+
-    '<style>\n'+
-    '@page { size:A4 portrait; margin:5mm 6mm; }\n'+
-    '@media print { html { font-size: 7.5pt; } .sheet { padding: 6px 10px 8px 10px; } table { font-size: 7pt; } th, td { padding: 3px 3px; } .qsec { padding: 5px 8px 5px; margin-bottom: 6px; } .sparams { font-size: 7.5pt; } }\n'+
-    '* { box-sizing:border-box; margin:0; padding:0; -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }\n'+
-    'html,body { background:#ffffff !important; color:#1a1610 !important; font-family:\'Nunito\',Arial,sans-serif; }\n'+
-    'body { max-width:800px; margin:0 auto; padding:0; }\n'+
-    '.sheet { position:relative; background:#ffffff; padding:10px 14px 12px 14px; }\n'+
-    '.hdr { padding-bottom:6px; margin-bottom:8px; border-bottom:2px solid #1a1610; }\n'+
-    '.hdr-top { display:flex; align-items:flex-start; gap:8px; margin-bottom:6px; }\n'+
-    '.logo { flex-shrink:0; text-align:center; min-width:50px; }\n'+
-    '.logo .nm { font-size:11px; font-weight:900; letter-spacing:1px; color:#1a1610; }\n'+
-    '.logo .tg { font-size:5.5px; color:#5a4f3f; letter-spacing:2px; text-transform:uppercase; }\n'+
-    '.mid { flex:1; text-align:center; }\n'+
-    '.mid .co { font-size:10.5px; font-weight:900; color:#1a1610; }\n'+
-    '.mid .dep { font-size:8px; color:#5a4f3f; margin-top:1px; }\n'+
-    '.mid .et { font-size:10px; font-weight:900; color:#1a4faa; text-decoration:underline; margin-top:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }\n'+
-    '.info-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px 16px; margin-top:5px; font-size:9px; color:#1a1610; }\n'+
-    '.info-row { display:flex; align-items:baseline; gap:4px; }\n'+
-    '.info-lbl { font-weight:900; white-space:nowrap; color:#3a3020; min-width:62px; }\n'+
-    '.info-val { flex:1; border-bottom:1px solid #8a7a60; min-width:70px; text-align:left; padding:0 3px 1px; }\n'+
-    '.qsec { margin-bottom:8px; padding:7px 10px 7px; background:#f4efe2; border:1.5px solid #c2b9a2; border-radius:4px; }\n'+
-    '.qtext { font-size:11px; font-weight:800; margin-bottom:6px; line-height:1.5; }\n'+
-    '.qblank { border-bottom:2px solid #1a1610; min-width:110px; display:inline-block; text-align:center; font-weight:900; color:#1a4faa; padding:0 4px; vertical-align:bottom; }\n'+
-    'ul.bl { list-style:none; columns:2; gap:10px; margin:0; padding:0; }\n'+
-    'table { width:100%; border-collapse:collapse; margin-bottom:8px; }\n'+
-    'th { background:#ece6d6; font-size:8.5px; font-weight:900; padding:5px 4px; border:1px solid #8a7860; text-align:center; line-height:1.3; }\n'+
-    'th.ch { background:#e1daca; }\n'+
-    '.no-print { display:none; }\n'+
-    '</style>\n'+
+  return `<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8">
+<title>Dielectric Constant Lab — Saintgits</title>
+<style>
+  @page { size:A4 portrait; margin:10mm 8mm; }
+  /* Auto-scale everything to fit one A4 page */
+  @media print {
+    html { font-size: 9pt; }
+    body { transform-origin: top left; }
+    .sheet { padding: 14px 12px 18px 36px; }
+    table { font-size: 8pt; }
+    th, td { padding: 5px 4px; }
+    .qsec { padding: 8px 10px; margin-bottom: 10px; }
+    .sparams { font-size: 9pt; }
+  }
+  * { box-sizing:border-box; margin:0; padding:0; -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+  html,body { background:#ffffff !important; color:#1a1610 !important; font-family:'Nunito',Arial,sans-serif; }
+  body { max-width:800px; margin:0 auto; padding:0; }
+  @media print { @page { size:A4 portrait; margin:14mm 12mm; } }
+  .sheet { position:relative; background:#ffffff; padding:22px 18px 28px 22px; }
+  .sheet::after  { display:none; }
+  .sheet::before { display:none; }
+  .inner { position:relative; z-index:2; }
+  /* ── Formal academic header ── */
+  .hdr { padding-bottom:10px; margin-bottom:12px; border-bottom:2.5px solid #1a1610; }
+  /* Top row: logo + college name */
+  .hdr-top { display:flex; align-items:flex-start; gap:10px; margin-bottom:10px; }
+  .logo { flex-shrink:0; text-align:center; min-width:60px; }
+  .logo .nm { font-size:13px; font-weight:900; letter-spacing:1px; color:#1a1610; }
+  .logo .tg { font-size:6px; color:#5a4f3f; letter-spacing:2px; text-transform:uppercase; }
+  .mid { flex:1; text-align:center; }
+  .mid .co { font-size:12px; font-weight:900; color:#1a1610; }
+  .mid .dep { font-size:9px; color:#5a4f3f; margin-top:2px; }
+  .mid .et { font-size:11px; font-weight:900; color:#1a4faa; text-decoration:underline; margin-top:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  /* Bottom row: 4 info fields in 2x2 grid — always fits inside page width */
+  .info-grid { display:grid; grid-template-columns:1fr 1fr; gap:4px 24px; margin-top:8px; font-size:10px; color:#1a1610; }
+  .info-row { display:flex; align-items:baseline; gap:6px; }
+  .info-lbl { font-weight:900; white-space:nowrap; color:#3a3020; min-width:72px; }
+  .info-val { flex:1; border-bottom:1px solid #8a7a60; min-width:80px; text-align:left; padding:0 4px 1px; }
+  /* Remove rgt — no longer needed */
+  .rgt { display:none; }
+  .qsec { margin-bottom:18px; padding:13px 14px 11px; background:#f4efe2; border:1.5px solid #c2b9a2; border-radius:5px; }
+.qsec .bchk { border-color: #9a8a70; background: #fff; }
+.qsec .blist li.sel .bchk { border-color: var(--blue); }
+.qsec .blist li.sel .bchk::after { background: var(--blue); }
+  .qtext { font-size:13px; font-weight:800; margin-bottom:12px; line-height:1.75; }
+  .qblank { border-bottom:2px solid #1a1610; min-width:130px; display:inline-block; text-align:center; font-weight:900; color:#1a4faa; padding:0 6px; vertical-align:bottom; }
+  ul.bl { list-style:none; columns:2; gap:16px; margin:0; padding:0; }
+  table { width:100%; border-collapse:collapse; margin-bottom:22px; }
+  th { background:#ece6d6; font-size:10px; font-weight:900; padding:9px 7px; border:1px solid #8a7860; text-align:center; line-height:1.4; }
+  th.ch { background:#e1daca; }
+  .no-print { display:none; }
+</style>
 
-```
-'<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">\n'+
-'</head><body>\n'+
-'<div class="sheet"><div class="inner">\n'+
-'<div class="hdr">\n'+
-'<div class="hdr-top">\n'+
-'<div class="logo"><div style="font-size:16px">⚙️</div><div class="nm">SAINTGITS</div><div class="tg">Learn · Grow · Excel</div></div>\n'+
-'<div class="mid"><div class="co">Saintgits College of Engineering (Autonomous)</div><div class="dep">Department of Physics — Modern Physics for Engineering</div><div class="et">Dielectric Constant of a Material (Virtual Lab)</div></div>\n'+
-'</div>\n'+
-'<div class="info-grid">\n'+
-'<div class="info-row"><span class="info-lbl">Exercise No:</span><span class="info-val">'+exNo+'</span></div>\n'+
-'<div class="info-row"><span class="info-lbl">Roll No:</span><span class="info-val">'+rollNo+'</span></div>\n'+
-'<div class="info-row"><span class="info-lbl">Date:</span><span class="info-val">'+exDate+'</span></div>\n'+
-'<div class="info-row"><span class="info-lbl">Name:</span><span class="info-val" style="min-width:120px">'+studName+'</span></div>\n'+
-'</div></div>\n'+
-'<div class="qsec">\n'+
-'<div class="qtext"><strong>Qn.</strong>&nbsp; Explore the applications of dielectric materials in <span class="qblank">'+qblank+'</span> engineering.</div>\n'+
-'<ul class="bl">'+branchListHTML+'</ul>\n'+
-'</div>\n'+
-'<div style="font-size:11px;font-weight:900;text-decoration:underline;margin-bottom:5px">Data Collections:</div>\n'+
-'<div style="font-size:11px;font-weight:800;margin-bottom:5px">Measurement of dielectric constant for <span style="color:#1a4faa;text-decoration:underline">'+MAT_NAME[mat]+'</span></div>\n'+
-'<div style="font-family:monospace;font-size:10px;color:#5a4f3f;margin-bottom:6px;display:flex;gap:18px;flex-wrap:wrap"><span>A = '+aVal+' mm\u00b2</span><span>d = '+dVal+' mm</span></div>\n'+
-'<div style="border:2px solid #1a1610;border-radius:3px;overflow:hidden;margin-bottom:8px">\n'+
-'<table><thead><tr>\n'+
-'<th rowspan="2" style="width:40px">Sl.<br>No</th>\n'+
-'<th rowspan="2" style="width:90px">Applied<br>Voltage (V)</th>\n'+
-'<th colspan="2" class="ch">Plate Charge, Q (\u00d710\u207b\u00b9\u00b2) Coulomb</th>\n'+
-'<th rowspan="2" style="width:110px">Dielectric Constant<br>\u03ba = Q<sub>diel</sub> / Q<sub>air</sub></th>\n'+
-'</tr><tr>\n'+
-'<th style="width:115px">Air (Q<sub>air</sub>)</th>\n'+
-'<th style="width:115px">'+MAT_NAME[mat]+' (Q<sub>'+mat+'</sub>)</th>\n'+
-'</tr></thead><tbody>'+tbodyHTML+'</tbody></table></div>\n'+
-'<div style="display:block;padding:7px 0 6px;border-top:1.5px solid #c8bfa8;">\n'+
-'<div style="display:flex;align-items:flex-end;gap:10px;margin-bottom:6px;"><span style="font-size:12px;font-weight:900;font-family:Georgia,serif;font-style:italic;white-space:nowrap;padding-bottom:2px;">Mean &nbsp;\u03ba &nbsp;=</span><div style="flex:1;border-bottom:2px solid #1a1610;height:20px;min-width:140px;"></div></div>\n'+
-'<div style="display:flex;align-items:flex-end;gap:8px;margin-left:4px;"><span style="font-size:14px;font-weight:900;font-family:Georgia,serif;padding-bottom:2px;">=</span><div style="border-bottom:2px solid #1a1610;height:20px;width:90px;flex-shrink:0;"></div></div>\n'+
-'</div>\n'+
-'<div style="padding-top:8px;border-top:1.5px solid #c8bfa8;">\n'+
-'<div style="font-size:11px;font-weight:900;text-decoration:underline;margin-bottom:6px;">Result :</div>\n'+
-'<div style="display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap;font-size:11px;font-weight:700;">Dielectric constant of given material &nbsp;=<div style="border-bottom:2px solid #1a1610;height:20px;width:120px;display:inline-block;flex-shrink:0;"></div></div>\n'+
-'</div>\n'+
-'</div></div>\n'+
-'</body></html>';
-```
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+</head><body>
+<div class="sheet"><div class="inner">
 
+  <!-- Header -->
+
+  <div class="hdr">
+    <div class="hdr-top">
+      <div class="logo">
+        <div style="font-size:20px">⚙️</div>
+        <div class="nm">SAINTGITS</div>
+        <div class="tg">Learn · Grow · Excel</div>
+      </div>
+      <div class="mid">
+        <div class="co">Saintgits College of Engineering (Autonomous)</div>
+        <div class="dep">Department of Physics — Modern Physics for Engineering</div>
+        <div class="et">Dielectric Constant of a Material (Virtual Lab)</div>
+      </div>
+    </div>
+    <!-- Info fields below — always inside page width on all devices -->
+    <div class="info-grid">
+      <div class="info-row"><span class="info-lbl">Exercise No:</span><span class="info-val">${exNo}</span></div>
+      <div class="info-row"><span class="info-lbl">Roll No:</span><span class="info-val">${rollNo}</span></div>
+      <div class="info-row"><span class="info-lbl">Date:</span><span class="info-val">${exDate}</span></div>
+      <div class="info-row"><span class="info-lbl">Name:</span><span class="info-val" style="min-width:120px">${studName}</span></div>
+    </div>
+  </div>
+
+  <!-- Question -->
+
+  <div class="qsec">
+    <div class="qtext">
+      <strong>Qn.</strong>&nbsp; Explore the applications of dielectric materials in
+      <span class="qblank">${qblank}</span> engineering.
+    </div>
+    <ul class="bl">${branchListHTML}</ul>
+  </div>
+
+  <!-- Data section -->
+
+  <div style="font-size:12px;font-weight:900;text-decoration:underline;margin-bottom:10px">Data Collections:</div>
+  <div style="font-size:12px;font-weight:800;margin-bottom:10px">
+    Measurement of dielectric constant for
+    <span style="color:#1a4faa;text-decoration:underline">${MAT_NAME[mat]}</span>
+  </div>
+  <div style="font-family:monospace;font-size:11px;color:#5a4f3f;margin-bottom:16px;display:flex;gap:24px;flex-wrap:wrap">
+    <span>A = ${aVal} mm²</span>
+    <span>d = ${dVal} mm</span>
+  </div>
+
+  <div style="border:2px solid #1a1610;border-radius:3px;overflow:hidden;margin-bottom:22px">
+  <table>
+    <thead>
+      <tr>
+        <th rowspan="2" style="width:40px">Sl.<br>No</th>
+        <th rowspan="2" style="width:90px">Applied<br>Voltage (V)</th>
+        <th colspan="2" class="ch">Plate Charge, Q (×10⁻¹²) Coulomb</th>
+        <th rowspan="2" style="width:110px">Dielectric Constant<br>κ = Q<sub>diel</sub> / Q<sub>air</sub></th>
+      </tr>
+      <tr>
+        <th style="width:115px">Air (Q<sub>air</sub>)</th>
+        <th style="width:115px">${MAT_NAME[mat]} (Q<sub>${mat}</sub>)</th>
+      </tr>
+    </thead>
+    <tbody>${tbodyHTML}</tbody>
+  </table>
+  </div>
+
+  <div style="display:block;padding:14px 0 10px;border-top:1.5px solid #c8bfa8;">
+    <!-- Line 1: long blank line for writing all kappa values -->
+    <div style="display:flex;align-items:flex-end;gap:10px;margin-bottom:12px;">
+      <span style="font-size:14px;font-weight:900;font-family:Georgia,serif;font-style:italic;white-space:nowrap;padding-bottom:4px;">Mean &nbsp;κ &nbsp;=</span>
+      <div style="flex:1;border-bottom:2px solid #1a1610;height:26px;min-width:160px;"></div>
+    </div>
+    <!-- Line 2: short blank line for final answer -->
+    <div style="display:flex;align-items:flex-end;gap:8px;margin-left:4px;">
+      <span style="font-size:17px;font-weight:900;font-family:Georgia,serif;padding-bottom:4px;">=</span>
+      <div style="border-bottom:2px solid #1a1610;height:26px;width:110px;flex-shrink:0;"></div>
+    </div>
+  </div>
+
+  <div style="padding-top:16px;border-top:1.5px solid #c8bfa8;">
+    <div style="font-size:13px;font-weight:900;text-decoration:underline;margin-bottom:10px;">Result :</div>
+    <div style="display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap;font-size:12px;font-weight:700;">
+      Dielectric constant of given material &nbsp;=
+      <div style="border-bottom:2px solid #1a1610;height:26px;width:130px;display:inline-block;flex-shrink:0;"></div>
+    </div>
+  </div>
+
+</div></div>
+</body></html>`;
 }
 
 /* ══════════════════════════════════════
-PRINT — FIXED FOR iOS / ANDROID
-Uses Blob URL + window.location.href
-(no document.write, no setInterval,
-no window.open popup needed)
+PRINT — opens sheet in new tab then
+auto-triggers print dialog there.
+Works from any context (iframe/sandbox).
 ══════════════════════════════════════ */
 function doPrint() {
-/* 1 — Always save fields */
-saveFields();
-
-/* 2 — Save all lab state so init() can restore it on return */
+/* ── Save entire page HTML in sessionStorage (chunked, 200KB per chunk) ── */
+/* Back button will reassemble and document.write — no reload, no data loss */
+try {
+var fullPage = ‘<!DOCTYPE html>’ + document.documentElement.outerHTML;
+var CHUNK = 200000;
+var chunks = Math.ceil(fullPage.length / CHUNK);
+sessionStorage.setItem(’_pg_chunks’, String(chunks));
+for (var ci = 0; ci < chunks; ci++) {
+sessionStorage.setItem(’*pg*’ + ci, fullPage.slice(ci * CHUNK, (ci + 1) * CHUNK));
+}
+} catch(e) {
+/* sessionStorage full or unavailable — fallback: store JSON state only */
 try {
 sessionStorage.setItem(’_lab_rows’,      JSON.stringify(rows));
 sessionStorage.setItem(’_lab_selRow’,    String(selRow));
 sessionStorage.setItem(’_lab_mode’,      mode);
 sessionStorage.setItem(’_lab_selBranch’, String(selBranch));
-var sv = {};
-[‘slV’,‘slD’,‘slA’,‘slMat’,‘paramA’,‘paramD’].forEach(function(id){
-var el = document.getElementById(id); if (el) sv[id] = el.value;
-});
-sessionStorage.setItem(’_lab_sliders’, JSON.stringify(sv));
+var inp = [‘exNo’,‘exDate’,‘rollNo’,‘studName’,‘paramA’,‘paramD’,‘slV’,‘slD’,‘slA’,‘slMat’];
+var vals = {};
+inp.forEach(function(id){ var el=document.getElementById(id); if(el) vals[id]=el.value; });
+sessionStorage.setItem(’_lab_inputs’, JSON.stringify(vals));
 sessionStorage.setItem(’_lab_restore’, ‘1’);
-} catch(e) {}
+} catch(e2) {}
+}
 
-/* 3 — Build print sheet */
+/* ── Build the standalone sheet HTML ── */
 var sheet = buildSheetHTML();
 
-/* 4 — Toolbar CSS (injected into print page <head>) */
+/* ── Toolbar CSS (injected before </head>) ── */
 var tcss =
 ‘<style>’ +
 ’*{box-sizing:border-box}’ +
-‘html,body{margin:0;padding:0;background:#f0f2f5!important}’ +
+‘html,body{margin:0;padding:0;background:#f0f2f5!important;color:#1a1610!important}’ +
 ‘.ptb{position:fixed;top:0;left:0;right:0;z-index:9999;’ +
 ‘display:flex;align-items:center;gap:6px;padding:8px 12px;’ +
 ‘background:#1a2535;box-shadow:0 2px 10px rgba(0,0,0,.5)}’ +
 ‘.pmid{flex:1;font-size:11px;font-weight:700;color:#a0b8d0;text-align:center;’ +
 ‘overflow:hidden;white-space:nowrap;text-overflow:ellipsis}’ +
-‘.pb{display:inline-flex;align-items:center;gap:4px;padding:11px 16px;border:none;’ +
-‘border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;white-space:nowrap;’ +
+‘.pb{display:inline-flex;align-items:center;gap:4px;padding:9px 15px;border:none;’ +
+‘border-radius:8px;font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap;’ +
 ‘-webkit-tap-highlight-color:transparent;touch-action:manipulation;’ +
-‘user-select:none;-webkit-user-select:none;-webkit-appearance:none;min-height:44px}’ +
+‘user-select:none;-webkit-user-select:none}’ +
 ‘.pb:active{opacity:.7}’ +
 ‘.pback{background:#444;color:#fff}’ +
 ‘.ppdf{background:linear-gradient(135deg,#059669,#047857);color:#fff}’ +
 ‘.pprint{background:linear-gradient(135deg,#1760c8,#0d3ea0);color:#fff}’ +
-‘.psp{height:58px}’ +
+‘.psp{height:54px}’ +
 ‘.psw{max-width:860px;margin:0 auto;padding:16px 18px 40px;box-sizing:border-box}’ +
-‘@media(max-width:600px){.pmid{display:none}.pb{padding:11px 12px;font-size:12px}.psw{padding:8px 4px 24px}}’ +
-‘@media print{html,body{background:#fff!important}.ptb,.psp{display:none!important}’ +
-‘.psw{max-width:100%;padding:0;margin:0}@page{size:A4 portrait;margin:10mm 8mm}}’ +
+‘@media(max-width:600px){.pmid{display:none}.pb{padding:9px 10px;font-size:11px}’ +
+‘.psw{padding:8px 2px 24px}}’ +
+‘@media print{html,body{background:#fff!important}’ +
+‘.ptb,.psp{display:none!important}’ +
+‘.psw{max-width:100%;padding:0;margin:0}’ +
+‘@page{size:A4 portrait;margin:10mm 8mm}}’ +
 ‘</style>’;
 
-/* 5 — Toolbar HTML with INLINE onclick (no JS wiring needed — works on iOS Safari) */
+/* ── Toolbar HTML (injected after <body>) ── */
 var tbar =
 ‘<div class="ptb">’ +
-‘<button class="pb pback"  onclick="window.history.back()">← Back</button>’ +
-‘<span  class="pmid">Dielectric Constant Lab — Print Preview</span>’ +
-‘<button class="pb ppdf"   onclick="window.print()">⬇ Save as PDF</button>’ +
-‘<button class="pb pprint" onclick="window.print()">🖨 Print</button>’ +
-‘</div>’ +
-‘<div class="psp"></div>’ +
-‘<div class="psw">’;
+‘<button class="pb pback" id="pbBack">← Back</button>’ +
+‘<span class="pmid">Dielectric Constant Lab — Print Preview</span>’ +
+‘<button class="pb ppdf"  id="pbPDF">⬇ Save as PDF</button>’ +
+‘<button class="pb pprint" id="pbPrint">🖨 Print</button>’ +
+‘</div><div class="psp"></div><div class="psw">’;
 
-/* 6 — Assemble final HTML */
-var finalHtml = sheet
+/* ── Assemble page ── */
+var page = sheet
 .replace(’</head>’, tcss + ‘</head>’)
-.replace(/(<body[^>]*>)/i, ‘$1’ + tbar)
-.replace(’</body>’, ‘</div></body>’);
+.replace(/(<body[^>]*>)/i, ‘$1’ + tbar);
+page = page.replace(’</body>’, ‘</div></body>’);
 
-/* 7 — Navigate via Blob URL (works on iOS 13+, Android, Desktop)
-Falls back to document.write if Blob/URL.createObjectURL unavailable */
-try {
-var blob = new Blob([finalHtml], { type: ‘text/html; charset=utf-8’ });
-var burl = URL.createObjectURL(blob);
-window.location.href = burl;
-} catch(e) {
-/* Fallback: classic document.write */
+/* ── Write to current tab (no popup, works everywhere) ── */
 document.open();
-document.write(finalHtml);
+document.write(page);
 document.close();
+
+/* ── Wire buttons via polling (avoids race conditions on iOS) ── */
+var tries = 0;
+var wire = setInterval(function() {
+var bk  = document.getElementById(‘pbBack’);
+var pdf = document.getElementById(‘pbPDF’);
+var pr  = document.getElementById(‘pbPrint’);
+if (bk && pdf && pr) {
+clearInterval(wire);
+/* Back — reassemble full page from chunks and write directly (no reload) */
+bk.onclick = function() {
+try {
+var n = parseInt(sessionStorage.getItem(’_pg_chunks’) || ‘0’);
+if (n > 0) {
+var parts = [];
+for (var i = 0; i < n; i++) {
+var chunk = sessionStorage.getItem(’*pg*’ + i);
+if (!chunk) { n = 0; break; }
+parts.push(chunk);
 }
+if (n > 0) {
+var restored = parts.join(’’);
+document.open();
+document.write(restored);
+document.close();
+return;
+}
+}
+/* Fallback: JSON state restore via reload */
+sessionStorage.setItem(’_lab_restore’, ‘1’);
+window.location.reload();
+} catch(e) { window.history.go(-1); }
+};
+/* Print */
+pr.onclick = function() { window.print(); };
+/* Save as PDF */
+pdf.onclick = function() {
+pdf.textContent = ‘Opening…’;
+setTimeout(function() {
+window.print();
+pdf.innerHTML = ‘⬇ Save as PDF’;
+}, 200);
+};
+}
+if (++tries > 40) clearInterval(wire);
+}, 50);
 }
 
 /* ══════════════════════════════════════
-CSV EXPORT — FIXED FOR iOS / ANDROID
-Uses Blob URL + anchor click
-(works iOS 13+; no window.open needed)
+CSV EXPORT — builds CSV string then
+opens a new tab with a download page.
+Works from any context (iframe/sandbox).
 ══════════════════════════════════════ */
 function doCSV() {
-var mat       = document.getElementById(‘slMat’).value;
-var exNo_c    = document.getElementById(‘exNo’).value.trim()    || ‘’;
-var exDate_c  = document.getElementById(‘exDate’).value.trim()  || ‘’;
-var rollNo_c  = document.getElementById(‘rollNo’)   ? document.getElementById(‘rollNo’).value.trim()   : ‘’;
-var studName_c= document.getElementById(‘studName’) ? document.getElementById(‘studName’).value.trim() : ‘’;
-var branch_c  = selBranch !== null ? BRANCHES[selBranch].name : ‘’;
-var ks    = rows.filter(function(r){ return r.k != null; });
-var meanK = ks.length ? (ks.reduce(function(a,b){ return a+b.k; },0)/ks.length).toFixed(4) : ‘’;
-var fname = ‘dielectric_’+mat+(exDate_c?’_’+exDate_c:’’)+’.csv’;
+const mat      = document.getElementById(‘slMat’).value;
+const exNo     = document.getElementById(‘exNo’).value.trim()     || ‘’;
+const exDate   = document.getElementById(‘exDate’).value.trim()   || ‘’;
+const rollNo_c = document.getElementById(‘rollNo’)   ? document.getElementById(‘rollNo’).value.trim()   : ‘’;
+const studName_c=document.getElementById(‘studName’) ? document.getElementById(‘studName’).value.trim() : ‘’;
+const branch   = selBranch !== null ? BRANCHES[selBranch].name : ‘’;
+const ks     = rows.filter(r => r.k != null);
+const meanK  = ks.length ? (ks.reduce((a,b)=>a+b.k,0)/ks.length).toFixed(4) : ‘’;
+const fname  = ‘dielectric_’ + mat + (exDate?’_’+exDate:’’) + ‘.csv’;
 
-var R = [];
+// Build CSV rows
+const R = [];
 R.push([‘Saintgits College of Engineering (Autonomous)’]);
 R.push([‘Dielectric Constant Virtual Lab’]);
-R.push([‘Exercise No’, exNo_c]);
-R.push([‘Date’, exDate_c]);
+R.push([‘Exercise No’, exNo]);
+R.push([‘Date’, exDate]);
 R.push([‘Roll No’, rollNo_c]);
 R.push([‘Name’, studName_c]);
-R.push([‘Branch’, branch_c]);
+R.push([‘Branch’, branch]);
 R.push([‘Material’, MAT_NAME[mat]]);
 R.push([‘A (m2)’, ‘0.0001’]);
 R.push([‘d (m)’, ‘0.01’]);
 R.push([]);
-R.push([‘Sl.No’,‘Applied Voltage (V)’,‘Q_air (x10-12 C)’,‘Q_’+mat+’ (x10-12 C)’,‘Dielectric Constant (kappa)’]);
-rows.forEach(function(r,i){
-R.push([
+R.push([‘Sl.No’, ‘Applied Voltage (V)’, ‘Q_air (x10-12 C)’, ‘Q_’+mat+’ (x10-12 C)’, ‘Dielectric Constant (kappa)’]);
+rows.forEach((r,i) => R.push([
 i+1,
 r.v  != null ? r.v.toFixed(2)         : ‘’,
 r.qa != null ? (r.qa*1e12).toFixed(4) : ‘’,
 r.qd != null ? (r.qd*1e12).toFixed(4) : ‘’,
 r.k  != null ? r.k.toFixed(4)         : ‘’
-]);
-});
+]));
 R.push([]);
-R.push([’’,’’,’’,‘Mean kappa’, meanK]);
-R.push([’’,’’,’’,‘Dielectric constant of given material’, meanK]);
+R.push([’’, ‘’, ‘’, ‘Mean kappa’, meanK]);
+R.push([’’, ‘’, ‘’, ‘Dielectric constant of given material’, meanK]);
 
-var csv = ‘\uFEFF’ + R.map(function(row){
-return row.map(function(c){
-var s = String(c != null ? c : ‘’);
-return (s.indexOf(’,’) >= 0 || s.indexOf(’”’) >= 0) ? ‘”’ + s.replace(/”/g,’””’) + ‘”’ : s;
-}).join(’,’);
-}).join(’\r\n’);
+const csv = ‘\uFEFF’ + R.map(row =>
+row.map(c => { const s=String(c??’’); return (s.includes(’,’)||s.includes(’”’)) ? ‘”’+s.replace(/”/g,’””’)+’”’ : s; }).join(’,’)
+).join(’\r\n’);
 
-/* Blob + anchor click — works on iOS 13+, Android, Desktop */
-try {
-var blob = new Blob([csv], { type: ‘text/csv;charset=utf-8;’ });
-var url  = URL.createObjectURL(blob);
-var a    = document.createElement(‘a’);
-a.style.cssText = ‘position:fixed;top:-999px;left:-999px;opacity:0’;
-a.href     = url;
-a.download = fname;
-document.body.appendChild(a);
-a.click();
-setTimeout(function(){
-try { document.body.removeChild(a); } catch(e2){}
-URL.revokeObjectURL(url);
-}, 2000);
-} catch(e) {
-/* Last-resort: navigate to data URI */
-window.location.href = ‘data:text/csv;charset=utf-8,’ + encodeURIComponent(csv);
-}
+// Try new tab; if blocked, render download page in current tab
+let win = null;
+try { win = window.open(’’, ‘_blank’); } catch(e) {}
+const useCurrentTab = !win || win.closed;
+if (useCurrentTab) win = null;
+const esc  = csv.replace(/&/g,’&’).replace(/</g,’<’).replace(/>/g,’>’);
+const b64  = btoa(unescape(encodeURIComponent(csv)));
+const csvPageHTML = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Download CSV</title>
+
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Segoe UI",system-ui,Arial,sans-serif;background:#f0f4f8;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+  .card{background:#fff;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,.1);padding:36px 40px;max-width:540px;width:100%;text-align:center}
+  h2{color:#1a4faa;font-size:20px;font-weight:800;margin-bottom:8px}
+  .sub{color:#666;font-size:13px;margin-bottom:24px;line-height:1.5}
+  a.dl{display:block;padding:14px 28px;background:linear-gradient(135deg,#1760c8,#0d3ea0);color:#fff;border-radius:10px;text-decoration:none;font-weight:800;font-size:14px;box-shadow:0 4px 14px rgba(23,96,200,.4);margin-bottom:20px;transition:filter .15s}
+  a.dl:hover{filter:brightness(1.1)}
+  .divider{border:none;border-top:1px solid #e8edf4;margin:4px 0 16px}
+  .copy-lbl{font-size:11px;color:#888;margin-bottom:8px}
+  pre{background:#f8fafc;border:1px solid #dde4ee;border-radius:8px;padding:14px;font-size:10px;max-height:240px;overflow:auto;white-space:pre;text-align:left;line-height:1.6}
+</style></head><body>
+
+<div class="card">
+<h2>⬇ Dielectric Lab — CSV Export</h2>
+<p class="sub">Your data is ready. Click below to download <strong>${fname}</strong></p>
+<a class="dl" href="data:text/csv;base64,${b64}" download="${fname}">⬇ Download ${fname}</a>
+<hr class="divider">
+<p class="copy-lbl">Or copy the data below and paste into Excel / a .csv file:</p>
+<pre>${esc}</pre>
+</div>
+</body></html>`;
+  if (win) {
+    win.document.write(csvPageHTML); win.document.close();
+  } else {
+    // Render in current tab — back button reloads original
+    const origHTML = document.body.innerHTML;
+    const bodyMatch = csvPageHTML.match(/<body[^>]*>([\s\S]*)<\/body>/i);
+    const bodyContent = bodyMatch ? bodyMatch[1] : csvPageHTML;
+    document.body.innerHTML = '<button onclick="location.reload()" style="position:fixed;top:12px;left:12px;padding:10px 20px;background:#555;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:800;cursor:pointer;z-index:9999">← Back</button>' + bodyContent;
+    document.title = 'Download CSV — Dielectric Lab';
+    window.scrollTo(0,0);
+  }
 }
 
 /* ══════════════════════════════════════
 CANVAS DRAWING
 ══════════════════════════════════════ */
-var canvas = document.getElementById(‘simCanvas’);
-var ctx    = canvas.getContext(‘2d’);
-var CW     = canvas.width;
-var CH     = canvas.height;
+const canvas = document.getElementById(‘simCanvas’);
+const ctx    = canvas.getContext(‘2d’);
+const CW = canvas.width, CH = canvas.height;
 
 function rgba(hex, a) {
-var n = parseInt(hex.slice(1),16);
-return ‘rgba(’+(n>>16)+’,’+(((n>>8)&0xff))+’,’+(n&0xff)+’,’+a+’)’;
+const n = parseInt(hex.slice(1),16);
+return `rgba(${n>>16},${(n>>8)&0xff},${n&0xff},${a})`;
 }
 
 function drawCanvas(s) {
 ctx.clearRect(0,0,CW,CH);
-var bg = ctx.createLinearGradient(0,0,0,CH);
+
+// Background
+const bg = ctx.createLinearGradient(0,0,0,CH);
 bg.addColorStop(0,’#0f1923’); bg.addColorStop(1,’#090f18’);
 ctx.fillStyle=bg; ctx.fillRect(0,0,CW,CH);
 
-var cx=CW/2, cy=CH/2+8, pw=124, ph=10;
-var gap = (s.d/0.01)*50;
-var ty  = cy - gap/2 - ph;
-var by  = cy + gap/2;
+const cx=CW/2, cy=CH/2+8, pw=124, ph=10;
+const gap = (s.d/0.01)*50;        // pixel gap between plates
+const ty  = cy - gap/2 - ph;      // top-plate top edge
+const by  = cy + gap/2;           // bottom-plate top edge
 
+// ── Dielectric slab ──
 if (mode===‘diel’ && s.mat!==‘air’) {
-var palettes = { teflon:’#ce93d8’, glass:’#80cbc4’, paper:’#ffcc80’ };
-var col = palettes[s.mat] || ‘#90caf9’;
-var sg = ctx.createLinearGradient(0,ty+ph,0,by);
+const palettes = { teflon:’#ce93d8’, glass:’#80cbc4’, paper:’#ffcc80’ };
+const col = palettes[s.mat] || ‘#90caf9’;
+const sg = ctx.createLinearGradient(0,ty+ph,0,by);
 sg.addColorStop(0,  rgba(col,.14));
 sg.addColorStop(.5, rgba(col,.32));
 sg.addColorStop(1,  rgba(col,.14));
@@ -1206,16 +1558,18 @@ ctx.strokeStyle=rgba(col,.45); ctx.lineWidth=1;
 ctx.strokeRect(cx-pw/2+1, ty+ph, pw-2, gap);
 
 ```
-var nrows=2, ncols=3;
-for (var rr=0;rr<nrows;rr++) for (var cc=0;cc<ncols;cc++) {
-  var mx=cx-36+cc*36, my=ty+ph+10+rr*Math.max(6,(gap-20)/Math.max(1,nrows-1));
+// Dipole molecules
+const nrows=2, ncols=3;
+for (let r=0;r<nrows;r++) for (let c=0;c<ncols;c++) {
+  const mx=cx-36+c*36, my=ty+ph+10+r*Math.max(6,(gap-20)/Math.max(1,nrows-1));
   if (my > by-4) continue;
-  var dir = s.v >= 0 ? 1 : -1;
+  const dir = s.v >= 0 ? 1 : -1;
   ctx.beginPath(); ctx.arc(mx-4*dir,my,3.5,0,Math.PI*2);
   ctx.fillStyle='rgba(21,101,192,.88)'; ctx.fill();
   ctx.beginPath(); ctx.arc(mx+4*dir,my,3.5,0,Math.PI*2);
   ctx.fillStyle='rgba(200,40,40,.88)'; ctx.fill();
 }
+// Label
 ctx.fillStyle=rgba(col,.9);
 ctx.font='bold 8.5px sans-serif'; ctx.textAlign='left';
 ctx.fillText(MAT_NAME[s.mat].toUpperCase(), cx-pw/2+5, by-4);
@@ -1223,52 +1577,59 @@ ctx.fillText(MAT_NAME[s.mat].toUpperCase(), cx-pw/2+5, by-4);
 
 }
 
+// ── Electric field lines ──
 if (Math.abs(s.v) > 0.05) {
-var alpha = 0.3 + 0.5 * Math.min(1, Math.abs(s.v)/5.0);
+const alpha = 0.3 + 0.5 * Math.min(1, Math.abs(s.v)/5.0);
 ctx.save();
 ctx.globalAlpha = alpha;
 ctx.strokeStyle=’#29b6f6’; ctx.lineWidth=1; ctx.setLineDash([4,5]);
-for (var i=0;i<5;i++) {
-var fx = cx-pw/2+12+i*(pw-24)/4;
+for (let i=0;i<5;i++) {
+const fx = cx-pw/2+12+i*(pw-24)/4;
 ctx.beginPath(); ctx.moveTo(fx,ty+ph+1); ctx.lineTo(fx,by-1); ctx.stroke();
 ctx.setLineDash([]);
 ctx.fillStyle=’#29b6f6’;
-var ay=ty+ph+(by-ty-ph)/2, fdir=s.v>0?1:-1;
+const ay=ty+ph+(by-ty-ph)/2, dir=s.v>0?1:-1;
 ctx.beginPath();
-ctx.moveTo(fx, ay+fdir*6); ctx.lineTo(fx-3.5,ay-fdir*3); ctx.lineTo(fx+3.5,ay-fdir*3);
+ctx.moveTo(fx, ay+dir*6); ctx.lineTo(fx-3.5,ay-dir*3); ctx.lineTo(fx+3.5,ay-dir*3);
 ctx.closePath(); ctx.fill();
 ctx.setLineDash([4,5]);
 }
 ctx.setLineDash([]); ctx.restore();
 }
 
+// ── Plates ──
 function plate(y) {
+// top bevel
 ctx.beginPath();
 ctx.moveTo(cx-pw/2,y); ctx.lineTo(cx+pw/2,y);
 ctx.lineTo(cx+pw/2+10,y-7); ctx.lineTo(cx-pw/2+10,y-7);
 ctx.closePath(); ctx.fillStyle=’#3a6898’; ctx.fill();
+// front face
 ctx.beginPath();
 ctx.moveTo(cx-pw/2,y); ctx.lineTo(cx+pw/2,y);
 ctx.lineTo(cx+pw/2,y+ph); ctx.lineTo(cx-pw/2,y+ph);
 ctx.closePath();
-var g=ctx.createLinearGradient(0,y,0,y+ph);
+const g=ctx.createLinearGradient(0,y,0,y+ph);
 g.addColorStop(0,’#5888c8’); g.addColorStop(1,’#3668a8’);
 ctx.fillStyle=g; ctx.fill();
 ctx.strokeStyle=’#1e4a80’; ctx.lineWidth=.7; ctx.stroke();
+// shine
 ctx.beginPath(); ctx.moveTo(cx-pw/2+2,y+2); ctx.lineTo(cx+pw/2-2,y+2);
 ctx.strokeStyle=‘rgba(255,255,255,.12)’; ctx.lineWidth=1; ctx.stroke();
 }
 plate(ty); plate(by);
 
+// ── Charge symbols ──
 if (Math.abs(s.v) > 0.05) {
-var ts=s.v>0?’+’:‘−’, bs=s.v>0?‘−’:’+’;
+const ts=s.v>0?’+’:‘−’, bs=s.v>0?‘−’:’+’;
 ctx.font=‘bold 11px sans-serif’; ctx.textAlign=‘center’;
 ctx.fillStyle = s.v>0 ? ‘#ef5350’:’#42a5f5’;
-for(var j=0;j<4;j++) ctx.fillText(ts, cx-40+j*27, ty-3);
+for(let i=0;i<4;i++) ctx.fillText(ts, cx-40+i*27, ty-3);
 ctx.fillStyle = s.v>0 ? ‘#42a5f5’:’#ef5350’;
-for(var k=0;k<4;k++) ctx.fillText(bs, cx-40+k*27, by+ph+12);
+for(let i=0;i<4;i++) ctx.fillText(bs, cx-40+i*27, by+ph+12);
 }
 
+// ── HUD readout ──
 ctx.fillStyle=‘rgba(130,170,200,.7)’;
 ctx.font=‘8.5px monospace’; ctx.textAlign=‘left’;
 ctx.fillText(‘Q = ‘+(s.Q*1e12).toFixed(3)+’ pC’, 5, CH-18);
@@ -1285,81 +1646,46 @@ CW/2, 12
 /* ══════════════════════════════════════
 INIT
 ══════════════════════════════════════ */
-(function init(){
-restoreFields();
-
-try {
-var doRestore = sessionStorage.getItem(’_lab_restore’) === ‘1’;
-if (doRestore) {
-sessionStorage.removeItem(’_lab_restore’);
-
-```
-  var savedRows = JSON.parse(sessionStorage.getItem('_lab_rows') || 'null');
-  if (savedRows) rows = savedRows;
-  var sr = sessionStorage.getItem('_lab_selRow');
-  if (sr !== null) selRow = parseInt(sr) || 0;
-  var sm = sessionStorage.getItem('_lab_mode');
-  if (sm) mode = sm;
-  var sb = sessionStorage.getItem('_lab_selBranch');
-  if (sb !== null) selBranch = (sb === 'null' ? null : parseInt(sb));
-
-  var sliderVals = JSON.parse(sessionStorage.getItem('_lab_sliders') || '{}');
-  ['slV','slD','slA','slMat','paramA','paramD'].forEach(function(id){
-    var el = document.getElementById(id);
-    if (el && sliderVals[id] !== undefined) el.value = sliderVals[id];
-  });
-
-  if (rows[0] && rows[0].qa !== null) {
-    var sp   = document.getElementById('sparams');
-    var note = document.getElementById('paramNote');
-    if (sp)   sp.classList.add('locked');
-    if (note) note.textContent = 'Locked — clear data to edit';
-    var slD = document.getElementById('slD');
-    var slA = document.getElementById('slA');
-    if (slD) { slD.disabled = true; slD.style.opacity = '0.4'; }
-    if (slA) { slA.disabled = true; slA.style.opacity = '0.4'; }
-  }
-
-  buildTable();
-  rows.forEach(function(r,i){
-    if (r.v  != null) setCell('cv'+i, r.v.toFixed(2),         'vc');
-    if (r.qa != null) setCell('ca'+i, (r.qa*1e12).toFixed(2), 'qa');
-    if (r.qd != null) setCell('cd'+i, (r.qd*1e12).toFixed(2), 'qd');
-  });
-
-  if (selBranch !== null) {
-    var items = document.querySelectorAll('#blist li');
-    var b = BRANCHES[selBranch];
-    items.forEach(function(el,j){
-      var on = j===selBranch;
-      el.classList.toggle('sel', on);
-      var chk = document.getElementById('bck'+j);
-      if (chk) chk.textContent = on ? '✓' : '';
-    });
-    var short = b.name.replace(' and Technology','').replace(' Engineering','').replace(' and Computer','').trim();
-    document.getElementById('qblank').textContent = short;
-    var ab = document.getElementById('ansBox');
-    ab.classList.add('show');
-    document.getElementById('ansT').textContent = 'Applications in '+b.name;
-    document.getElementById('ansB').innerHTML   = b.ans;
-    document.getElementById('ansC').innerHTML   = b.chips.map(function(c){ return '<span class="chip">'+c+'</span>'; }).join('');
-  }
-
-  setMode(mode || 'air');
-  buildRowBtns(); hilite(); updateMean();
-  return;
-}
-```
-
-} catch(e){}
-
 buildTable();
-setMode(‘air’);
-
+onSim();
+// Wire clear modal buttons
+(function(){
 var cc = document.getElementById(‘clearCancel’);
 var cf = document.getElementById(‘clearConfirm’);
 if (cc) cc.addEventListener(‘click’, hideClearConfirm);
 if (cf) cf.addEventListener(‘click’, doActualClear);
+})();
+
+// Restore state if returning from print view
+(function(){
+try {
+if (sessionStorage.getItem(’_lab_restore’) !== ‘1’) return;
+sessionStorage.removeItem(’_lab_restore’);
+var savedRows = JSON.parse(sessionStorage.getItem(’_lab_rows’) || ‘null’);
+if (savedRows) rows = savedRows;
+var sr = sessionStorage.getItem(’_lab_selRow’);
+if (sr !== null) selRow = parseInt(sr) || 0;
+var sm = sessionStorage.getItem(’_lab_mode’);
+if (sm) mode = sm;
+var sb = sessionStorage.getItem(’_lab_selBranch’);
+if (sb !== null) selBranch = (sb === ‘null’ ? null : parseInt(sb));
+var si = JSON.parse(sessionStorage.getItem(’_lab_inputs’) || ‘{}’);
+Object.keys(si).forEach(function(id){
+var el = document.getElementById(id);
+if (el) el.value = si[id];
+});
+buildTable(); setMode(mode || ‘air’);
+/* Restore branch selection visually */
+if (selBranch !== null) {
+var items = document.querySelectorAll(’#blist li’);
+items.forEach(function(el, j){
+var on = j === selBranch;
+el.classList.toggle(‘sel’, on);
+var c = document.getElementById(‘bck’+j);
+if (c) c.textContent = on ? ‘✓’ : ‘’;
+});
+}
+} catch(e) {}
 })();
 </script>
 
