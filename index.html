@@ -34,6 +34,7 @@
 –r3: 16px;
 –t: 0.16s ease;
 }
+
 body.ios, body.macos {
 –r1: 10px; –r2: 14px; –r3: 20px;
 font-family: -apple-system, “SF Pro Display”, “Nunito”, sans-serif;
@@ -50,6 +51,7 @@ body.linux, body.other {
 –r1: 6px; –r2: 10px; –r3: 12px;
 font-family: “Noto Sans”, Ubuntu, “Nunito”, sans-serif;
 }
+
 body {
 font-family: “Nunito”, sans-serif;
 background: linear-gradient(150deg, #182338 0%, var(–bg2) 100%);
@@ -58,6 +60,8 @@ color: #c8ddf0;
 display: flex; flex-direction: column; align-items: center;
 -webkit-font-smoothing: antialiased;
 }
+
+/* ══ NAV ══ */
 .nav {
 width: 100%;
 background: rgba(8,16,28,.92);
@@ -82,6 +86,7 @@ flex-shrink: 0;
 .nav-text .t1 { font-size: 7px; color: var(–acc); letter-spacing: 2px; text-transform: uppercase; font-weight: 800; }
 .nav-text .t2 { font-size: 13px; color: #fff; font-weight: 900; line-height: 1.1; }
 .nav-btns { display: flex; gap: 8px; align-items: center; }
+
 .nbtn {
 display: flex; align-items: center; gap: 5px;
 padding: 0 13px; height: 33px;
@@ -97,20 +102,30 @@ white-space: nowrap; letter-spacing: .2px;
 .nbtn-print:hover { filter: brightness(1.12); transform: translateY(-1px); }
 .nbtn:active { transform: scale(.97); }
 body.ios .nbtn, body.macos .nbtn { border-radius: 18px; }
+
+/* ══ LAYOUT ══ */
 .main { width: 100%; max-width: 740px; padding: 16px; display: flex; flex-direction: column; gap: 16px; }
+
+/* ══ DARK CARD ══ */
 .dcard { background: var(–card); border: 1px solid var(–bdr); border-radius: var(–r3); overflow: hidden; box-shadow: 0 6px 28px rgba(0,0,0,.38); }
 .dcard-head { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-bottom: 1px solid var(–bdr); background: rgba(255,255,255,.02); }
 .dcard-icon { width: 30px; height: 30px; border-radius: var(–r1); background: rgba(23,96,200,.22); border: 1px solid rgba(41,182,246,.25); display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
 .dcard-ht { font-size: 12px; font-weight: 800; color: #cee8f8; letter-spacing: .4px; }
 .dcard-hs { font-size: 9px; color: #3d6888; font-weight: 600; margin-top: 1px; }
 .dcard-body { padding: 14px 16px; }
+
+/* ── Mode toggle ── */
 .mtoggle { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; padding: 3px; background: var(–bg); border: 1px solid var(–bdr); border-radius: var(–r2); margin-bottom: 14px; }
 .mbtn { padding: 9px; border: none; border-radius: calc(var(–r2) - 3px); font-family: inherit; font-size: 12px; font-weight: 800; color: #3d6888; background: transparent; cursor: pointer; transition: all .2s; -webkit-tap-highlight-color: transparent; }
 .mbtn.air  { background: linear-gradient(135deg,#1565c0,#0c3ea0); color: #fff; box-shadow: 0 2px 8px rgba(21,101,192,.42); }
 .mbtn.diel { background: linear-gradient(135deg,#6a1b9a,#420d7a); color: #fff; box-shadow: 0 2px 8px rgba(106,27,154,.42); }
+
+/* ── Controls grid ── */
 .cgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
 .cblock { display: flex; flex-direction: column; gap: 5px; }
 .clabel { font-size: 9px; font-weight: 800; color: #3d6888; text-transform: uppercase; letter-spacing: 1.5px; }
+
+/* Slider */
 .srow { display: flex; align-items: center; gap: 8px; }
 .srow input[type=range] { -webkit-appearance: none; flex: 1; height: 5px; background: var(–bdr); border-radius: 3px; outline: none; cursor: pointer; }
 .srow input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; background: radial-gradient(circle at 38% 36%, #7fd7ff, #0280d0); border: 2px solid var(–card); border-radius: 50%; box-shadow: 0 2px 6px rgba(0,0,0,.5); cursor: pointer; }
@@ -118,6 +133,8 @@ body.ios .nbtn, body.macos .nbtn { border-radius: 18px; }
 body.ios .srow input[type=range]::-webkit-slider-thumb  { width: 24px; height: 24px; }
 body.android .srow input[type=range]::-webkit-slider-thumb { width: 22px; height: 22px; }
 body.win .srow input[type=range]::-webkit-slider-thumb  { width: 16px; height: 16px; border-radius: 2px; }
+
+/* ── FIX 3: slim label container — 3 spans properly positioned ── */
 .slim {
 display: flex;
 justify-content: space-between;
@@ -130,12 +147,15 @@ position: relative;
 .slim span { flex: 0 0 auto; }
 .slim span:first-child { text-align: left; }
 .slim span:last-child  { text-align: right; }
+/* Centre label pinned at exact 50% of track */
 .slim span:nth-child(2) {
 position: absolute;
 left: 50%;
 transform: translateX(-50%);
 }
+
 .sval { font-family: ‘Source Code Pro’, monospace; font-size: 11px; font-weight: 600; color: var(–acc); background: rgba(41,182,246,.1); border: 1px solid rgba(41,182,246,.2); padding: 3px 7px; border-radius: var(–r1); min-width: 60px; text-align: center; white-space: nowrap; }
+
 @media (max-width: 600px) {
 .cblock { gap: 3px; }
 .srow { flex-wrap: wrap; }
@@ -143,8 +163,11 @@ transform: translateX(-50%);
 .srow input[type=range] { width: 100%; min-width: 0; }
 .cgrid { grid-template-columns: 1fr; gap: 8px; }
 }
+
 .msel { width: 100%; background: var(–bg); color: #c8ddf0; border: 1px solid var(–bdr); border-radius: var(–r1); padding: 8px 10px; font-family: inherit; font-size: 12px; font-weight: 700; cursor: pointer; outline: none; -webkit-appearance: none; appearance: none; }
 .msel:focus { border-color: var(–acc); }
+
+/* ── Canvas + meters ── */
 .crow { display: flex; gap: 12px; margin-bottom: 14px; }
 #simCanvas { border-radius: var(–r2); border: 1px solid var(–bdr); flex-shrink: 0; display: block; }
 .meters { flex: 1; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
@@ -154,25 +177,35 @@ transform: translateX(-50%);
 .mu { font-size: 8px; color: #1e3a50; margin-top: 1px; }
 .meter.vlt .mv { color: var(–ylw); }
 .meter.kap .mv { color: var(–pur); }
+
+/* ── Row selector ── */
 .rowsel { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
 .rbtn { padding: 8px 16px; min-height: 40px; background: var(–bg); border: 1.5px solid var(–bdr); color: #3d6888; border-radius: var(–r1); font-family: inherit; font-size: 12px; font-weight: 800; cursor: pointer; transition: all var(–t); display: flex; align-items: center; justify-content: center; -webkit-tap-highlight-color: transparent; touch-action: manipulation; user-select: none; -webkit-user-select: none; }
 .rbtn:hover { border-color: var(–bdr2); color: #88b8d8; }
 .rbtn.sel  { background: rgba(23,96,200,.28); color: #fff; border-color: var(–acc); }
 .rbtn.done { border-color: rgba(86,192,90,.5); color: var(–grn); }
 .rbtn.done.sel { background: rgba(42,106,48,.28); border-color: var(–grn); }
+
+/* ── Status bar ── */
 .sbar { font-size: 10px; font-weight: 700; color: #3d6888; margin-bottom: 12px; padding: 7px 12px; text-align: center; background: var(–bg); border: 1px solid var(–bdr); border-radius: var(–r1); line-height: 1.4; min-height: 34px; display: flex; align-items: center; justify-content: center; }
 .sbar.ok   { color: var(–grn); border-color: rgba(86,192,90,.35);  background: rgba(42,106,48,.1); }
 .sbar.warn { color: var(–ylw); border-color: rgba(255,179,71,.35); background: rgba(180,100,0,.1); }
 .sbar.err  { color: var(–red); border-color: rgba(239,83,80,.35);  background: rgba(180,0,0,.1); }
+
+/* ── Record button ── */
 .recbtn { width: 100%; padding: 13px; min-height: 46px; border: none; border-radius: var(–r2); font-family: inherit; font-size: 14px; font-weight: 900; cursor: pointer; transition: all .2s; letter-spacing: .2px; display: flex; align-items: center; justify-content: center; gap: 8px; -webkit-tap-highlight-color: transparent; }
 .recbtn.air  { background: linear-gradient(135deg,#1976d2,#1250a8); color: #fff; box-shadow: 0 4px 16px rgba(23,120,210,.42); }
 .recbtn.diel { background: linear-gradient(135deg,#7b1fa2,#520a82); color: #fff; box-shadow: 0 4px 16px rgba(123,31,162,.42); }
 .recbtn:hover { filter: brightness(1.1); transform: translateY(-1px); }
 .recbtn:active { transform: scale(.98); filter: brightness(.96); }
+
+/* ══ LAB SHEET ══ */
 .labsheet { width: 100%; background: #ffffff; border-radius: var(–r2); box-shadow: 0 4px 0 rgba(0,0,0,.25), 0 12px 36px rgba(0,0,0,.35); position: relative; overflow: hidden; }
 .labsheet::after  { display: none; }
 .labsheet::before { display: none; }
 .sheet { position: relative; z-index: 2; padding: 22px 18px 28px 22px; }
+
+/* ── Sheet header ── */
 .shdr { display: flex; align-items: flex-start; gap: 12px; flex-wrap: wrap; padding-bottom: 14px; margin-bottom: 16px; border-bottom: 2.5px solid var(–ink); }
 .slogo { flex-shrink: 0; }
 .slogo .ln { font-size: 14px; font-weight: 900; color: var(–ink); letter-spacing: 1px; }
@@ -189,6 +222,8 @@ transform: translateX(-50%);
 .sfield { display: inline-block; border: none; border-bottom: 1.5px solid var(–inkl); background: transparent; font-family: inherit; font-size: 10px; color: var(–ink); padding: 0 4px; outline: none; text-align: center; -webkit-appearance: none; }
 .sfield:focus { border-bottom-color: var(–blue); color: var(–blue); }
 input[type=“date”].sfield { min-width: 112px; font-size: 9px; cursor: pointer; }
+
+/* ── Question section ── */
 .qsec { margin-bottom: 18px; padding: 13px 14px 11px; background: #f4efe2; border: 1.5px solid #c2b9a2; border-radius: 5px; }
 .qtext { font-size: 13px; font-weight: 800; color: var(–ink); margin-bottom: 12px; line-height: 1.75; }
 .qblank { display: inline-block; border-bottom: 2px solid var(–ink); min-width: 130px; padding: 0 6px; text-align: center; font-weight: 900; color: var(–blue); vertical-align: bottom; transition: color .2s; }
@@ -203,12 +238,15 @@ input[type=“date”].sfield { min-width: 112px; font-size: 9px; cursor: pointe
 .bchk::after { content: ‘’; width: 9px; height: 9px; border-radius: 50%; background: transparent; transition: background .15s; }
 .blist li.sel .bchk { border-color: var(–blue); }
 .blist li.sel .bchk::after { background: var(–blue); }
+
 .ansbox { display: none; margin-top: 12px; padding: 10px 12px; background: #fff; border: 1px solid #cec6b0; border-radius: 4px; }
 .ansbox.show { display: block; }
 .anstitle { font-size: 10px; font-weight: 800; color: var(–blue); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
 .ansbody  { font-size: 11px; color: #3a3020; line-height: 1.75; }
 .anschips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
 .chip { background: #e2eeff; border: 1px solid #b4cef0; color: #1a4faa; font-size: 9px; font-weight: 700; padding: 3px 9px; border-radius: 11px; }
+
+/* ── Data section ── */
 .stitle { font-size: 12px; font-weight: 900; color: var(–ink); margin-bottom: 10px; text-decoration: underline; text-underline-offset: 3px; }
 .sparams { font-family: ‘Source Code Pro’, monospace; font-size: 11px; color: var(–inkl); margin-bottom: 14px; display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
 .sparams label { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
@@ -217,6 +255,8 @@ input[type=“date”].sfield { min-width: 112px; font-size: 9px; cursor: pointe
 .sparams input[type=number]:focus { border-bottom-color: var(–blue); }
 .sparams.locked { opacity: 0.5; pointer-events: none; }
 .param-lock-note { font-size: 9px; color: #8a7a60; font-style: italic; }
+
+/* Table */
 .twrap { overflow-x: auto; border: 2px solid var(–ink); border-radius: 3px; margin-bottom: 22px; -webkit-overflow-scrolling: touch; }
 table { width: 100%; border-collapse: collapse; min-width: 420px; }
 th { background: #ece6d6; color: var(–ink); font-family: “Nunito”, sans-serif; font-size: 10px; font-weight: 900; padding: 9px 7px; border: 1px solid #8a7860; text-align: center; line-height: 1.4; }
@@ -234,6 +274,8 @@ td.fl .cell { animation: flash 1.4s ease-out forwards; }
 tr.act td { background: rgba(41,182,246,.07); box-shadow: inset 0 0 0 2px rgba(41,182,246,.22); }
 tr:hover td { background: rgba(0,0,0,.02); }
 tr.act:hover td { background: rgba(41,182,246,.09); }
+
+/* Mean / Result */
 .mrow { display:block; padding:14px 0 10px; border-top:1.5px solid var(–rule); }
 .mline1 { display:flex; align-items:flex-end; gap:10px; margin-bottom:12px; }
 .mline1-lbl { font-size:14px; font-weight:900; color:var(–ink); font-family:Georgia,serif; font-style:italic; white-space:nowrap; padding-bottom:4px; }
@@ -245,6 +287,8 @@ tr.act:hover td { background: rgba(41,182,246,.09); }
 .rlbl { font-size:13px; font-weight:900; color:var(–ink); text-decoration:underline; text-underline-offset:4px; margin-bottom:10px; }
 .rrow { display:flex; align-items:flex-end; gap:8px; flex-wrap:wrap; font-size:12px; font-weight:700; color:var(–ink); }
 .rval-dash { border-bottom:2px solid var(–ink); height:26px; width:130px; display:inline-block; flex-shrink:0; }
+
+/* Sheet actions */
 .sacts { display: flex; gap: 8px; margin-top: 16px; padding-top: 14px; border-top: 1px dashed var(–rule); flex-wrap: wrap; }
 .sact { padding: 10px 18px; min-height: 42px; border-radius: var(–r1); font-family: inherit; font-size: 12px; font-weight: 800; cursor: pointer; border: 1.5px solid; background: transparent; transition: all .2s; -webkit-tap-highlight-color: transparent; touch-action: manipulation; user-select: none; -webkit-user-select: none; }
 .sact.del { border-color: #b02020; color: #b02020; }
@@ -253,6 +297,8 @@ tr.act:hover td { background: rgba(41,182,246,.09); }
 .sact.csv:hover { background: var(–blue); color: #fff; }
 .sact.prt { border-color: #2a6a30; color: #2a6a30; }
 .sact.prt:hover { background: #2a6a30; color: #fff; }
+
+/* ══ PRINT ══ */
 @media print {
 @page { margin: 14mm 12mm; size: A4 portrait; }
 *, *::before, *::after { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
@@ -280,6 +326,9 @@ table { page-break-inside: avoid; }
 
 </head>
 <body>
+
+<!-- ══ TOP NAV ══ -->
+
 <nav class="nav">
   <div class="nav-brand">
     <div class="nav-gem">⚡</div>
@@ -290,7 +339,11 @@ table { page-break-inside: avoid; }
   </div>
   <div class="nav-btns"></div>
 </nav>
+
 <div class="main">
+
+<!-- ══ SIMULATOR CARD ══ -->
+
 <div class="dcard">
   <div class="dcard-head">
     <div class="dcard-icon">⚗️</div>
@@ -300,166 +353,191 @@ table { page-break-inside: avoid; }
     </div>
   </div>
   <div class="dcard-body">
-    <div class="mtoggle">
-      <button class="mbtn air"  id="btnAir"  onclick="setMode('air')">🌬️  Air Mode</button>
-      <button class="mbtn"      id="btnDiel" onclick="setMode('diel')">🧊  Dielectric Mode</button>
-    </div>
-    <div class="cgrid">
-      <div class="cblock">
-        <div class="clabel">⚡ Battery Voltage</div>
-        <div class="srow">
-          <input type="range" id="slV" min="-50" max="50" value="10" step="1" oninput="onSim()">
-          <div class="sval" id="dispV">+1.00 V</div>
-        </div>
-        <div class="slim"><span>−5.0 V</span><span>0</span><span>+5.0 V</span></div>
-      </div>
-      <div class="cblock">
-        <div class="clabel">📐 Plate Separation</div>
-        <div class="srow">
-          <input type="range" id="slD" min="5" max="10" value="10" step="0.5" oninput="syncParams();onSim()">
-          <div class="sval" id="dispD">10.0 mm</div>
-        </div>
-        <div class="slim"><span>5 mm</span><span>10 mm</span></div>
-      </div>
-      <div class="cblock">
-        <div class="clabel">⬜ Plate Area</div>
-        <div class="srow">
-          <input type="range" id="slA" min="100" max="400" value="100" step="50" oninput="syncParams();onSim()">
-          <div class="sval" id="dispA">100 mm²</div>
-        </div>
-        <div class="slim"><span>100 mm²</span><span>400 mm²</span></div>
-      </div>
-      <div class="cblock">
-        <div class="clabel">🧊 Dielectric Material</div>
-        <select class="msel" id="slMat" onchange="onSim()">
-          <option value="air">Air  (κ = 1.00)</option>
-          <option value="teflon" selected>Teflon  (κ = 2.10)</option>
-          <option value="glass">Glass  (κ = 4.70)</option>
-          <option value="paper">Paper  (κ = 3.50)</option>
-        </select>
-      </div>
-    </div>
-    <div class="crow">
-      <canvas id="simCanvas" width="168" height="168"></canvas>
-      <div class="meters">
-        <div class="meter vlt">
-          <div class="ml">Voltage |V|</div>
-          <div class="mv" id="mV">—</div>
-          <div class="mu">Volts (V)</div>
-        </div>
-        <div class="meter">
-          <div class="ml">Capacitance C</div>
-          <div class="mv" id="mC">—</div>
-          <div class="mu">× 10⁻¹² F (pF)</div>
-        </div>
-        <div class="meter">
-          <div class="ml">Charge Q</div>
-          <div class="mv" id="mQ">—</div>
-          <div class="mu">× 10⁻¹² C (pC)</div>
-        </div>
-        <div class="meter kap">
-          <div class="ml">κ (preview)</div>
-          <div class="mv" id="mK">—</div>
-        </div>
-      </div>
-    </div>
-    <div class="clabel" style="margin-bottom:7px">📌 Active Row</div>
-    <div class="rowsel" id="rowSel"></div>
-    <div class="sbar" id="statBar">Select a row → set voltage → click Record Air Charge.</div>
-    <button class="recbtn air" id="recBtn" onclick="doRecord()">🌬️  Record Air Charge</button>
-  </div>
-</div>
-<div class="labsheet">
-  <div class="sheet">
-    <div class="shdr">
-      <div class="slogo">
-        <div style="font-size:22px;line-height:1.1">⚙️</div>
-        <div class="ln">SAINTGITS</div>
-        <div class="lt">Learn · Grow · Excel</div>
-      </div>
-      <div class="smid">
-        <div class="cn">Saintgits College of Engineering (Autonomous)</div>
-        <div class="dep">Department of Physics — Modern Physics for Engineering</div>
-        <div class="et">Dielectric Constant of a Material (Virtual Lab)</div>
-      </div>
-      <div class="sright">
-        <div>Exercise No:&nbsp;<input class="sfield" id="exNo" type="text" placeholder="___" maxlength="10" style="min-width:52px" oninput="saveFields()"></div>
-        <div>Date:&nbsp;<input class="sfield" id="exDate" type="date" style="min-width:115px" onchange="saveFields()"></div>
-        <div>Roll No:&nbsp;<input class="sfield" id="rollNo" type="text" placeholder="___" maxlength="20" style="min-width:80px" oninput="saveFields()"></div>
-        <div>Name:&nbsp;<input class="sfield" id="studName" type="text" placeholder="___________" maxlength="50" style="min-width:120px" oninput="saveFields()"></div>
-      </div>
-    </div>
-    <div class="qsec">
-      <div class="qtext">
-        <strong>Qn.</strong>&nbsp; Explore the applications of dielectric materials in
-        <span class="qblank" id="qblank">____________</span> engineering.
-      </div>
-      <ul class="blist" id="blist">
-        <li onclick="pickBranch(0)"><span class="bnum">1.</span>Chemical Engineering<span class="bchk" id="bck0"></span></li>
-        <li onclick="pickBranch(1)"><span class="bnum">2.</span>Civil Engineering<span class="bchk" id="bck1"></span></li>
-        <li onclick="pickBranch(2)"><span class="bnum">3.</span>Computer Science and Engineering<span class="bchk" id="bck2"></span></li>
-        <li onclick="pickBranch(3)"><span class="bnum">4.</span>Electrical-Electronics Engineering<span class="bchk" id="bck3"></span></li>
-        <li onclick="pickBranch(4)"><span class="bnum">5.</span>Electronics and Communication Engineering<span class="bchk" id="bck4"></span></li>
-        <li onclick="pickBranch(5)"><span class="bnum">6.</span>Food Technology<span class="bchk" id="bck5"></span></li>
-        <li onclick="pickBranch(6)"><span class="bnum">7.</span>Mechanical Engineering<span class="bchk" id="bck6"></span></li>
-        <li onclick="pickBranch(7)"><span class="bnum">8.</span>Robotics and Automation<span class="bchk" id="bck7"></span></li>
-        <li onclick="pickBranch(8)"><span class="bnum">9.</span>Electronics and Computer Engineering<span class="bchk" id="bck8"></span></li>
-        <li onclick="pickBranch(9)"><span class="bnum">10.</span>VLSI Design and Technology<span class="bchk" id="bck9"></span></li>
-      </ul>
-      <div class="ansbox" id="ansBox">
-        <div class="anstitle" id="ansT"></div>
-        <div class="ansbody"  id="ansB"></div>
-        <div class="anschips" id="ansC"></div>
-      </div>
-    </div>
-    <div class="stitle">Data Collections:</div>
-    <div style="font-size:12px;font-weight:800;color:var(--ink);margin-bottom:10px">
-      Measurement of dielectric constant for
-      <span id="matName" style="color:var(--blue);text-decoration:underline;text-underline-offset:2px">Teflon</span>
-    </div>
-    <div class="sparams" id="sparams">
-      <label>A =&nbsp;<input type="number" id="paramA" value="100" min="1" max="9999" step="1" title="Plate area in mm²">&nbsp;mm²</label>
-      <label>d =&nbsp;<input type="number" id="paramD" value="10"  min="1" max="100"  step="0.5" title="Separation in mm">&nbsp;mm</label>
-      <span class="param-lock-note" id="paramNote">Edit before recording Row 1</span>
-    </div>
-    <div class="twrap">
-      <table>
-        <thead>
-          <tr>
-            <th rowspan="2" style="width:40px">Sl.<br>No</th>
-            <th rowspan="2" style="width:90px">Applied<br>Voltage (V)</th>
-            <th colspan="2" class="ch">Plate Charge, Q (×10⁻¹²) Coulomb</th>
-            <th rowspan="2" style="width:110px">Dielectric Constant<br>κ = Q<sub>diel</sub> / Q<sub>air</sub></th>
-          </tr>
-          <tr>
-            <th style="width:115px">Air (Q<sub>air</sub>)</th>
-            <th style="width:115px" id="colDH">Teflon (Q<sub>teflon</sub>)</th>
-          </tr>
-        </thead>
-        <tbody id="tbody"></tbody>
-      </table>
-    </div>
-    <div class="mrow">
-      <div class="mline1">
-        <span class="mline1-lbl">Mean &nbsp;κ &nbsp;=</span>
-        <div class="mline1-bar"></div>
-      </div>
-      <div class="mline2">
-        <span class="mline2-eq">=</span>
-        <div class="mline2-bar"></div>
-      </div>
-    </div>
-    <div class="rsec">
-      <div class="rlbl">Result :</div>
-      <div class="rrow">
-        Dielectric constant of given material &nbsp;=&nbsp;<div class="rval-dash"></div>
-      </div>
-    </div>
 
 ```
+<div class="mtoggle">
+  <button class="mbtn air"  id="btnAir"  onclick="setMode('air')">🌬️  Air Mode</button>
+  <button class="mbtn"      id="btnDiel" onclick="setMode('diel')">🧊  Dielectric Mode</button>
+</div>
+
+<div class="cgrid">
+  <!-- Voltage: -5.0 V to +5.0 V, step 0.1 -->
+  <div class="cblock">
+    <div class="clabel">⚡ Battery Voltage</div>
+    <div class="srow">
+      <input type="range" id="slV" min="-50" max="50" value="10" step="1" oninput="onSim()">
+      <div class="sval" id="dispV">+1.00 V</div>
+    </div>
+    <!-- FIX 3: All 3 spans present so zero is centred under the mid-point of the track -->
+    <div class="slim"><span>−5.0 V</span><span>0</span><span>+5.0 V</span></div>
+  </div>
+  <!-- Separation -->
+  <div class="cblock">
+    <div class="clabel">📐 Plate Separation</div>
+    <div class="srow">
+      <input type="range" id="slD" min="5" max="10" value="10" step="0.5" oninput="syncParams();onSim()">
+      <div class="sval" id="dispD">10.0 mm</div>
+    </div>
+    <div class="slim"><span>5 mm</span><span>10 mm</span></div>
+  </div>
+  <!-- Area -->
+  <div class="cblock">
+    <div class="clabel">⬜ Plate Area</div>
+    <div class="srow">
+      <input type="range" id="slA" min="100" max="400" value="100" step="50" oninput="syncParams();onSim()">
+      <div class="sval" id="dispA">100 mm²</div>
+    </div>
+    <div class="slim"><span>100 mm²</span><span>400 mm²</span></div>
+  </div>
+  <!-- Material -->
+  <div class="cblock">
+    <div class="clabel">🧊 Dielectric Material</div>
+    <select class="msel" id="slMat" onchange="onSim()">
+      <option value="air">Air  (κ = 1.00)</option>
+      <option value="teflon" selected>Teflon  (κ = 2.10)</option>
+      <option value="glass">Glass  (κ = 4.70)</option>
+      <option value="paper">Paper  (κ = 3.50)</option>
+    </select>
+  </div>
+</div>
+
+<!-- Canvas + live meters -->
+<div class="crow">
+  <canvas id="simCanvas" width="168" height="168"></canvas>
+  <div class="meters">
+    <div class="meter vlt">
+      <div class="ml">Voltage |V|</div>
+      <div class="mv" id="mV">—</div>
+      <div class="mu">Volts (V)</div>
+    </div>
+    <div class="meter">
+      <div class="ml">Capacitance C</div>
+      <div class="mv" id="mC">—</div>
+      <div class="mu">× 10⁻¹² F (pF)</div>
+    </div>
+    <div class="meter">
+      <div class="ml">Charge Q</div>
+      <div class="mv" id="mQ">—</div>
+      <div class="mu">× 10⁻¹² C (pC)</div>
+    </div>
+    <div class="meter kap">
+      <div class="ml">κ (preview)</div>
+      <div class="mv" id="mK">—</div>
+    </div>
+  </div>
+</div>
+
+<!-- Row picker -->
+<div class="clabel" style="margin-bottom:7px">📌 Active Row</div>
+<div class="rowsel" id="rowSel"></div>
+<div class="sbar" id="statBar">Select a row → set voltage → click Record Air Charge.</div>
+<button class="recbtn air" id="recBtn" onclick="doRecord()">🌬️  Record Air Charge</button>
+```
+
+  </div>
+</div><!-- /dcard -->
+
+<!-- ══ LAB SHEET ══ -->
+
+<div class="labsheet">
+  <div class="sheet">
+
+```
+<!-- Header -->
+<div class="shdr">
+  <div class="slogo">
+    <div style="font-size:22px;line-height:1.1">⚙️</div>
+    <div class="ln">SAINTGITS</div>
+    <div class="lt">Learn · Grow · Excel</div>
+  </div>
+  <div class="smid">
+    <div class="cn">Saintgits College of Engineering (Autonomous)</div>
+    <div class="dep">Department of Physics — Modern Physics for Engineering</div>
+    <div class="et">Dielectric Constant of a Material (Virtual Lab)</div>
+  </div>
+  <div class="sright">
+    <div>Exercise No:&nbsp;<input class="sfield" id="exNo" type="text" placeholder="___" maxlength="10" style="min-width:52px" oninput="saveFields()"></div>
+    <div>Date:&nbsp;<input class="sfield" id="exDate" type="date" style="min-width:115px" onchange="saveFields()"></div>
+    <div>Roll No:&nbsp;<input class="sfield" id="rollNo" type="text" placeholder="___" maxlength="20" style="min-width:80px" oninput="saveFields()"></div>
+    <div>Name:&nbsp;<input class="sfield" id="studName" type="text" placeholder="___________" maxlength="50" style="min-width:120px" oninput="saveFields()"></div>
+  </div>
+</div>
+
+<!-- Qn. section -->
+<div class="qsec">
+  <div class="qtext">
+    <strong>Qn.</strong>&nbsp; Explore the applications of dielectric materials in
+    <span class="qblank" id="qblank">____________</span> engineering.
+  </div>
+  <ul class="blist" id="blist">
+    <li onclick="pickBranch(0)"><span class="bnum">1.</span>Chemical Engineering<span class="bchk" id="bck0"></span></li>
+    <li onclick="pickBranch(1)"><span class="bnum">2.</span>Civil Engineering<span class="bchk" id="bck1"></span></li>
+    <li onclick="pickBranch(2)"><span class="bnum">3.</span>Computer Science and Engineering<span class="bchk" id="bck2"></span></li>
+    <li onclick="pickBranch(3)"><span class="bnum">4.</span>Electrical-Electronics Engineering<span class="bchk" id="bck3"></span></li>
+    <li onclick="pickBranch(4)"><span class="bnum">5.</span>Electronics and Communication Engineering<span class="bchk" id="bck4"></span></li>
+    <li onclick="pickBranch(5)"><span class="bnum">6.</span>Food Technology<span class="bchk" id="bck5"></span></li>
+    <li onclick="pickBranch(6)"><span class="bnum">7.</span>Mechanical Engineering<span class="bchk" id="bck6"></span></li>
+    <li onclick="pickBranch(7)"><span class="bnum">8.</span>Robotics and Automation<span class="bchk" id="bck7"></span></li>
+    <li onclick="pickBranch(8)"><span class="bnum">9.</span>Electronics and Computer Engineering<span class="bchk" id="bck8"></span></li>
+    <li onclick="pickBranch(9)"><span class="bnum">10.</span>VLSI Design and Technology<span class="bchk" id="bck9"></span></li>
+  </ul>
+  <div class="ansbox" id="ansBox">
+    <div class="anstitle" id="ansT"></div>
+    <div class="ansbody"  id="ansB"></div>
+    <div class="anschips" id="ansC"></div>
+  </div>
+</div>
+
+<!-- Data table -->
+<div class="stitle">Data Collections:</div>
+<div style="font-size:12px;font-weight:800;color:var(--ink);margin-bottom:10px">
+  Measurement of dielectric constant for
+  <span id="matName" style="color:var(--blue);text-decoration:underline;text-underline-offset:2px">Teflon</span>
+</div>
+<div class="sparams" id="sparams">
+  <label>A =&nbsp;<input type="number" id="paramA" value="100" min="1" max="9999" step="1" title="Plate area in mm²">&nbsp;mm²</label>
+  <label>d =&nbsp;<input type="number" id="paramD" value="10"  min="1" max="100"  step="0.5" title="Separation in mm">&nbsp;mm</label>
+  <span class="param-lock-note" id="paramNote">Edit before recording Row 1</span>
+</div>
+
+<div class="twrap">
+  <table>
+    <thead>
+      <tr>
+        <th rowspan="2" style="width:40px">Sl.<br>No</th>
+        <th rowspan="2" style="width:90px">Applied<br>Voltage (V)</th>
+        <th colspan="2" class="ch">Plate Charge, Q (×10⁻¹²) Coulomb</th>
+        <th rowspan="2" style="width:110px">Dielectric Constant<br>κ = Q<sub>diel</sub> / Q<sub>air</sub></th>
+      </tr>
+      <tr>
+        <th style="width:115px">Air (Q<sub>air</sub>)</th>
+        <th style="width:115px" id="colDH">Teflon (Q<sub>teflon</sub>)</th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+</div>
+
+<div class="mrow">
+  <div class="mline1">
+    <span class="mline1-lbl">Mean &nbsp;κ &nbsp;=</span>
+    <div class="mline1-bar"></div>
+  </div>
+  <div class="mline2">
+    <span class="mline2-eq">=</span>
+    <div class="mline2-bar"></div>
+  </div>
+</div>
+<div class="rsec">
+  <div class="rlbl">Result :</div>
+  <div class="rrow">
+    Dielectric constant of given material &nbsp;=&nbsp;<div class="rval-dash"></div>
+  </div>
+</div>
+
 <div class="concsec" style="padding-top:16px;border-top:1.5px solid var(--rule);margin-top:4px;">
   <div class="rlbl">Conclusion :</div>
-  <div id="concText" style="font-size:12px;color:#3a3020;line-height:1.85;font-weight:600;">
+  <div style="font-size:12px;color:#3a3020;line-height:1.85;font-weight:600;">
     The experiment successfully determined the dielectric constant
     (<em style="font-family:Georgia,serif;font-weight:900;font-style:italic">κ</em>) for
     <strong id="concMat">Teflon</strong> by comparing the plate charge in a vacuum (air)
@@ -476,6 +554,9 @@ table { page-break-inside: avoid; }
 
   </div>
 </div>
+
+<!-- ══ CLEAR CONFIRM MODAL ══ -->
+
 <div id="clearModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;
   z-index:9000;background:rgba(0,0,0,.65);">
   <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
@@ -500,8 +581,30 @@ table { page-break-inside: avoid; }
     </div>
   </div>
 </div>
-</div>
+</div><!-- /main -->
+
 <script>
+/* ══════════════════════════════════════════════════════════════
+   FIX 1 — ALL TOP-LEVEL DECLARATIONS USE var (NOT const/let)
+   so that document.write() re-running this script in the same
+   Window does NOT throw "Identifier already declared" errors.
+   var is hoisted and silently re-assigned on re-declaration.
+══════════════════════════════════════════════════════════════ */
+
+/* ── OS detection ── */
+(function(){
+  var ua = navigator.userAgent, p = navigator.platform || '';
+  var c;
+  if (/iPad|iPhone|iPod/.test(ua) || (navigator.maxTouchPoints > 1 && /Mac/.test(ua))) c='ios';
+  else if (/Macintosh|Mac OS X/.test(ua)) c='macos';
+  else if (/Android/.test(ua)) c='android';
+  else if (/Win/.test(p)||/Windows/.test(ua)) c='win';
+  else if (/Linux/.test(p)) c='linux';
+  else c='other';
+  document.body.classList.add(c);
+})();
+
+/* ── Constants ── */
 var E0      = 8.854e-12;
 var KAPPA   = { air:1.00, teflon:2.10, glass:4.70, paper:3.50 };
 var MAT_NAME= { air:'Air', teflon:'Teflon', glass:'Glass', paper:'Paper' };
@@ -512,6 +615,8 @@ var COL_HDR = {
   paper:  'Paper (Q<sub>paper</sub>)'
 };
 var NROWS = 6;
+
+/* ── Branch data ── */
 var BRANCHES = [
   { name:'Chemical Engineering',
     ans:'Dielectric materials serve as <strong>chemical sensors</strong> for gas detection, <strong>electrostatic precipitators</strong> for industrial particulate removal, and <strong>Teflon (PTFE) linings</strong> in corrosion-resistant vessels and pipelines.',
@@ -544,11 +649,18 @@ var BRANCHES = [
     ans:'Cornerstone of every technology node: <strong>HfO₂ / SiO₂ gate dielectrics</strong> in sub-7 nm FinFETs, <strong>low-k inter-metal dielectrics</strong> (SiCOH, k < 2.5) reducing RC delay, <strong>High-k Metal Gate (HKMG)</strong>, and <strong>STI oxide fill</strong> for device isolation.',
     chips:['HfO₂ Gate Dielectric','Low-k IMD (SiCOH)','HKMG Technology','STI Isolation'] }
 ];
+
+/* ── State ── */
 var rows      = Array.from({length:NROWS}, function(){ return {v:null,qa:null,qd:null,k:null}; });
 var mode      = 'air';
 var selRow    = 0;
 var selBranch = null;
+
+/* ══════════════════════════════════════
+   FIX 2 — STUDENT FIELD PERSISTENCE
+══════════════════════════════════════ */
 var FIELD_IDS = ['exNo','exDate','rollNo','studName'];
+
 function saveFields() {
   try {
     var vals = {};
@@ -559,6 +671,7 @@ function saveFields() {
     sessionStorage.setItem('_lab_fields', JSON.stringify(vals));
   } catch(e) {}
 }
+
 function restoreFields() {
   try {
     var raw = sessionStorage.getItem('_lab_fields');
@@ -570,6 +683,10 @@ function restoreFields() {
     });
   } catch(e) {}
 }
+
+/* ══════════════════════════════════════
+   BRANCH SELECTION
+══════════════════════════════════════ */
 function pickBranch(i) {
   var items = document.querySelectorAll('#blist li');
   if (selBranch === i) {
@@ -600,6 +717,10 @@ function pickBranch(i) {
   document.getElementById('ansB').innerHTML   = b.ans;
   document.getElementById('ansC').innerHTML   = b.chips.map(function(c){ return '<span class="chip">'+c+'</span>'; }).join('');
 }
+
+/* ══════════════════════════════════════
+   TABLE
+══════════════════════════════════════ */
 function syncParams() {
   var sp = document.getElementById('sparams');
   if (sp && !sp.classList.contains('locked')) {
@@ -609,6 +730,7 @@ function syncParams() {
     if (pA) pA.value = document.getElementById('slA').value;
   }
 }
+
 function buildTable() {
   var tb = document.getElementById('tbody');
   tb.innerHTML = '';
@@ -625,6 +747,7 @@ function buildTable() {
   });
   buildRowBtns(); hilite();
 }
+
 function buildRowBtns() {
   var w = document.getElementById('rowSel');
   w.innerHTML = '';
@@ -637,10 +760,12 @@ function buildRowBtns() {
     w.appendChild(b);
   });
 }
+
 function hilite() {
   document.querySelectorAll('#tbody tr').forEach(function(t,i){ t.classList.toggle('act',i===selRow); });
   document.querySelectorAll('.rbtn').forEach(function(b,i){ b.classList.toggle('sel',i===selRow); });
 }
+
 function setCell(id, val, cls) {
   var td = document.getElementById(id); if(!td) return;
   var d  = td.querySelector('.cell');
@@ -650,9 +775,13 @@ function setCell(id, val, cls) {
   void td.offsetWidth;
   td.classList.add('fl');
 }
+
+/* ══════════════════════════════════════
+   SIMULATION STATE
+══════════════════════════════════════ */
 function getSimState() {
   var vRaw = +document.getElementById('slV').value;
-  var v    = vRaw / 10;
+  var v    = vRaw / 10;                                    /* ÷10 → range −5.0 to +5.0 */
   var dInp = document.getElementById('paramD');
   var aInp = document.getElementById('paramA');
   var d    = dInp ? (+dInp.value / 1000) : (+document.getElementById('slD').value / 1000);
@@ -663,24 +792,33 @@ function getSimState() {
   var Q    = C * Math.abs(v);
   return { v:v, d:d, A:A, mat:mat, k:k, C:C, Q:Q };
 }
+
 function onSim() {
   var s    = getSimState();
   var sign = s.v >= 0 ? '+' : '';
+
+  /* FIX 3 — 2 decimal places everywhere for voltage */
   document.getElementById('dispV').textContent = sign + s.v.toFixed(2) + ' V';
   document.getElementById('dispD').textContent = (s.d*1000).toFixed(1) + ' mm';
   document.getElementById('dispA').textContent = (s.A*1e6).toFixed(0)  + ' mm²';
+
   document.getElementById('mV').textContent = Math.abs(s.v).toFixed(2);
   document.getElementById('mC').textContent = (s.C*1e12).toFixed(4);
   document.getElementById('mQ').textContent = (s.Q*1e12).toFixed(4);
+
   var r = rows[selRow];
   document.getElementById('mK').textContent =
     (mode==='diel' && r.qa && s.Q > 0) ? (s.Q/r.qa).toFixed(2) : '—';
+
   document.getElementById('matName').textContent = MAT_NAME[s.mat];
   document.getElementById('colDH').innerHTML     = COL_HDR[s.mat];
+  /* ── UPDATE CONCLUSION MATERIAL NAME ── */
   var _cm = document.getElementById('concMat'); if (_cm) _cm.textContent = MAT_NAME[s.mat];
+
   updateStatus(s);
   startAnim(s);
 }
+
 function setMode(m) {
   mode = m;
   document.getElementById('btnAir').className  = 'mbtn'+(m==='air'?' air':'');
@@ -692,6 +830,7 @@ function setMode(m) {
     : '🧊&nbsp; Record Dielectric Charge';
   onSim();
 }
+
 function updateStatus(s) {
   var el = document.getElementById('statBar');
   var r  = rows[selRow];
@@ -706,6 +845,7 @@ function updateStatus(s) {
     el.textContent = '✓ Row '+(selRow+1)+': Air done ('+(r.qa*1e12).toFixed(3)+' pC) → click "Record Dielectric Charge"';
   }
 }
+
 function doRecord() {
   var s    = getSimState();
   var absV = Math.abs(s.v);
@@ -747,7 +887,9 @@ function doRecord() {
   }
   buildRowBtns(); hilite(); updateMean(); onSim();
 }
+
 function updateMean() { /* blank — student fills manually */ }
+
 function showClearConfirm() {
   var m = document.getElementById('clearModal');
   if (m) m.style.display = 'block';
@@ -771,6 +913,10 @@ function doActualClear() {
   buildTable(); setMode('air'); updateMean();
 }
 function doClear() { showClearConfirm(); }
+
+/* ══════════════════════════════════════
+   BUILD PRINTABLE SHEET HTML
+══════════════════════════════════════ */
 function buildSheetHTML() {
   var mat      = document.getElementById('slMat').value;
   var exNo     = document.getElementById('exNo').value.trim()     || '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
@@ -781,6 +927,7 @@ function buildSheetHTML() {
   var dVal     = document.getElementById('paramD') ? document.getElementById('paramD').value : '10';
   var branch   = selBranch !== null ? BRANCHES[selBranch].name : null;
   var qblank   = selBranch !== null ? document.getElementById('qblank').textContent : '____________';
+
   var branchListHTML = '';
   if (branch) {
     var b = BRANCHES[selBranch];
@@ -804,6 +951,7 @@ function buildSheetHTML() {
         '</li>';
     }).join('');
   }
+
   var tbodyHTML = '';
   rows.forEach(function(r,i){
     tbodyHTML +=
@@ -815,6 +963,7 @@ function buildSheetHTML() {
       '<td style="border:1px solid #9e8e70;height:36px;text-align:center;font-family:monospace;font-size:13px;font-weight:700;color:#aaa">—</td>'+
       '</tr>';
   });
+
   return '<!DOCTYPE html>\n<html><head>\n<meta charset="UTF-8">\n'+
     '<meta name="viewport" content="width=800">\n'+
     '<title>Dielectric Constant Lab \u2014 Saintgits</title>\n'+
@@ -865,434 +1014,543 @@ function buildSheetHTML() {
     'table { width:100%; border-collapse:collapse; margin-bottom:22px; }\n'+
     'th { background:#ece6d6; font-size:10px; font-weight:900; padding:9px 7px; border:1px solid #8a7860; text-align:center; line-height:1.4; }\n'+
     'th.ch { background:#e1daca; }\n'+
-    '.no-print { display:none; }\n'+
     '.rlbl { font-size:13px; font-weight:900; text-decoration:underline; text-underline-offset:4px; margin-bottom:10px; color:#1a1610; }\n'+
+    '.no-print { display:none; }\n'+
     '</style>\n'+
-    '<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">\n'+
-    '</head><body>\n'+
-    '<div class="sheet"><div class="inner">\n'+
-    '<div class="hdr">\n'+
-    '<div class="hdr-top">\n'+
-    '<div class="logo"><div style="font-size:20px">⚙️</div><div class="nm">SAINTGITS</div><div class="tg">Learn · Grow · Excel</div></div>\n'+
-    '<div class="mid"><div class="co">Saintgits College of Engineering (Autonomous)</div><div class="dep">Department of Physics — Modern Physics for Engineering</div><div class="et">Dielectric Constant of a Material (Virtual Lab)</div></div>\n'+
-    '</div>\n'+
-    '<div class="info-grid">\n'+
-    '<div class="info-row"><span class="info-lbl">Exercise No:</span><span class="info-val">'+exNo+'</span></div>\n'+
-    '<div class="info-row"><span class="info-lbl">Roll No:</span><span class="info-val">'+rollNo+'</span></div>\n'+
-    '<div class="info-row"><span class="info-lbl">Date:</span><span class="info-val">'+exDate+'</span></div>\n'+
-    '<div class="info-row"><span class="info-lbl">Name:</span><span class="info-val" style="min-width:120px">'+studName+'</span></div>\n'+
-    '</div></div>\n'+
-    '<div class="qsec">\n'+
-    '<div class="qtext"><strong>Qn.</strong>&nbsp; Explore the applications of dielectric materials in <span class="qblank">'+qblank+'</span> engineering.</div>\n'+
-    '<ul class="bl">'+branchListHTML+'</ul>\n'+
-    '</div>\n'+
-    '<div style="font-size:12px;font-weight:900;text-decoration:underline;margin-bottom:10px">Data Collections:</div>\n'+
-    '<div style="font-size:12px;font-weight:800;margin-bottom:10px">Measurement of dielectric constant for <span style="color:#1a4faa;text-decoration:underline">'+MAT_NAME[mat]+'</span></div>\n'+
-    '<div style="font-family:monospace;font-size:11px;color:#5a4f3f;margin-bottom:16px;display:flex;gap:24px;flex-wrap:wrap"><span>A = '+aVal+' mm²</span><span>d = '+dVal+' mm</span></div>\n'+
-    '<div style="border:2px solid #1a1610;border-radius:3px;overflow:hidden;margin-bottom:22px">\n'+
-    '<table><thead><tr>\n'+
-    '<th rowspan="2" style="width:40px">Sl.<br>No</th>\n'+
-    '<th rowspan="2" style="width:90px">Applied<br>Voltage (V)</th>\n'+
-    '<th colspan="2" class="ch">Plate Charge, Q (\u00d710\u207b\u00b9\u00b2) Coulomb</th>\n'+
-    '<th rowspan="2" style="width:110px">Dielectric Constant<br>\u03ba = Q<sub>diel</sub> / Q<sub>air</sub></th>\n'+
-    '</tr><tr>\n'+
-    '<th style="width:115px">Air (Q<sub>air</sub>)</th>\n'+
-    '<th style="width:115px">'+MAT_NAME[mat]+' (Q<sub>'+mat+'</sub>)</th>\n'+
-    '</tr></thead><tbody>'+tbodyHTML+'</tbody></table></div>\n'+
-    '<div style="display:block;padding:14px 0 10px;border-top:1.5px solid #c8bfa8;">\n'+
-    '<div style="display:flex;align-items:flex-end;gap:10px;margin-bottom:12px;"><span style="font-size:14px;font-weight:900;font-family:Georgia,serif;font-style:italic;white-space:nowrap;padding-bottom:4px;">Mean &nbsp;\u03ba &nbsp;=</span><div style="flex:1;border-bottom:2px solid #1a1610;height:26px;min-width:160px;"></div></div>\n'+
-    '<div style="display:flex;align-items:flex-end;gap:8px;margin-left:4px;"><span style="font-size:17px;font-weight:900;font-family:Georgia,serif;padding-bottom:4px;">=</span><div style="border-bottom:2px solid #1a1610;height:26px;width:110px;flex-shrink:0;"></div></div>\n'+
-    '</div>\n'+
-    '<div style="padding-top:16px;border-top:1.5px solid #c8bfa8;">\n'+
-    '<div class="rlbl">Result :</div>\n'+
-    '<div style="display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap;font-size:12px;font-weight:700;">Dielectric constant of given material &nbsp;=<div style="border-bottom:2px solid #1a1610;height:26px;width:130px;display:inline-block;flex-shrink:0;"></div></div>\n'+
-    '</div>\n'+
-    '<div style="padding-top:16px;border-top:1.5px solid #c8bfa8;margin-top:4px;">\n'+
-    '<div class="rlbl">Conclusion :</div>\n'+
-    '<div style="font-size:12px;color:#3a3020;line-height:1.85;font-weight:600;">The experiment successfully determined the dielectric constant (<em style="font-family:Georgia,serif;font-weight:900;font-style:italic">&kappa;</em>) for <strong>'+MAT_NAME[mat]+'</strong> by comparing the plate charge in a vacuum (air) versus the charge when the dielectric material was inserted.</div>\n'+
-    '</div>\n'+
-    '</div></div>\n'+
-    '</body></html>';
+
+```
+'<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">\n'+
+'</head><body>\n'+
+'<div class="sheet"><div class="inner">\n'+
+'<div class="hdr">\n'+
+'<div class="hdr-top">\n'+
+'<div class="logo"><div style="font-size:20px">⚙️</div><div class="nm">SAINTGITS</div><div class="tg">Learn · Grow · Excel</div></div>\n'+
+'<div class="mid"><div class="co">Saintgits College of Engineering (Autonomous)</div><div class="dep">Department of Physics — Modern Physics for Engineering</div><div class="et">Dielectric Constant of a Material (Virtual Lab)</div></div>\n'+
+'</div>\n'+
+'<div class="info-grid">\n'+
+'<div class="info-row"><span class="info-lbl">Exercise No:</span><span class="info-val">'+exNo+'</span></div>\n'+
+'<div class="info-row"><span class="info-lbl">Roll No:</span><span class="info-val">'+rollNo+'</span></div>\n'+
+'<div class="info-row"><span class="info-lbl">Date:</span><span class="info-val">'+exDate+'</span></div>\n'+
+'<div class="info-row"><span class="info-lbl">Name:</span><span class="info-val" style="min-width:120px">'+studName+'</span></div>\n'+
+'</div></div>\n'+
+'<div class="qsec">\n'+
+'<div class="qtext"><strong>Qn.</strong>&nbsp; Explore the applications of dielectric materials in <span class="qblank">'+qblank+'</span> engineering.</div>\n'+
+'<ul class="bl">'+branchListHTML+'</ul>\n'+
+'</div>\n'+
+'<div style="font-size:12px;font-weight:900;text-decoration:underline;margin-bottom:10px">Data Collections:</div>\n'+
+'<div style="font-size:12px;font-weight:800;margin-bottom:10px">Measurement of dielectric constant for <span style="color:#1a4faa;text-decoration:underline">'+MAT_NAME[mat]+'</span></div>\n'+
+'<div style="font-family:monospace;font-size:11px;color:#5a4f3f;margin-bottom:16px;display:flex;gap:24px;flex-wrap:wrap"><span>A = '+aVal+' mm²</span><span>d = '+dVal+' mm</span></div>\n'+
+'<div style="border:2px solid #1a1610;border-radius:3px;overflow:hidden;margin-bottom:22px">\n'+
+'<table><thead><tr>\n'+
+'<th rowspan="2" style="width:40px">Sl.<br>No</th>\n'+
+'<th rowspan="2" style="width:90px">Applied<br>Voltage (V)</th>\n'+
+'<th colspan="2" class="ch">Plate Charge, Q (×10⁻¹²) Coulomb</th>\n'+
+'<th rowspan="2" style="width:110px">Dielectric Constant<br>κ = Q<sub>diel</sub> / Q<sub>air</sub></th>\n'+
+'</tr><tr>\n'+
+'<th style="width:115px">Air (Q<sub>air</sub>)</th>\n'+
+'<th style="width:115px">'+MAT_NAME[mat]+' (Q<sub>'+mat+'</sub>)</th>\n'+
+'</tr></thead><tbody>'+tbodyHTML+'</tbody></table></div>\n'+
+'<div style="display:block;padding:14px 0 10px;border-top:1.5px solid #c8bfa8;">\n'+
+'<div style="display:flex;align-items:flex-end;gap:10px;margin-bottom:12px;"><span style="font-size:14px;font-weight:900;font-family:Georgia,serif;font-style:italic;white-space:nowrap;padding-bottom:4px;">Mean &nbsp;κ &nbsp;=</span><div style="flex:1;border-bottom:2px solid #1a1610;height:26px;min-width:160px;"></div></div>\n'+
+'<div style="display:flex;align-items:flex-end;gap:8px;margin-left:4px;"><span style="font-size:17px;font-weight:900;font-family:Georgia,serif;padding-bottom:4px;">=</span><div style="border-bottom:2px solid #1a1610;height:26px;width:110px;flex-shrink:0;"></div></div>\n'+
+'</div>\n'+
+'<div style="padding-top:16px;border-top:1.5px solid #c8bfa8;">\n'+
+'<div class="rlbl">Result :</div>\n'+
+'<div style="display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap;font-size:12px;font-weight:700;">Dielectric constant of given material &nbsp;=<div style="border-bottom:2px solid #1a1610;height:26px;width:130px;display:inline-block;flex-shrink:0;"></div></div>\n'+
+'</div>\n'+
+'<div style="padding-top:16px;border-top:1.5px solid #c8bfa8;margin-top:4px;">\n'+
+'<div class="rlbl">Conclusion :</div>\n'+
+'<div style="font-size:12px;color:#3a3020;line-height:1.85;font-weight:600;">The experiment successfully determined the dielectric constant (<em style="font-family:Georgia,serif;font-weight:900;font-style:italic">&kappa;</em>) for <strong>'+MAT_NAME[mat]+'</strong> by comparing the plate charge in a vacuum (air) versus the charge when the dielectric material was inserted.</div>\n'+
+'</div>\n'+
+'</div></div>\n'+
+'</body></html>';
+```
+
 }
+
+/* ══════════════════════════════════════════════════════════════════
+PRINT — iOS / Android / Desktop safe
+══════════════════════════════════════════════════════════════════ */
 function doPrint() {
-  var printWin = null;
-  try { printWin = window.open('', '_blank'); } catch(e) {}
-  saveFields();
-  try {
-    sessionStorage.setItem('_lab_rows',      JSON.stringify(rows));
-    sessionStorage.setItem('_lab_selRow',    String(selRow));
-    sessionStorage.setItem('_lab_mode',      mode);
-    sessionStorage.setItem('_lab_selBranch', String(selBranch));
-    var sv = {};
-    ['slV','slD','slA','slMat','paramA','paramD'].forEach(function(id){
-      var el = document.getElementById(id); if (el) sv[id] = el.value;
-    });
-    sessionStorage.setItem('_lab_sliders', JSON.stringify(sv));
-  } catch(e) {}
-  var html = _buildPrintPage(buildSheetHTML());
-  if (printWin && !printWin.closed) {
-    try {
-      printWin.document.open('text/html', 'replace');
-      printWin.document.write(html);
-      printWin.document.close();
-      printWin.focus();
-    } catch(e) {
-      try { printWin.close(); } catch(ignored) {}
-      _blobPrint(html);
-    }
-  } else {
-    _blobPrint(html);
-  }
+
+/* ── STEP 1: Open new tab FIRST (synchronous — iOS requirement) ── */
+var printWin = null;
+try { printWin = window.open(’’, ‘_blank’); } catch(e) {}
+
+/* ── STEP 2: Save all state ── */
+saveFields();
+try {
+sessionStorage.setItem(’_lab_rows’,      JSON.stringify(rows));
+sessionStorage.setItem(’_lab_selRow’,    String(selRow));
+sessionStorage.setItem(’_lab_mode’,      mode);
+sessionStorage.setItem(’_lab_selBranch’, String(selBranch));
+var sv = {};
+[‘slV’,‘slD’,‘slA’,‘slMat’,‘paramA’,‘paramD’].forEach(function(id){
+var el = document.getElementById(id); if (el) sv[id] = el.value;
+});
+sessionStorage.setItem(’_lab_sliders’, JSON.stringify(sv));
+} catch(e) {}
+
+/* ── STEP 3: Build print HTML ── */
+var html = _buildPrintPage(buildSheetHTML());
+
+/* ── STEP 4: Write to new tab OR Blob-URL fallback ── */
+if (printWin && !printWin.closed) {
+try {
+printWin.document.open(‘text/html’, ‘replace’);
+printWin.document.write(html);
+printWin.document.close();
+printWin.focus();
+} catch(e) {
+try { printWin.close(); } catch(ignored) {}
+_blobPrint(html);
 }
+} else {
+_blobPrint(html);
+}
+}
+
 function _blobPrint(html) {
-  sessionStorage.setItem('_lab_restore', '1');
-  try {
-    var blob = new Blob([html], { type: 'text/html;charset=utf-8' });
-    window.location.href = URL.createObjectURL(blob);
-  } catch(e) {
-    document.open(); document.write(html); document.close();
-  }
+sessionStorage.setItem(’_lab_restore’, ‘1’);
+try {
+var blob = new Blob([html], { type: ‘text/html;charset=utf-8’ });
+window.location.href = URL.createObjectURL(blob);
+} catch(e) {
+document.open(); document.write(html); document.close();
 }
+}
+
 function _buildPrintPage(sheet) {
-  var backFn = "if(window.opener){window.close();}else{history.back();}";
-  var style =
-    '<style>'+
-    '@media not print{'+
-    '._tb{position:fixed;top:0;left:0;right:0;z-index:9999;display:flex;align-items:center;gap:6px;padding:8px 12px;background:#1a2535;box-shadow:0 2px 10px rgba(0,0,0,.5);}'+
-    '._tm{flex:1;font-size:11px;font-weight:700;color:#a0b8d0;text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}'+
-    '._bt{display:inline-flex;align-items:center;gap:4px;padding:10px 16px;border:none;border-radius:8px;font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap;-webkit-tap-highlight-color:transparent;touch-action:manipulation;user-select:none;-webkit-user-select:none;min-height:40px;}'+
-    '._bt:active{opacity:.7;}'+
-    '._bk{background:#555;color:#fff;}'+
-    '._pd{background:linear-gradient(135deg,#059669,#047857);color:#fff;}'+
-    '._pr{background:linear-gradient(135deg,#1760c8,#0d3ea0);color:#fff;}'+
-    '._sp{height:54px;}'+
-    '._sw{max-width:860px;margin:0 auto;padding:16px 18px 40px;box-sizing:border-box;}'+
-    '@media(max-width:600px){._tm{display:none;}._bt{padding:10px 11px;font-size:11px;}._sw{padding:8px 2px 24px;}}'+
-    '}'+
-    '@media print{'+
-    '._tb,._sp{display:none!important;}'+
-    '._sw{max-width:100%!important;padding:0!important;margin:0!important;}'+
-    'html,body{background:#fff!important;}'+
-    '}'+
-    '</style>';
-  var toolbar =
-    '<div class="_tb">'+
-    '<button class="_bt _bk" onclick="'+backFn+'">&#8592; Back</button>'+
-    '<span class="_tm">Dielectric Constant Lab &mdash; Print Preview</span>'+
-    '<button class="_bt _pd" onclick="window.print()">&#11015;&nbsp;Save as PDF</button>'+
-    '<button class="_bt _pr" onclick="window.print()">&#128424;&nbsp;Print</button>'+
-    '</div>'+
-    '<div class="_sp"></div>'+
-    '<div class="_sw">';
-  return sheet
-    .replace('</head>', style + '</head>')
-    .replace(/(<body[^>]*>)/i, '$1' + toolbar)
-    .replace('</body>', '</div></body>');
+var backFn = “if(window.opener){window.close();}else{history.back();}”;
+
+var style =
+‘<style>’+
+‘@media not print{’+
+‘._tb{position:fixed;top:0;left:0;right:0;z-index:9999;display:flex;align-items:center;gap:6px;padding:8px 12px;background:#1a2535;box-shadow:0 2px 10px rgba(0,0,0,.5);}’+
+‘._tm{flex:1;font-size:11px;font-weight:700;color:#a0b8d0;text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}’+
+‘._bt{display:inline-flex;align-items:center;gap:4px;padding:10px 16px;border:none;border-radius:8px;font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap;-webkit-tap-highlight-color:transparent;touch-action:manipulation;user-select:none;-webkit-user-select:none;min-height:40px;}’+
+‘._bt:active{opacity:.7;}’+
+‘._bk{background:#555;color:#fff;}’+
+‘._pd{background:linear-gradient(135deg,#059669,#047857);color:#fff;}’+
+‘._pr{background:linear-gradient(135deg,#1760c8,#0d3ea0);color:#fff;}’+
+‘._sp{height:54px;}’+
+‘._sw{max-width:860px;margin:0 auto;padding:16px 18px 40px;box-sizing:border-box;}’+
+‘@media(max-width:600px){._tm{display:none;}._bt{padding:10px 11px;font-size:11px;}._sw{padding:8px 2px 24px;}}’+
+‘}’+
+‘@media print{’+
+‘._tb,._sp{display:none!important;}’+
+‘._sw{max-width:100%!important;padding:0!important;margin:0!important;}’+
+‘html,body{background:#fff!important;}’+
+‘}’+
+‘</style>’;
+
+var toolbar =
+‘<div class="_tb">’+
+‘<button class="_bt _bk" onclick="'+backFn+'">← Back</button>’+
+‘<span class="_tm">Dielectric Constant Lab — Print Preview</span>’+
+‘<button class="_bt _pd" onclick="window.print()">⬇ Save as PDF</button>’+
+‘<button class="_bt _pr" onclick="window.print()">🖨 Print</button>’+
+‘</div>’+
+‘<div class="_sp"></div>’+
+‘<div class="_sw">’;
+
+return sheet
+.replace(’</head>’, style + ‘</head>’)
+.replace(/(<body[^>]*>)/i, ‘$1’ + toolbar)
+.replace(’</body>’, ‘</div></body>’);
 }
+
+/* ══════════════════════════════════════
+CSV EXPORT
+══════════════════════════════════════ */
 function doCSV() {
-  var mat       = document.getElementById('slMat').value;
-  var exNo_c    = document.getElementById('exNo').value.trim()     || '';
-  var exDate_c  = document.getElementById('exDate').value.trim()   || '';
-  var rollNo_c  = document.getElementById('rollNo')    ? document.getElementById('rollNo').value.trim()    : '';
-  var studName_c= document.getElementById('studName')  ? document.getElementById('studName').value.trim()  : '';
-  var branch_c  = selBranch !== null ? BRANCHES[selBranch].name : '';
-  var ks    = rows.filter(function(r){ return r.k != null; });
-  var meanK = ks.length ? (ks.reduce(function(a,b){ return a+b.k; },0)/ks.length).toFixed(4) : '';
-  var fname = 'dielectric_'+mat+(exDate_c?'_'+exDate_c:'')+'.csv';
-  var R = [];
-  R.push(['Saintgits College of Engineering (Autonomous)']);
-  R.push(['Dielectric Constant Virtual Lab']);
-  R.push(['Exercise No', exNo_c]);
-  R.push(['Date', exDate_c]);
-  R.push(['Roll No', rollNo_c]);
-  R.push(['Name', studName_c]);
-  R.push(['Branch', branch_c]);
-  R.push(['Material', MAT_NAME[mat]]);
-  R.push(['A (m2)', '0.0001']);
-  R.push(['d (m)', '0.01']);
-  R.push([]);
-  R.push(['Sl.No','Applied Voltage (V)','Q_air (x10-12 C)','Q_'+mat+' (x10-12 C)','Dielectric Constant (kappa)']);
-  rows.forEach(function(r,i){
-    R.push([
-      i+1,
-      r.v  != null ? r.v.toFixed(2)         : '',
-      r.qa != null ? (r.qa*1e12).toFixed(4) : '',
-      r.qd != null ? (r.qd*1e12).toFixed(4) : '',
-      r.k  != null ? r.k.toFixed(4)         : ''
-    ]);
-  });
-  R.push([]);
-  R.push(['','','','Mean kappa', meanK]);
-  R.push(['','','','Dielectric constant of given material', meanK]);
-  var csv = '\uFEFF' + R.map(function(row){
-    return row.map(function(c){
-      var s=String(c!=null?c:'');
-      return (s.indexOf(',')>=0||s.indexOf('"')>=0) ? '"'+s.replace(/"/g,'""')+'"' : s;
-    }).join(',');
-  }).join('\r\n');
-  var win = null;
-  try { win = window.open('','_blank'); } catch(e){}
-  var useCurrentTab = !win || win.closed;
-  if (useCurrentTab) win = null;
-  var esc = csv.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  var b64 = btoa(unescape(encodeURIComponent(csv)));
-  var csvPage = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Download CSV</title>'+
-    '<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:"Segoe UI",system-ui,Arial,sans-serif;background:#f0f4f8;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}.card{background:#fff;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,.1);padding:36px 40px;max-width:540px;width:100%;text-align:center}h2{color:#1a4faa;font-size:20px;font-weight:800;margin-bottom:8px}.sub{color:#666;font-size:13px;margin-bottom:24px;line-height:1.5}a.dl{display:block;padding:14px 28px;background:linear-gradient(135deg,#1760c8,#0d3ea0);color:#fff;border-radius:10px;text-decoration:none;font-weight:800;font-size:14px;box-shadow:0 4px 14px rgba(23,96,200,.4);margin-bottom:20px}.divider{border:none;border-top:1px solid #e8edf4;margin:4px 0 16px}.copy-lbl{font-size:11px;color:#888;margin-bottom:8px}pre{background:#f8fafc;border:1px solid #dde4ee;border-radius:8px;padding:14px;font-size:10px;max-height:240px;overflow:auto;white-space:pre;text-align:left;line-height:1.6}</style>'+
-    '</head><body><div class="card">'+
-    '<h2>&#11015; Dielectric Lab \u2014 CSV Export</h2>'+
-    '<p class="sub">Your data is ready. Click below to download <strong>'+fname+'</strong></p>'+
-    '<a class="dl" href="data:text/csv;base64,'+b64+'" download="'+fname+'">&#11015; Download '+fname+'</a>'+
-    '<hr class="divider"><p class="copy-lbl">Or copy the data below and paste into Excel / a .csv file:</p>'+
-    '<pre>'+esc+'</pre></div></body></html>';
-  if (win) {
-    win.document.write(csvPage); win.document.close();
-  } else {
-    var bodyMatch = csvPage.match(/<body[^>]*>([\s\S]*)<\/body>/i);
-    var bodyContent = bodyMatch ? bodyMatch[1] : csvPage;
-    document.body.innerHTML =
-      '<button onclick="location.reload()" style="position:fixed;top:12px;left:12px;padding:10px 20px;background:#555;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:800;cursor:pointer;z-index:9999">&#8592; Back</button>'+
-      bodyContent;
-    document.title = 'Download CSV \u2014 Dielectric Lab';
-    window.scrollTo(0,0);
-  }
+var mat       = document.getElementById(‘slMat’).value;
+var exNo_c    = document.getElementById(‘exNo’).value.trim()     || ‘’;
+var exDate_c  = document.getElementById(‘exDate’).value.trim()   || ‘’;
+var rollNo_c  = document.getElementById(‘rollNo’)    ? document.getElementById(‘rollNo’).value.trim()    : ‘’;
+var studName_c= document.getElementById(‘studName’)  ? document.getElementById(‘studName’).value.trim()  : ‘’;
+var branch_c  = selBranch !== null ? BRANCHES[selBranch].name : ‘’;
+var ks    = rows.filter(function(r){ return r.k != null; });
+var meanK = ks.length ? (ks.reduce(function(a,b){ return a+b.k; },0)/ks.length).toFixed(4) : ‘’;
+var fname = ‘dielectric_’+mat+(exDate_c?’_’+exDate_c:’’)+’.csv’;
+
+var R = [];
+R.push([‘Saintgits College of Engineering (Autonomous)’]);
+R.push([‘Dielectric Constant Virtual Lab’]);
+R.push([‘Exercise No’, exNo_c]);
+R.push([‘Date’, exDate_c]);
+R.push([‘Roll No’, rollNo_c]);
+R.push([‘Name’, studName_c]);
+R.push([‘Branch’, branch_c]);
+R.push([‘Material’, MAT_NAME[mat]]);
+R.push([‘A (m2)’, ‘0.0001’]);
+R.push([‘d (m)’, ‘0.01’]);
+R.push([]);
+R.push([‘Sl.No’,‘Applied Voltage (V)’,‘Q_air (x10-12 C)’,‘Q_’+mat+’ (x10-12 C)’,‘Dielectric Constant (kappa)’]);
+rows.forEach(function(r,i){
+R.push([
+i+1,
+r.v  != null ? r.v.toFixed(2)         : ‘’,
+r.qa != null ? (r.qa*1e12).toFixed(4) : ‘’,
+r.qd != null ? (r.qd*1e12).toFixed(4) : ‘’,
+r.k  != null ? r.k.toFixed(4)         : ‘’
+]);
+});
+R.push([]);
+R.push([’’,’’,’’,‘Mean kappa’, meanK]);
+R.push([’’,’’,’’,‘Dielectric constant of given material’, meanK]);
+
+var csv = ‘\uFEFF’ + R.map(function(row){
+return row.map(function(c){
+var s=String(c!=null?c:’’);
+return (s.indexOf(’,’)>=0||s.indexOf(’”’)>=0) ? ‘”’+s.replace(/”/g,’””’)+’”’ : s;
+}).join(’,’);
+}).join(’\r\n’);
+
+var win = null;
+try { win = window.open(’’,’_blank’); } catch(e){}
+var useCurrentTab = !win || win.closed;
+if (useCurrentTab) win = null;
+var esc = csv.replace(/&/g,’&’).replace(/</g,’<’).replace(/>/g,’>’);
+var b64 = btoa(unescape(encodeURIComponent(csv)));
+var csvPage = ‘<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Download CSV</title>’+
+‘<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:“Segoe UI”,system-ui,Arial,sans-serif;background:#f0f4f8;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}.card{background:#fff;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,.1);padding:36px 40px;max-width:540px;width:100%;text-align:center}h2{color:#1a4faa;font-size:20px;font-weight:800;margin-bottom:8px}.sub{color:#666;font-size:13px;margin-bottom:24px;line-height:1.5}a.dl{display:block;padding:14px 28px;background:linear-gradient(135deg,#1760c8,#0d3ea0);color:#fff;border-radius:10px;text-decoration:none;font-weight:800;font-size:14px;box-shadow:0 4px 14px rgba(23,96,200,.4);margin-bottom:20px}.divider{border:none;border-top:1px solid #e8edf4;margin:4px 0 16px}.copy-lbl{font-size:11px;color:#888;margin-bottom:8px}pre{background:#f8fafc;border:1px solid #dde4ee;border-radius:8px;padding:14px;font-size:10px;max-height:240px;overflow:auto;white-space:pre;text-align:left;line-height:1.6}</style>’+
+‘</head><body><div class="card">’+
+‘<h2>⬇ Dielectric Lab — CSV Export</h2>’+
+‘<p class="sub">Your data is ready. Click below to download <strong>’+fname+’</strong></p>’+
+‘<a class="dl" href="data:text/csv;base64,'+b64+'" download="'+fname+'">⬇ Download ‘+fname+’</a>’+
+‘<hr class="divider"><p class="copy-lbl">Or copy the data below and paste into Excel / a .csv file:</p>’+
+‘<pre>’+esc+’</pre></div></body></html>’;
+
+if (win) {
+win.document.write(csvPage); win.document.close();
+} else {
+var bodyMatch = csvPage.match(/<body[^>]*>([\s\S]*)</body>/i);
+var bodyContent = bodyMatch ? bodyMatch[1] : csvPage;
+document.body.innerHTML =
+‘<button onclick="location.reload()" style="position:fixed;top:12px;left:12px;padding:10px 20px;background:#555;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:800;cursor:pointer;z-index:9999">← Back</button>’+
+bodyContent;
+document.title = ‘Download CSV — Dielectric Lab’;
+window.scrollTo(0,0);
 }
-var canvas = document.getElementById('simCanvas');
-var ctx    = canvas.getContext('2d');
+}
+
+/* ══════════════════════════════════════
+CANVAS — ANIMATED (requestAnimationFrame)
+══════════════════════════════════════ */
+var canvas = document.getElementById(‘simCanvas’);
+var ctx    = canvas.getContext(‘2d’);
 var CW = canvas.width, CH = canvas.height;
+
+/* Stable random dipole base angles, seeded once */
 var _dipAngles = (function(){
-  var a=[]; for(var i=0;i<12;i++) a.push((Math.random()-0.5)*Math.PI*0.9); return a;
+var a=[]; for(var i=0;i<12;i++) a.push((Math.random()-0.5)*Math.PI*0.9); return a;
 })();
+
 var _animTick   = 0;
 var _animFrame  = null;
 var _lastS      = null;
+
 function startAnim(s) {
-  _lastS = s;
-  if (_animFrame !== null) return;
-  (function _loop(){
-    _animTick = (_animTick + 1) & 32767;
-    if (_lastS) _drawFrame(_lastS, _animTick);
-    _animFrame = requestAnimationFrame(_loop);
-  })();
+_lastS = s;
+if (_animFrame !== null) return;   /* loop already live */
+(function _loop(){
+_animTick = (_animTick + 1) & 32767;
+if (_lastS) _drawFrame(_lastS, _animTick);
+_animFrame = requestAnimationFrame(_loop);
+})();
 }
+
 function rgba(hex, a) {
-  var n = parseInt(hex.slice(1), 16);
-  return 'rgba('+(n>>16)+','+(((n>>8)&0xff))+','+(n&0xff)+','+a+')';
+var n = parseInt(hex.slice(1), 16);
+return ‘rgba(’+(n>>16)+’,’+(((n>>8)&0xff))+’,’+(n&0xff)+’,’+a+’)’;
 }
+
 function _drawFrame(s, t) {
-  ctx.clearRect(0, 0, CW, CH);
-  var gbg = ctx.createLinearGradient(0,0,0,CH);
-  gbg.addColorStop(0,'#0d1621'); gbg.addColorStop(1,'#060c14');
-  ctx.fillStyle = gbg; ctx.fillRect(0,0,CW,CH);
-  var cx  = CW/2, ph = 10;
-  var cy  = CH/2 + 8;
-  var gap = Math.max(14, (s.d/0.01)*50);
-  var ty  = cy - gap/2 - ph;
-  var by  = cy + gap/2;
-  var absV  = Math.abs(s.v);
-  var vN    = Math.min(1, absV/5.0);
-  var dir   = s.v >= 0 ? 1 : -1;
-  var pw    = 124;
-  if (absV > 0.02) {
-    var ftint = vN * (mode==='diel' ? Math.min(s.k/1.5, 1.8) : 1.0) * 0.16;
-    var fg = ctx.createLinearGradient(0,ty+ph,0,by);
-    fg.addColorStop(0,   'rgba(41,182,246,'+ftint+')');
-    fg.addColorStop(0.5, 'rgba(41,182,246,'+(ftint*0.45)+')');
-    fg.addColorStop(1,   'rgba(41,182,246,'+ftint+')');
-    ctx.fillStyle = fg;
-    ctx.fillRect(cx-pw/2+1, ty+ph, pw-2, gap);
-  }
-  if (mode==='diel' && s.mat!=='air') {
-    var matC = {teflon:'#ce93d8', glass:'#80cbc4', paper:'#ffcc80'};
-    var col = matC[s.mat] || '#90caf9';
-    var ms = ctx.createLinearGradient(0,ty+ph,0,by);
-    ms.addColorStop(0,   rgba(col,.07));
-    ms.addColorStop(0.5, rgba(col,.19));
-    ms.addColorStop(1,   rgba(col,.07));
-    ctx.fillStyle = ms;
-    ctx.fillRect(cx-pw/2+1, ty+ph, pw-2, gap);
-    ctx.strokeStyle = rgba(col,.28); ctx.lineWidth = 0.8;
-    ctx.strokeRect(cx-pw/2+1, ty+ph, pw-2, gap);
-    var alignFrac = Math.min(0.97, vN*(s.k-1)*0.55);
-    var drows=3, dcols=4, dIdx=0;
-    for (var dr=0; dr<drows; dr++) {
-      for (var dc=0; dc<dcols; dc++) {
-        var dmx = cx - pw/2 + 14 + dc*(pw-28)/(dcols-1);
-        var dmy = ty + ph + 7 + dr*(gap-14)/Math.max(1,drows-1);
-        if (dmy>by-3 || dmy<ty+ph+3) { dIdx++; continue; }
-        var baseA   = _dipAngles[dIdx % _dipAngles.length];
-        var targetA = dir>0 ? -Math.PI/2 : Math.PI/2;
-        var jitter  = Math.sin(t*0.042 + dIdx*1.73) * (1-alignFrac) * 0.22;
-        var angle   = baseA*(1-alignFrac) + targetA*alignFrac + jitter;
-        var dl=6.5, ddx=Math.cos(angle)*dl, ddy=Math.sin(angle)*dl;
-        ctx.beginPath(); ctx.moveTo(dmx-ddx,dmy-ddy); ctx.lineTo(dmx+ddx,dmy+ddy);
-        ctx.strokeStyle = rgba(col,.52); ctx.lineWidth = 1.5; ctx.stroke();
-        ctx.beginPath(); ctx.arc(dmx-ddx,dmy-ddy,2.2,0,Math.PI*2);
-        ctx.fillStyle = dir>0?'rgba(239,100,100,.88)':'rgba(80,160,240,.88)'; ctx.fill();
-        ctx.beginPath(); ctx.arc(dmx+ddx,dmy+ddy,2.2,0,Math.PI*2);
-        ctx.fillStyle = dir>0?'rgba(80,160,240,.88)':'rgba(239,100,100,.88)'; ctx.fill();
-        dIdx++;
-      }
-    }
-    ctx.fillStyle = rgba(col,.82); ctx.font='bold 7.5px sans-serif'; ctx.textAlign='left';
-    ctx.fillText(MAT_NAME[s.mat].toUpperCase(), cx-pw/2+4, by-3);
-  }
-  if (absV > 0.05) {
-    var spd   = vN*0.52 + 0.06;
-    var fxArr = [cx-48, cx-24, cx, cx+24, cx+48];
-    for (var li=0; li<fxArr.length; li++) {
-      var fx = fxArr[li];
-      if (fx < cx-pw/2+3 || fx > cx+pw/2-3) continue;
-      for (var pi=0; pi<2; pi++) {
-        var prog = ((t*spd/gap*0.8 + pi*0.5) % 1 + 1) % 1;
-        var py   = dir>0
-          ? (ty+ph+2 + prog*(gap-4))
-          : (by-2    - prog*(gap-4));
-        if (py < ty+ph+1 || py > by-1) continue;
-        var pr = ctx.createRadialGradient(fx,py,0, fx,py,5);
-        pr.addColorStop(0, 'rgba(41,182,246,'+(0.7*vN+0.25)+')');
-        pr.addColorStop(1, 'rgba(41,182,246,0)');
-        ctx.fillStyle = pr; ctx.fillRect(fx-5,py-5,10,10);
-        ctx.beginPath(); ctx.arc(fx,py,1.5,0,Math.PI*2);
-        ctx.fillStyle='rgba(180,235,255,.95)'; ctx.fill();
-        var trProg = ((t*spd/gap*0.8 + pi*0.5 - spd*4/gap) % 1 + 1) % 1;
-        var trY    = dir>0
-          ? (ty+ph+2 + trProg*(gap-4))
-          : (by-2    - trProg*(gap-4));
-        if (trY >= ty+ph+1 && trY <= by-1) {
-          ctx.beginPath(); ctx.arc(fx, trY, 1.0, 0, Math.PI*2);
-          ctx.fillStyle='rgba(41,182,246,.28)'; ctx.fill();
-        }
-      }
-    }
-  }
-  if (absV > 0.05) {
-    var pulse  = 0.82 + 0.18*Math.sin(t*0.11);
-    var glA    = vN * pulse * 0.42;
-    var glH    = Math.min(20, gap*0.44);
-    var topCol = dir>0 ? 'rgba(239,83,80,' : 'rgba(66,165,245,';
-    var botCol = dir>0 ? 'rgba(66,165,245,' : 'rgba(239,83,80,';
-    var tgl = ctx.createLinearGradient(0,ty+ph,0,ty+ph+glH);
-    tgl.addColorStop(0,topCol+glA+')'); tgl.addColorStop(1,'rgba(0,0,0,0)');
-    ctx.fillStyle=tgl; ctx.fillRect(cx-pw/2,ty+ph,pw,glH);
-    var bgl = ctx.createLinearGradient(0,by,0,by-glH);
-    bgl.addColorStop(0,botCol+glA+')'); bgl.addColorStop(1,'rgba(0,0,0,0)');
-    ctx.fillStyle=bgl; ctx.fillRect(cx-pw/2,by-glH,pw,glH);
-  }
-  function _plate(y) {
-    ctx.beginPath();
-    ctx.moveTo(cx-pw/2,y); ctx.lineTo(cx+pw/2,y);
-    ctx.lineTo(cx+pw/2+10,y-7); ctx.lineTo(cx-pw/2+10,y-7);
-    ctx.closePath(); ctx.fillStyle='#3a6898'; ctx.fill();
-    ctx.beginPath();
-    ctx.moveTo(cx-pw/2,y); ctx.lineTo(cx+pw/2,y);
-    ctx.lineTo(cx+pw/2,y+ph); ctx.lineTo(cx-pw/2,y+ph);
-    ctx.closePath();
-    var pg = ctx.createLinearGradient(0,y,0,y+ph);
-    pg.addColorStop(0,'#5888c8'); pg.addColorStop(1,'#3668a8');
-    ctx.fillStyle=pg; ctx.fill();
-    ctx.strokeStyle='#1e4a80'; ctx.lineWidth=0.7; ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(cx-pw/2+2,y+2); ctx.lineTo(cx+pw/2-2,y+2);
-    ctx.strokeStyle='rgba(255,255,255,.14)'; ctx.lineWidth=1; ctx.stroke();
-  }
-  _plate(ty); _plate(by);
-  if (absV > 0.05) {
-    var topS = dir>0?'+':'\u2212', botS = dir>0?'\u2212':'+';
-    var nS   = Math.min(5, 2 + Math.round(vN*3));
-    var cP   = 0.62 + 0.38*Math.sin(t*0.09);
-    ctx.font='bold 9px sans-serif'; ctx.textAlign='center';
-    ctx.globalAlpha = cP * Math.max(0.18, vN);
-    for (var si=0; si<nS; si++) {
-      var sx = cx - 36 + si*(72/Math.max(1,nS-1));
-      ctx.fillStyle = dir>0?'rgba(255,145,135,.95)':'rgba(130,190,255,.95)';
-      ctx.fillText(topS, sx, ty-1);
-      ctx.fillStyle = dir>0?'rgba(130,190,255,.95)':'rgba(255,145,135,.95)';
-      ctx.fillText(botS, sx, by+ph+11);
-    }
-    ctx.globalAlpha = 1;
-  }
-  ctx.fillStyle='rgba(120,165,195,.72)'; ctx.font='7.5px monospace'; ctx.textAlign='left';
-  ctx.fillText('Q='+(s.Q*1e12).toFixed(2)+'pC', 4, CH-16);
-  ctx.fillText('V='+(s.v>=0?'+':'')+s.v.toFixed(2)+'V', 4, CH-5);
-  ctx.textAlign='right';
-  ctx.fillText('C='+(s.C*1e12).toFixed(3)+'pF', CW-3, CH-5);
-  ctx.fillStyle = mode==='air'?'#29b6f6':'#bb6fdb';
-  ctx.font='bold 7.5px sans-serif'; ctx.textAlign='left';
-  ctx.fillText(mode==='air'?'\ud83c\udf2c AIR':'\ud83e\uddca '+MAT_NAME[document.getElementById('slMat').value].toUpperCase(), 3, 12);
-  var maxC = KAPPA['glass'] * E0 * 400e-6 / 0.005;
-  var bW=46, bH=5, bX=CW-bW-3, bY=5;
-  ctx.fillStyle='rgba(255,255,255,.07)'; ctx.fillRect(bX,bY,bW,bH);
-  var bFill = Math.min(bW, (s.C/maxC)*bW);
-  ctx.fillStyle = mode==='air'?'rgba(41,182,246,.72)':'rgba(187,111,219,.72)';
-  ctx.fillRect(bX,bY,bFill,bH);
-  ctx.strokeStyle='rgba(255,255,255,.14)'; ctx.lineWidth=0.5;
-  ctx.strokeRect(bX,bY,bW,bH);
-  ctx.fillStyle='rgba(160,200,230,.48)'; ctx.font='6px monospace'; ctx.textAlign='right';
-  ctx.fillText('C', CW-3, bY+bH);
+ctx.clearRect(0, 0, CW, CH);
+
+/* ── Background ── */
+var gbg = ctx.createLinearGradient(0,0,0,CH);
+gbg.addColorStop(0,’#0d1621’); gbg.addColorStop(1,’#060c14’);
+ctx.fillStyle = gbg; ctx.fillRect(0,0,CW,CH);
+
+/* ── Geometry (changes with d slider) ── */
+var cx  = CW/2, ph = 10;
+var cy  = CH/2 + 8;
+var gap = Math.max(14, (s.d/0.01)*50);   /* 25–50 px */
+var ty  = cy - gap/2 - ph;               /* top plate y */
+var by  = cy + gap/2;                    /* bottom plate y */
+var absV  = Math.abs(s.v);
+var vN    = Math.min(1, absV/5.0);       /* 0–1 normalised voltage */
+var dir   = s.v >= 0 ? 1 : -1;          /* field direction */
+var pw    = 124;
+
+/* ── Electric field tint (scales with V × κ) ── */
+if (absV > 0.02) {
+var ftint = vN * (mode===‘diel’ ? Math.min(s.k/1.5, 1.8) : 1.0) * 0.16;
+var fg = ctx.createLinearGradient(0,ty+ph,0,by);
+fg.addColorStop(0,   ‘rgba(41,182,246,’+ftint+’)’);
+fg.addColorStop(0.5, ‘rgba(41,182,246,’+(ftint*0.45)+’)’);
+fg.addColorStop(1,   ‘rgba(41,182,246,’+ftint+’)’);
+ctx.fillStyle = fg;
+ctx.fillRect(cx-pw/2+1, ty+ph, pw-2, gap);
 }
-(function init(){
-  restoreFields();
-  try {
-    var doRestore = sessionStorage.getItem('_lab_restore') === '1';
-    if (doRestore) {
-      sessionStorage.removeItem('_lab_restore');
-      var savedRows = JSON.parse(sessionStorage.getItem('_lab_rows') || 'null');
-      if (savedRows) rows = savedRows;
-      var sr = sessionStorage.getItem('_lab_selRow');
-      if (sr !== null) selRow = parseInt(sr) || 0;
-      var sm = sessionStorage.getItem('_lab_mode');
-      if (sm) mode = sm;
-      var sb = sessionStorage.getItem('_lab_selBranch');
-      if (sb !== null) selBranch = (sb === 'null' ? null : parseInt(sb));
-      var sliderVals = JSON.parse(sessionStorage.getItem('_lab_sliders') || '{}');
-      ['slV','slD','slA','slMat','paramA','paramD'].forEach(function(id){
-        var el = document.getElementById(id);
-        if (el && sliderVals[id] !== undefined) el.value = sliderVals[id];
-      });
-      if (rows[0] && rows[0].qa !== null) {
-        var sp   = document.getElementById('sparams');
-        var note = document.getElementById('paramNote');
-        if (sp)   sp.classList.add('locked');
-        if (note) note.textContent = 'Locked \u2014 clear data to edit';
-        var slD = document.getElementById('slD');
-        var slA = document.getElementById('slA');
-        if (slD) { slD.disabled = true; slD.style.opacity = '0.4'; }
-        if (slA) { slA.disabled = true; slA.style.opacity = '0.4'; }
-      }
-      buildTable();
-      rows.forEach(function(r,i){
-        if (r.v  != null) setCell('cv'+i, r.v.toFixed(2),         'vc');
-        if (r.qa != null) setCell('ca'+i, (r.qa*1e12).toFixed(2), 'qa');
-        if (r.qd != null) setCell('cd'+i, (r.qd*1e12).toFixed(2), 'qd');
-      });
-      if (selBranch !== null) {
-        var items = document.querySelectorAll('#blist li');
-        var b = BRANCHES[selBranch];
-        items.forEach(function(el,j){
-          var on = j===selBranch;
-          el.classList.toggle('sel', on);
-          var chk = document.getElementById('bck'+j);
-          if (chk) chk.textContent = on ? '\u2713' : '';
-        });
-        var short = b.name.replace(' and Technology','').replace(' Engineering','').replace(' and Computer','').trim();
-        document.getElementById('qblank').textContent = short;
-        var ab = document.getElementById('ansBox');
-        ab.classList.add('show');
-        document.getElementById('ansT').textContent = 'Applications in '+b.name;
-        document.getElementById('ansB').innerHTML   = b.ans;
-        document.getElementById('ansC').innerHTML   = b.chips.map(function(c){ return '<span class="chip">'+c+'</span>'; }).join('');
-      }
-      setMode(mode || 'air');
-      buildRowBtns(); hilite(); updateMean();
-      return;
+
+/* ── Dielectric material slab + animated dipoles ── */
+if (mode===‘diel’ && s.mat!==‘air’) {
+var matC = {teflon:’#ce93d8’, glass:’#80cbc4’, paper:’#ffcc80’};
+var col = matC[s.mat] || ‘#90caf9’;
+
+```
+/* Tinted slab */
+var ms = ctx.createLinearGradient(0,ty+ph,0,by);
+ms.addColorStop(0,   rgba(col,.07));
+ms.addColorStop(0.5, rgba(col,.19));
+ms.addColorStop(1,   rgba(col,.07));
+ctx.fillStyle = ms;
+ctx.fillRect(cx-pw/2+1, ty+ph, pw-2, gap);
+ctx.strokeStyle = rgba(col,.28); ctx.lineWidth = 0.8;
+ctx.strokeRect(cx-pw/2+1, ty+ph, pw-2, gap);
+
+/* Dipoles */
+var alignFrac = Math.min(0.97, vN*(s.k-1)*0.55);
+var drows=3, dcols=4, dIdx=0;
+for (var dr=0; dr<drows; dr++) {
+  for (var dc=0; dc<dcols; dc++) {
+    var dmx = cx - pw/2 + 14 + dc*(pw-28)/(dcols-1);
+    var dmy = ty + ph + 7 + dr*(gap-14)/Math.max(1,drows-1);
+    if (dmy>by-3 || dmy<ty+ph+3) { dIdx++; continue; }
+
+    var baseA   = _dipAngles[dIdx % _dipAngles.length];
+    var targetA = dir>0 ? -Math.PI/2 : Math.PI/2;
+    var jitter  = Math.sin(t*0.042 + dIdx*1.73) * (1-alignFrac) * 0.22;
+    var angle   = baseA*(1-alignFrac) + targetA*alignFrac + jitter;
+
+    var dl=6.5, ddx=Math.cos(angle)*dl, ddy=Math.sin(angle)*dl;
+
+    ctx.beginPath(); ctx.moveTo(dmx-ddx,dmy-ddy); ctx.lineTo(dmx+ddx,dmy+ddy);
+    ctx.strokeStyle = rgba(col,.52); ctx.lineWidth = 1.5; ctx.stroke();
+
+    ctx.beginPath(); ctx.arc(dmx-ddx,dmy-ddy,2.2,0,Math.PI*2);
+    ctx.fillStyle = dir>0?'rgba(239,100,100,.88)':'rgba(80,160,240,.88)'; ctx.fill();
+    ctx.beginPath(); ctx.arc(dmx+ddx,dmy+ddy,2.2,0,Math.PI*2);
+    ctx.fillStyle = dir>0?'rgba(80,160,240,.88)':'rgba(239,100,100,.88)'; ctx.fill();
+
+    dIdx++;
+  }
+}
+ctx.fillStyle = rgba(col,.82); ctx.font='bold 7.5px sans-serif'; ctx.textAlign='left';
+ctx.fillText(MAT_NAME[s.mat].toUpperCase(), cx-pw/2+4, by-3);
+```
+
+}
+
+/* ── Flowing field particles ── */
+if (absV > 0.05) {
+var spd   = vN*0.52 + 0.06;
+var fxArr = [cx-48, cx-24, cx, cx+24, cx+48];
+
+```
+for (var li=0; li<fxArr.length; li++) {
+  var fx = fxArr[li];
+  if (fx < cx-pw/2+3 || fx > cx+pw/2-3) continue;
+
+  for (var pi=0; pi<2; pi++) {
+    var prog = ((t*spd/gap*0.8 + pi*0.5) % 1 + 1) % 1;
+    var py   = dir>0
+      ? (ty+ph+2 + prog*(gap-4))
+      : (by-2    - prog*(gap-4));
+    if (py < ty+ph+1 || py > by-1) continue;
+
+    var pr = ctx.createRadialGradient(fx,py,0, fx,py,5);
+    pr.addColorStop(0, 'rgba(41,182,246,'+(0.7*vN+0.25)+')');
+    pr.addColorStop(1, 'rgba(41,182,246,0)');
+    ctx.fillStyle = pr; ctx.fillRect(fx-5,py-5,10,10);
+    ctx.beginPath(); ctx.arc(fx,py,1.5,0,Math.PI*2);
+    ctx.fillStyle='rgba(180,235,255,.95)'; ctx.fill();
+
+    var trProg = ((t*spd/gap*0.8 + pi*0.5 - spd*4/gap) % 1 + 1) % 1;
+    var trY    = dir>0
+      ? (ty+ph+2 + trProg*(gap-4))
+      : (by-2    - trProg*(gap-4));
+    if (trY >= ty+ph+1 && trY <= by-1) {
+      ctx.beginPath(); ctx.arc(fx, trY, 1.0, 0, Math.PI*2);
+      ctx.fillStyle='rgba(41,182,246,.28)'; ctx.fill();
     }
-  } catch(e){}
+  }
+}
+```
+
+}
+
+/* ── Plate inner-face glow ── */
+if (absV > 0.05) {
+var pulse  = 0.82 + 0.18*Math.sin(t*0.11);
+var glA    = vN * pulse * 0.42;
+var glH    = Math.min(20, gap*0.44);
+var topCol = dir>0 ? ‘rgba(239,83,80,’ : ‘rgba(66,165,245,’;
+var botCol = dir>0 ? ‘rgba(66,165,245,’ : ‘rgba(239,83,80,’;
+
+```
+var tgl = ctx.createLinearGradient(0,ty+ph,0,ty+ph+glH);
+tgl.addColorStop(0,topCol+glA+')'); tgl.addColorStop(1,'rgba(0,0,0,0)');
+ctx.fillStyle=tgl; ctx.fillRect(cx-pw/2,ty+ph,pw,glH);
+
+var bgl = ctx.createLinearGradient(0,by,0,by-glH);
+bgl.addColorStop(0,botCol+glA+')'); bgl.addColorStop(1,'rgba(0,0,0,0)');
+ctx.fillStyle=bgl; ctx.fillRect(cx-pw/2,by-glH,pw,glH);
+```
+
+}
+
+/* ── Plates ── */
+function _plate(y) {
+ctx.beginPath();
+ctx.moveTo(cx-pw/2,y); ctx.lineTo(cx+pw/2,y);
+ctx.lineTo(cx+pw/2+10,y-7); ctx.lineTo(cx-pw/2+10,y-7);
+ctx.closePath(); ctx.fillStyle=’#3a6898’; ctx.fill();
+ctx.beginPath();
+ctx.moveTo(cx-pw/2,y); ctx.lineTo(cx+pw/2,y);
+ctx.lineTo(cx+pw/2,y+ph); ctx.lineTo(cx-pw/2,y+ph);
+ctx.closePath();
+var pg = ctx.createLinearGradient(0,y,0,y+ph);
+pg.addColorStop(0,’#5888c8’); pg.addColorStop(1,’#3668a8’);
+ctx.fillStyle=pg; ctx.fill();
+ctx.strokeStyle=’#1e4a80’; ctx.lineWidth=0.7; ctx.stroke();
+ctx.beginPath(); ctx.moveTo(cx-pw/2+2,y+2); ctx.lineTo(cx+pw/2-2,y+2);
+ctx.strokeStyle=‘rgba(255,255,255,.14)’; ctx.lineWidth=1; ctx.stroke();
+}
+_plate(ty); _plate(by);
+
+/* ── Surface charge symbols ── */
+if (absV > 0.05) {
+var topS = dir>0?’+’:‘−’, botS = dir>0?‘−’:’+’;
+var nS   = Math.min(5, 2 + Math.round(vN*3));
+var cP   = 0.62 + 0.38*Math.sin(t*0.09);
+ctx.font=‘bold 9px sans-serif’; ctx.textAlign=‘center’;
+ctx.globalAlpha = cP * Math.max(0.18, vN);
+for (var si=0; si<nS; si++) {
+var sx = cx - 36 + si*(72/Math.max(1,nS-1));
+ctx.fillStyle = dir>0?‘rgba(255,145,135,.95)’:‘rgba(130,190,255,.95)’;
+ctx.fillText(topS, sx, ty-1);
+ctx.fillStyle = dir>0?‘rgba(130,190,255,.95)’:‘rgba(255,145,135,.95)’;
+ctx.fillText(botS, sx, by+ph+11);
+}
+ctx.globalAlpha = 1;
+}
+
+/* ── Live readouts bottom ── */
+ctx.fillStyle=‘rgba(120,165,195,.72)’; ctx.font=‘7.5px monospace’; ctx.textAlign=‘left’;
+ctx.fillText(‘Q=’+(s.Q*1e12).toFixed(2)+‘pC’, 4, CH-16);
+ctx.fillText(‘V=’+(s.v>=0?’+’:’’)+s.v.toFixed(2)+‘V’, 4, CH-5);
+ctx.textAlign=‘right’;
+ctx.fillText(‘C=’+(s.C*1e12).toFixed(3)+‘pF’, CW-3, CH-5);
+
+/* ── Mode label + capacitance bar top ── */
+ctx.fillStyle = mode===‘air’?’#29b6f6’:’#bb6fdb’;
+ctx.font=‘bold 7.5px sans-serif’; ctx.textAlign=‘left’;
+ctx.fillText(mode===‘air’?‘🌬 AIR’:’🧊 ’+MAT_NAME[document.getElementById(‘slMat’).value].toUpperCase(), 3, 12);
+
+var maxC = KAPPA[‘glass’] * E0 * 400e-6 / 0.005;
+var bW=46, bH=5, bX=CW-bW-3, bY=5;
+ctx.fillStyle=‘rgba(255,255,255,.07)’; ctx.fillRect(bX,bY,bW,bH);
+var bFill = Math.min(bW, (s.C/maxC)*bW);
+ctx.fillStyle = mode===‘air’?‘rgba(41,182,246,.72)’:‘rgba(187,111,219,.72)’;
+ctx.fillRect(bX,bY,bFill,bH);
+ctx.strokeStyle=‘rgba(255,255,255,.14)’; ctx.lineWidth=0.5;
+ctx.strokeRect(bX,bY,bW,bH);
+ctx.fillStyle=‘rgba(160,200,230,.48)’; ctx.font=‘6px monospace’; ctx.textAlign=‘right’;
+ctx.fillText(‘C’, CW-3, bY+bH);
+}
+
+/* ══════════════════════════════════════
+INIT
+══════════════════════════════════════ */
+(function init(){
+/* ── FIX 2: Always restore student fields first ── */
+restoreFields();
+
+/* ── Restore lab state after returning from print preview ── */
+try {
+var doRestore = sessionStorage.getItem(’_lab_restore’) === ‘1’;
+if (doRestore) {
+sessionStorage.removeItem(’_lab_restore’);
+
+```
+  var savedRows = JSON.parse(sessionStorage.getItem('_lab_rows') || 'null');
+  if (savedRows) rows = savedRows;
+  var sr = sessionStorage.getItem('_lab_selRow');
+  if (sr !== null) selRow = parseInt(sr) || 0;
+  var sm = sessionStorage.getItem('_lab_mode');
+  if (sm) mode = sm;
+  var sb = sessionStorage.getItem('_lab_selBranch');
+  if (sb !== null) selBranch = (sb === 'null' ? null : parseInt(sb));
+
+  /* Restore slider values */
+  var sliderVals = JSON.parse(sessionStorage.getItem('_lab_sliders') || '{}');
+  ['slV','slD','slA','slMat','paramA','paramD'].forEach(function(id){
+    var el = document.getElementById(id);
+    if (el && sliderVals[id] !== undefined) el.value = sliderVals[id];
+  });
+
+  /* Re-lock sliders if row 1 was recorded */
+  if (rows[0] && rows[0].qa !== null) {
+    var sp   = document.getElementById('sparams');
+    var note = document.getElementById('paramNote');
+    if (sp)   sp.classList.add('locked');
+    if (note) note.textContent = 'Locked — clear data to edit';
+    var slD = document.getElementById('slD');
+    var slA = document.getElementById('slA');
+    if (slD) { slD.disabled = true; slD.style.opacity = '0.4'; }
+    if (slA) { slA.disabled = true; slA.style.opacity = '0.4'; }
+  }
+
+  /* Restore table data display */
   buildTable();
-  setMode('air');
-  var cc = document.getElementById('clearCancel');
-  var cf = document.getElementById('clearConfirm');
-  if (cc) cc.addEventListener('click', hideClearConfirm);
-  if (cf) cf.addEventListener('click', doActualClear);
+  rows.forEach(function(r,i){
+    if (r.v  != null) setCell('cv'+i, r.v.toFixed(2),         'vc');
+    if (r.qa != null) setCell('ca'+i, (r.qa*1e12).toFixed(2), 'qa');
+    if (r.qd != null) setCell('cd'+i, (r.qd*1e12).toFixed(2), 'qd');
+  });
+
+  /* Restore branch selection */
+  if (selBranch !== null) {
+    var items = document.querySelectorAll('#blist li');
+    var b = BRANCHES[selBranch];
+    items.forEach(function(el,j){
+      var on = j===selBranch;
+      el.classList.toggle('sel', on);
+      var chk = document.getElementById('bck'+j);
+      if (chk) chk.textContent = on ? '✓' : '';
+    });
+    var short = b.name.replace(' and Technology','').replace(' Engineering','').replace(' and Computer','').trim();
+    document.getElementById('qblank').textContent = short;
+    var ab = document.getElementById('ansBox');
+    ab.classList.add('show');
+    document.getElementById('ansT').textContent = 'Applications in '+b.name;
+    document.getElementById('ansB').innerHTML   = b.ans;
+    document.getElementById('ansC').innerHTML   = b.chips.map(function(c){ return '<span class="chip">'+c+'</span>'; }).join('');
+  }
+
+  setMode(mode || 'air');
+  buildRowBtns(); hilite(); updateMean();
+  return;
+}
+```
+
+} catch(e){}
+
+/* ── Fresh start ── */
+buildTable();
+setMode(‘air’);
+
+/* ── Wire modal buttons ── */
+var cc = document.getElementById(‘clearCancel’);
+var cf = document.getElementById(‘clearConfirm’);
+if (cc) cc.addEventListener(‘click’, hideClearConfirm);
+if (cf) cf.addEventListener(‘click’, doActualClear);
 })();
 </script>
+
 </body>
 </html>
